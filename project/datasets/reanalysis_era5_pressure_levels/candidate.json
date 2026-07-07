@@ -1,0 +1,7 @@
+{
+  "name": "ERA5 hourly data on pressure levels",
+  "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download",
+  "slug": "reanalysis_era5_pressure_levels",
+  "description": "Copernicus Climate Data Store ERA5 reanalysis dataset on pressure levels.",
+  "user_goal": "Draft a small pressure-level ERA5 contract matching this intended workflow: temperature at 500 hPa, temperature at 850 hPa, and geopotential at 500 hPa; start_date is 2024-01-01; end_date is 2024-01-31; timestep is every 3 hours. Keep remaining choices minimal and human-editable."
+}
