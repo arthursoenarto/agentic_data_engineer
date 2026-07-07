@@ -1,0 +1,169 @@
+{
+  "schema_version": "dataset_contract_run.v1",
+  "candidate_file": "project/datasets/reanalysis_era5_single_levels/candidate.json",
+  "contract_file": "project/datasets/reanalysis_era5_single_levels/contract.json",
+  "generated_at": "2026-07-06T11:46:41.988573+00:00",
+  "contract": {
+    "schema_version": "dataset_contract.v1",
+    "dataset_slug": "reanalysis_era5_single_levels",
+    "title": "ERA5 hourly data on single levels from 1940 to present",
+    "source_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+    "intent": "Request a compact, editable ERA5 single-level reanalysis slice for surface meteorology fields over a bounded region and time period.",
+    "summary": "ERA5 is ECMWF/Copernicus global hourly gridded reanalysis from 1940 to present on single levels, including atmospheric, land-surface, and ocean-wave quantities. This draft selects a small default CONUS January 2024 hourly subset with common near-surface weather variables.",
+    "provider": "Copernicus Climate Data Store / ECMWF",
+    "dataset_family": "reanalysis",
+    "access_methods": [
+      "Climate Data Store web download form",
+      "Climate Data Store API using cdsapi"
+    ],
+    "credential_requirements": [
+      "CDS account",
+      "CDS personal access token stored under credential name CDS_API_TOKEN",
+      "Manual acceptance of the dataset Terms of Use in the CDS portal before download"
+    ],
+    "fields": [
+      {
+        "name": "2m_temperature",
+        "display_name": "2 metre temperature",
+        "selectors": [],
+        "units": "K",
+        "description": "Near-surface air temperature at 2 metres."
+      },
+      {
+        "name": "total_precipitation",
+        "display_name": "Total precipitation",
+        "selectors": [],
+        "units": "m",
+        "description": "Accumulated total precipitation water equivalent."
+      },
+      {
+        "name": "10m_u_component_of_wind",
+        "display_name": "10 metre U wind component",
+        "selectors": [],
+        "units": "m s**-1",
+        "description": "Eastward component of wind at 10 metres."
+      },
+      {
+        "name": "10m_v_component_of_wind",
+        "display_name": "10 metre V wind component",
+        "selectors": [],
+        "units": "m s**-1",
+        "description": "Northward component of wind at 10 metres."
+      }
+    ],
+    "scope": {
+      "product_type": "reanalysis",
+      "date_range": {
+        "start": "2024-01-01",
+        "end": "2024-01-31"
+      },
+      "timestep": "hourly",
+      "hours_utc": [
+        "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00"
+      ],
+      "geography": {
+        "type": "bounding_box",
+        "name": "CONUS approximate bounding box",
+        "north": 49.5,
+        "west": -125.0,
+        "south": 24.0,
+        "east": -66.5
+      },
+      "spatial_resolution": "dataset_default_regular_lat_lon_grid"
+    },
+    "defaults_used": [
+      "No user goal was provided, so selected common near-surface weather fields.",
+      "Limited date range to one complete historical month to keep the initial request small.",
+      "Limited geography to an approximate CONUS bounding box for a manageable regional subset.",
+      "Used product_type=reanalysis rather than ensemble products for a simple deterministic baseline.",
+      "Requested all hourly UTC timesteps because the dataset is hourly and diurnal information is often useful."
+    ],
+    "human_editable_fields": [
+      "fields",
+      "scope.date_range",
+      "scope.hours_utc",
+      "scope.geography",
+      "scope.product_type",
+      "advanced_options.preferred_data_format"
+    ],
+    "assumptions": [
+      "The intended use is exploratory weather/climate extraction rather than ensemble uncertainty analysis.",
+      "Single-level data are appropriate; no pressure-level or model-level variables are requested.",
+      "The user can refine the region, variables, and time range before running a full extraction."
+    ],
+    "risks_or_unknowns": [
+      "Expanding to multiple years, global coverage, or many variables can create very large downloads.",
+      "Recent ERA5T data are updated with about 5-day latency and can differ from the final ERA5 release until overwritten roughly 2 to 3 months later.",
+      "Accumulated variables such as total_precipitation require care when aggregating or interpreting hourly values.",
+      "The dataset page lists a CC-BY licence; attribution requirements should be preserved in downstream use.",
+      "Some known ERA5 data issues affect specific variables, dates, or regions; review the ERA5 documentation if using this for publication or high-stakes analysis."
+    ],
+    "evidence": [
+      {
+        "title": "ERA5 hourly data on single levels from 1940 to present",
+        "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+        "note": "Official CDS dataset page used for dataset title, provider context, temporal coverage, hourly resolution, grid coverage, update frequency, DOI, and licence."
+      },
+      {
+        "title": "ERA5 data documentation",
+        "url": "https://confluence.ecmwf.int/spaces/CKB/pages/76414402/ERA5+data+documentation",
+        "note": "ECMWF/Copernicus documentation used for ERA5 description, single-level parameter context, product types, update/ERA5T behavior, and variable names/units."
+      },
+      {
+        "title": "CDSAPI setup",
+        "url": "https://cds.climate.copernicus.eu/how-to-api",
+        "note": "Official CDS API setup page used for access method and credential/Terms-of-Use requirements."
+      },
+      {
+        "title": "Dataset DOI",
+        "url": "https://doi.org/10.24381/cds.adbb2d47",
+        "note": "DOI referenced by the official dataset page for citation and attribution."
+      }
+    ],
+    "advanced_options": {
+      "provider_dataset_id": "reanalysis-era5-single-levels",
+      "preferred_data_format": "netcdf",
+      "native_file_format": "GRIB",
+      "cds_area_order_if_needed": [
+        "north",
+        "west",
+        "south",
+        "east"
+      ],
+      "exclude_pressure_level_selection": true,
+      "request_chunking_hint": "If expanding beyond this draft month/region, split requests by month and variable group."
+    },
+    "human_confirmed": false,
+    "recommended_next_step": "Confirm the variables, date range, and bounding box; then generate the CDS request from the approved scope."
+  },
+  "candidate": {
+    "name": "Reanalysis Era5 Single Levels",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+    "slug": "reanalysis_era5_single_levels",
+    "description": null,
+    "user_goal": null
+  }
+}

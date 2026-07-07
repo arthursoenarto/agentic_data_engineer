@@ -1,3 +1,19 @@
+# Files and directories to ignore in Python projects
+terraio/
+thesis/
+skills/
+.DS_Store
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

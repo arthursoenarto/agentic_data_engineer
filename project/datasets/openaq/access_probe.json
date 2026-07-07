@@ -1,0 +1,16 @@
+{
+  "schema_version": "access_probe.v1",
+  "dataset_slug": "openaq",
+  "provider": "openaq",
+  "ok": true,
+  "status": "verified",
+  "checked_at": "2026-06-25T11:29:00.136322+00:00",
+  "credential_names": [
+    "OPENAQ_API_KEY"
+  ],
+  "summary": "OpenAQ API key worked against a lightweight locations request; returned 1 result(s).",
+  "details": {
+    "endpoint": "https://api.openaq.org/v3/locations?limit=1",
+    "result_count": 1
+  }
+}

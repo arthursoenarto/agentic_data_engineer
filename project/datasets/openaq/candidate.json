@@ -1,0 +1,7 @@
+{
+  "name": "OpenAQ",
+  "url": "https://docs.openaq.org/",
+  "description": "Global air quality data platform and API.",
+  "user_goal": "Explore whether this can support a small air-quality workflow.",
+  "slug": "openaq"
+}

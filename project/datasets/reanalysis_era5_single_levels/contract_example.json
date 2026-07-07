@@ -1,0 +1,107 @@
+{
+  "schema_version": "dataset_contract_run.v1",
+  "candidate_file": "project/datasets/reanalysis_era5_single_levels/candidate.json",
+  "contract_file": "project/datasets/reanalysis_era5_single_levels/contract.json",
+  "generated_at": "2026-07-06T00:01:00+00:00",
+  "contract": {
+    "schema_version": "dataset_contract.v1",
+    "dataset_slug": "reanalysis_era5_single_levels",
+    "title": "ERA5 hourly data on single levels",
+    "source_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+    "intent": "Explore a small ERA5 single-level reanalysis pull before planning a larger climate-data pipeline.",
+    "summary": "ERA5 single levels is a global gridded reanalysis dataset available through the Copernicus Climate Data Store. This draft keeps the first request small: one or two surface variables, a short recent date range, a coarse timestep, and one user-selected area.",
+    "provider": "Copernicus Climate Data Store / ECMWF",
+    "dataset_family": "reanalysis",
+    "access_methods": [
+      "CDS web request form",
+      "CDS API using local CDS credentials"
+    ],
+    "credential_requirements": [
+      "CDSAPI_URL",
+      "CDSAPI_KEY"
+    ],
+    "fields": [
+      {
+        "name": "2m_temperature",
+        "display_name": "2m temperature",
+        "selectors": [],
+        "units": "K",
+        "description": "Near-surface air temperature."
+      },
+      {
+        "name": "surface_pressure",
+        "display_name": "Surface pressure",
+        "selectors": [],
+        "units": "Pa",
+        "description": "Atmospheric pressure at the surface."
+      }
+    ],
+    "scope": {
+      "product_type": "reanalysis",
+      "fields": [
+        "2m_temperature"
+      ],
+      "date_range": {
+        "start": "recent_available_start",
+        "end": "recent_available_end",
+        "maximum_span_days": 7
+      },
+      "step_hours": 3,
+      "geography": {
+        "type": "bounding_box",
+        "label": "user_selected_area"
+      },
+      "data_format": "netcdf"
+    },
+    "defaults_used": [
+      "Single product type: reanalysis",
+      "One initial variable: 2m_temperature",
+      "Short recent date range, at most 7 days",
+      "Three-hour timestep",
+      "One bounded area instead of global extraction",
+      "NetCDF output for downstream data engineering"
+    ],
+    "human_editable_fields": [
+      "scope.product_type",
+      "fields",
+      "scope.date_range",
+      "scope.step_hours",
+      "scope.geography",
+      "scope.data_format"
+    ],
+    "assumptions": [
+      "The first workflow should avoid global, hourly, multi-variable extraction.",
+      "The user will choose the bounding area before pipeline planning.",
+      "Recent data availability and final ERA5 versus ERA5T policy should be checked before production use."
+    ],
+    "risks_or_unknowns": [
+      "CDS terms must be accepted by the account before automated download.",
+      "Large requests can queue or fail, so the first pipeline should stay intentionally small.",
+      "The source dataset has many variables; this contract intentionally selects only a minimal starting subset."
+    ],
+    "evidence": [
+      {
+        "title": "ERA5 hourly data on single levels",
+        "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+        "note": "Primary CDS dataset page."
+      },
+      {
+        "title": "CDS API setup",
+        "url": "https://cds.climate.copernicus.eu/how-to-api",
+        "note": "Official guidance for local CDS API credentials."
+      }
+    ],
+    "advanced_options": {
+      "full_variable_inventory": "Keep out of the default user flow; expose later through search or advanced controls."
+    },
+    "human_confirmed": false,
+    "recommended_next_step": "Confirm the variables, date range, timestep, and bounding area before pipeline planning."
+  },
+  "candidate": {
+    "name": "Reanalysis Era5 Single Levels",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels",
+    "slug": "reanalysis_era5_single_levels",
+    "description": null,
+    "user_goal": null
+  }
+}

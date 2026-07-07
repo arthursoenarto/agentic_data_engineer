@@ -1,0 +1,98 @@
+{
+  "schema_version": "dataset_contract_run.v1",
+  "candidate_file": "project/datasets/openaq/candidate.json",
+  "contract_file": "project/datasets/openaq/contract.json",
+  "generated_at": "2026-07-06T00:00:00+00:00",
+  "contract": {
+    "schema_version": "dataset_contract.v1",
+    "dataset_slug": "openaq",
+    "title": "OpenAQ",
+    "source_url": "https://docs.openaq.org/",
+    "intent": "Explore whether OpenAQ can support a small recent air-quality workflow.",
+    "summary": "OpenAQ provides air-quality observations through a REST API and public archive. This draft keeps the first workflow narrow: recent PM2.5 and NO2 observations for one city or small area.",
+    "provider": "OpenAQ",
+    "dataset_family": "air_quality_api",
+    "access_methods": [
+      "REST API using an X-API-Key header",
+      "Public AWS archive for larger historical file-based access"
+    ],
+    "credential_requirements": [
+      "OPENAQ_API_KEY"
+    ],
+    "fields": [
+      {
+        "name": "pm25",
+        "display_name": "PM2.5",
+        "selectors": [],
+        "units": "ug/m3",
+        "description": "Fine particulate matter concentration."
+      },
+      {
+        "name": "no2",
+        "display_name": "NO2",
+        "selectors": [],
+        "units": "ug/m3 or ppm depending on source metadata",
+        "description": "Nitrogen dioxide concentration."
+      }
+    ],
+    "scope": {
+      "parameters": [
+        "pm25",
+        "no2"
+      ],
+      "date_range": {
+        "start": "recent_available_start",
+        "end": "recent_available_end",
+        "maximum_span_days": 7
+      },
+      "geography": {
+        "type": "city_or_area",
+        "label": "user_selected_city_or_area"
+      },
+      "granularity": "raw_or_hourly"
+    },
+    "defaults_used": [
+      "Small pollutant set: pm25 and no2",
+      "Short recent date range, at most 7 days",
+      "One city or small area"
+    ],
+    "human_editable_fields": [
+      "fields",
+      "scope.date_range",
+      "scope.geography",
+      "scope.granularity"
+    ],
+    "assumptions": [
+      "The first workflow should prove access and shape before attempting broad historical ingestion.",
+      "The user will choose the city or area before pipeline planning."
+    ],
+    "risks_or_unknowns": [
+      "Availability varies by place, pollutant, station, and date range.",
+      "License and attribution requirements may vary by upstream provider and should be preserved downstream."
+    ],
+    "evidence": [
+      {
+        "title": "OpenAQ API Docs",
+        "url": "https://docs.openaq.org/",
+        "note": "Primary documentation for OpenAQ API access and resources."
+      },
+      {
+        "title": "OpenAQ API Key",
+        "url": "https://docs.openaq.org/using-the-api/api-key",
+        "note": "Documents API-key access using the X-API-Key header."
+      }
+    ],
+    "advanced_options": {
+      "archive_access": "Open Data on AWS can be considered later for larger historical pulls."
+    },
+    "human_confirmed": false,
+    "recommended_next_step": "Confirm the city or area, date range, and whether raw or hourly observations are preferred."
+  },
+  "candidate": {
+    "name": "OpenAQ",
+    "url": "https://docs.openaq.org/",
+    "description": "Global air quality data platform and API.",
+    "user_goal": "Explore whether this can support a small air-quality workflow.",
+    "slug": "openaq"
+  }
+}

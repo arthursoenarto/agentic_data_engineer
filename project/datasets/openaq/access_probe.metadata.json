@@ -1,0 +1,11 @@
+{
+  "schema_version": "access_probe_script.v1",
+  "filename": "access_probe.py",
+  "notes": [
+    "Project-local deterministic probe for OpenAQ API access.",
+    "Reads OPENAQ_API_KEY or OPENAQ_KEY from the environment and sends it as X-API-Key."
+  ],
+  "assumptions": [
+    "The lightweight locations endpoint is enough to verify that the API key is accepted."
+  ]
+}
