@@ -1,0 +1,328 @@
+{
+  "schema_version": "era5_pressure_levels_pipeline_config.v1",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "title": "ERA5 pressure-level January 2024 temperature and geopotential fields",
+  "provider": "Copernicus Climate Data Store",
+  "access_context": {
+    "provider": "cds",
+    "verified": true,
+    "verified_at": "2026-07-07T17:35:45.645171+00:00",
+    "credential_env_vars": [
+      {
+        "purpose": "cds_api_url",
+        "env_var": "CDSAPI_URL",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "purpose": "cds_api_key",
+        "env_var": "CDSAPI_KEY",
+        "aliases": [
+          "CDS_PERSONAL_ACCESS_TOKEN",
+          "CDS_API_TOKEN"
+        ],
+        "required": true
+      }
+    ],
+    "env_loading": {
+      "load_dotenv_from_ancestors": true,
+      "shell_env_overrides_dotenv": true,
+      "search_start": "pipeline directory",
+      "secret_values_must_not_be_written": true
+    },
+    "python_client": {
+      "package": "cdsapi",
+      "import": "import cdsapi",
+      "construction": "cdsapi.Client() after loading .env/environment variables",
+      "dataset_id": "reanalysis-era5-pressure-levels",
+      "download_call": "client.retrieve(dataset_id, request).download(target_path)"
+    }
+  },
+  "cds_dataset_id": "reanalysis-era5-pressure-levels",
+  "output": {
+    "raw_dir": "data/raw",
+    "processed_dir": "data/processed",
+    "zarr_store": "data/processed/era5_pressure_levels_jan2024.zarr"
+  },
+  "scope": {
+    "product_type": "reanalysis",
+    "date_range": {
+      "start_date": "2024-01-01",
+      "end_date": "2024-01-31",
+      "inclusive": true
+    },
+    "year": [
+      "2024"
+    ],
+    "month": [
+      "01"
+    ],
+    "day": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31"
+    ],
+    "time": [
+      "00:00",
+      "03:00",
+      "06:00",
+      "09:00",
+      "12:00",
+      "15:00",
+      "18:00",
+      "21:00"
+    ],
+    "timezone": "UTC",
+    "area": [
+      90,
+      -180,
+      -90,
+      180
+    ],
+    "area_order": [
+      "north",
+      "west",
+      "south",
+      "east"
+    ]
+  },
+  "selected_field_selector_combinations": [
+    {
+      "field": "temperature",
+      "display_name": "Temperature",
+      "selector": {
+        "dimension": "pressure_level",
+        "value": "500",
+        "unit": "hPa",
+        "label": "Pressure Level"
+      },
+      "output_variable": "temperature_pl500"
+    },
+    {
+      "field": "temperature",
+      "display_name": "Temperature",
+      "selector": {
+        "dimension": "pressure_level",
+        "value": "850",
+        "unit": "hPa",
+        "label": "Pressure Level"
+      },
+      "output_variable": "temperature_pl850"
+    },
+    {
+      "field": "geopotential",
+      "display_name": "Geopotential",
+      "selector": {
+        "dimension": "pressure_level",
+        "value": "500",
+        "unit": "hPa",
+        "label": "Pressure Level"
+      },
+      "output_variable": "geopotential_pl500"
+    }
+  ],
+  "retrieve_groups": [
+    {
+      "group_id": "pressure_level_500",
+      "target_filename": "era5_pressure_level_500_temperature_geopotential_202401.nc",
+      "field_selector_combinations": [
+        {
+          "field": "temperature",
+          "pressure_level": "500",
+          "output_variable": "temperature_pl500"
+        },
+        {
+          "field": "geopotential",
+          "pressure_level": "500",
+          "output_variable": "geopotential_pl500"
+        }
+      ],
+      "request": {
+        "product_type": [
+          "reanalysis"
+        ],
+        "variable": [
+          "temperature",
+          "geopotential"
+        ],
+        "pressure_level": [
+          "500"
+        ],
+        "year": [
+          "2024"
+        ],
+        "month": [
+          "01"
+        ],
+        "day": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31"
+        ],
+        "time": [
+          "00:00",
+          "03:00",
+          "06:00",
+          "09:00",
+          "12:00",
+          "15:00",
+          "18:00",
+          "21:00"
+        ],
+        "area": [
+          90,
+          -180,
+          -90,
+          180
+        ],
+        "data_format": "netcdf",
+        "download_format": "unarchived"
+      }
+    },
+    {
+      "group_id": "pressure_level_850",
+      "target_filename": "era5_pressure_level_850_temperature_202401.nc",
+      "field_selector_combinations": [
+        {
+          "field": "temperature",
+          "pressure_level": "850",
+          "output_variable": "temperature_pl850"
+        }
+      ],
+      "request": {
+        "product_type": [
+          "reanalysis"
+        ],
+        "variable": [
+          "temperature"
+        ],
+        "pressure_level": [
+          "850"
+        ],
+        "year": [
+          "2024"
+        ],
+        "month": [
+          "01"
+        ],
+        "day": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31"
+        ],
+        "time": [
+          "00:00",
+          "03:00",
+          "06:00",
+          "09:00",
+          "12:00",
+          "15:00",
+          "18:00",
+          "21:00"
+        ],
+        "area": [
+          90,
+          -180,
+          -90,
+          180
+        ],
+        "data_format": "netcdf",
+        "download_format": "unarchived"
+      }
+    }
+  ],
+  "variable_name_candidates": {
+    "temperature": [
+      "temperature",
+      "t"
+    ],
+    "geopotential": [
+      "geopotential",
+      "z"
+    ]
+  }
+}

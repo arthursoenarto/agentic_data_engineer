@@ -1,0 +1,18 @@
+{
+  "schema_version": "access_probe.v1",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "provider": "cds",
+  "ok": true,
+  "status": "verified",
+  "checked_at": "2026-07-07T17:35:45.645171+00:00",
+  "credential_names": [
+    "CDSAPI_URL",
+    "CDSAPI_KEY"
+  ],
+  "summary": "CDS credentials authenticated and the ERA5 pressure-level collection is reachable.",
+  "details": {
+    "dataset_id": "reanalysis-era5-pressure-levels",
+    "account_id_present": true,
+    "collection_reachable": true
+  }
+}

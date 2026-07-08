@@ -2,6 +2,7 @@
 terraio/
 thesis/
 skills/
+test/
 .DS_Store
 node_modules/
 .next/
