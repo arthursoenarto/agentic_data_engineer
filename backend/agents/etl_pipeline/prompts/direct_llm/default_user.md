@@ -15,9 +15,16 @@ DatasetContract JSON:
 AccessContext JSON:
 {access_context_json}
 
-Choose the pipeline file layout yourself, as long as every generated file lives under the pipeline output directory shown above. Prefer the simplest structure that makes the pipeline understandable, runnable, and testable for this dataset.
+Choose the internal pipeline file layout yourself, as long as every generated file lives under the pipeline output directory shown above. Prefer the simplest structure that makes the pipeline understandable, runnable, and testable for this dataset.
 
-Include enough files for a human or later evaluator to understand how to run the pipeline. At minimum, include a clear executable entrypoint somewhere under the requested pipeline output directory.
+The evaluator executes the pipeline from its output directory with `python run_pipeline.py`. Therefore:
+- include `{output_dir}/run_pipeline.py` as a no-argument, end-to-end entrypoint;
+- include `{output_dir}/requirements.txt` with all runtime dependencies;
+- make the entrypoint retrieve, transform, store, reopen, and minimally validate the requested data;
+- make reruns safe and resumable, reusing valid downloads where practical and replacing incomplete derived outputs safely;
+- return a nonzero process exit code for any failed stage or validation.
+
+You may create any additional modules that improve correctness. Do not force the implementation into one file.
 
 The pipeline should be designed for the current selected fields and scope only. For ERA5 pressure-level fields, preserve each pressure_level selector exactly and avoid silently widening to unintended field-selector combinations.
 

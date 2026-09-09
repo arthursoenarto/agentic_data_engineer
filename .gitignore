@@ -1,9 +1,17 @@
-# Files and directories to ignore in Python projects
+# Repository-local references, generated state, and retired surfaces
 terraio/
+frontend/
+project/
 thesis/
 skills/
 test/
+tmp/
 .DS_Store
+
+# Keep GitHub documentation minimal. Prompt Markdown is executable input.
+*.md
+!/README.md
+!backend/**/prompts/**/*.md
 node_modules/
 .next/
 out/

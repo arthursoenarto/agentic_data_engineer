@@ -113,6 +113,12 @@ CDS_FORM_PAYLOAD = [
         "type": "LicenceWidget",
         "details": {"default": ["accepted"]},
     },
+    {
+        "name": "area",
+        "label": "Sub-region extraction",
+        "type": "GeographicExtentWidget",
+        "details": {"values": []},
+    },
 ]
 
 CDS_LAYOUT_PAYLOAD = {
@@ -225,6 +231,29 @@ class DatasetInventoryTests(unittest.TestCase):
         self.assertEqual(inventory.option_metadata["variable"]["temperature"]["label"], "Temperature")
         self.assertEqual(inventory.option_metadata["variable"]["temperature"]["units"], "K")
         self.assertEqual(inventory.option_metadata["variable"]["temperature"]["description"], "Air temperature.")
+
+    def test_ads_extractor_uses_matching_ads_api(self) -> None:
+        candidate = DatasetCandidate(
+            name="CAMS global reanalysis",
+            slug="cams_eac4",
+            url="https://ads.atmosphere.copernicus.eu/datasets/cams-global-reanalysis-eac4?tab=download",
+        )
+        extractor = CDSProcessMetadataExtractor()
+
+        with patch("urllib.request.urlopen", side_effect=fake_urlopen) as urlopen:
+            inventory = extractor.extract(candidate, dataset_slug="cams_eac4")
+
+        requested_urls = [call.args[0].full_url for call in urlopen.call_args_list]
+        self.assertTrue(extractor.can_handle(candidate))
+        self.assertEqual(inventory.dataset_id, "cams-global-reanalysis-eac4")
+        self.assertIn(
+            "https://ads.atmosphere.copernicus.eu/api/retrieve/v1/processes/cams-global-reanalysis-eac4",
+            requested_urls,
+        )
+        self.assertIn(
+            "https://ads.atmosphere.copernicus.eu/api/catalogue/v1/collections/cams-global-reanalysis-eac4",
+            requested_urls,
+        )
 
     def test_workflow_writes_cds_inventory_artifact(self) -> None:
         candidate = DatasetCandidate(

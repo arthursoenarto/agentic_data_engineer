@@ -7,6 +7,10 @@ from backend.agents.contract_drafting.schemas import (
     DatasetCandidate,
     DatasetCandidateInput,
     DatasetContract,
+    PipelineDownstreamUse,
+    PipelineObjectivePreference,
+    PipelineOptimizationRequirements,
+    PipelineRequirements,
     SourceEvidence,
 )
 
@@ -17,5 +21,9 @@ __all__ = [
     "DatasetCandidate",
     "DatasetCandidateInput",
     "DatasetContract",
+    "PipelineDownstreamUse",
+    "PipelineObjectivePreference",
+    "PipelineOptimizationRequirements",
+    "PipelineRequirements",
     "SourceEvidence",
 ]

@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import BaseModel, Field, HttpUrl, field_validator
+from pydantic import BaseModel, Field, HttpUrl, field_validator, model_validator
 
 
 class DatasetCandidateInput(BaseModel):
@@ -89,6 +89,77 @@ class ContractFieldSpec(BaseModel):
     description: str | None = None
 
 
+PipelineObjectiveName = Literal[
+    "consumer_samples_per_second",
+    "output_bytes",
+    "materialization_seconds",
+    "q_engineering",
+]
+
+
+class PipelineObjectivePreference(BaseModel):
+    """One ordered optimization objective in the pipeline specification."""
+
+    objective: PipelineObjectiveName
+    direction: Literal["maximize", "minimize"]
+    priority: int = Field(ge=1)
+
+    @model_validator(mode="after")
+    def direction_matches_objective(self) -> "PipelineObjectivePreference":
+        expected = {
+            "consumer_samples_per_second": "maximize",
+            "output_bytes": "minimize",
+            "materialization_seconds": "minimize",
+            "q_engineering": "maximize",
+        }[self.objective]
+        if self.direction != expected:
+            raise ValueError(
+                f"{self.objective} must use direction={expected!r}, "
+                f"not {self.direction!r}"
+            )
+        return self
+
+
+class PipelineOptimizationRequirements(BaseModel):
+    """Ordered optimization intent plus measurements retained descriptively."""
+
+    ordered_objectives: list[PipelineObjectivePreference] = Field(min_length=1)
+    descriptive_measurements: list[PipelineObjectiveName] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def objectives_are_unique_and_contiguous(self) -> "PipelineOptimizationRequirements":
+        names = [item.objective for item in self.ordered_objectives]
+        priorities = [item.priority for item in self.ordered_objectives]
+        if len(names) != len(set(names)):
+            raise ValueError("Optimization objectives must be unique")
+        if sorted(priorities) != list(range(1, len(priorities) + 1)):
+            raise ValueError("Optimization priorities must be unique and contiguous from 1")
+        if len(self.descriptive_measurements) != len(set(self.descriptive_measurements)):
+            raise ValueError("Descriptive measurements must be unique")
+        overlap = sorted(set(names) & set(self.descriptive_measurements))
+        if overlap:
+            raise ValueError(
+                "Measurements cannot be both ordered and descriptive: "
+                f"{overlap}"
+            )
+        return self
+
+
+class PipelineDownstreamUse(BaseModel):
+    """Declared consumer context used by generation and evaluation planning."""
+
+    kind: Literal["ml_training", "scientific_analysis"]
+    workload_kind: Literal["full_field_tensor", "filtered_station_scan"]
+    description: str | None = None
+
+
+class PipelineRequirements(BaseModel):
+    """Machine-readable pipeline intent beyond the selected source data."""
+
+    downstream_use: PipelineDownstreamUse
+    optimization: PipelineOptimizationRequirements
+
+
 class DatasetContract(BaseModel):
     """Minimal human-editable data request drafted from a dataset candidate."""
 
@@ -119,5 +190,12 @@ class DatasetContract(BaseModel):
     risks_or_unknowns: list[str] = Field(default_factory=list)
     evidence: list[SourceEvidence] = Field(default_factory=list)
     advanced_options: dict[str, Any] = Field(default_factory=dict)
+    pipeline_requirements: PipelineRequirements | None = Field(
+        default=None,
+        description=(
+            "Optional typed downstream workload and optimization intent. "
+            "Historical contracts without this field remain valid."
+        ),
+    )
     human_confirmed: bool = False
     recommended_next_step: str | None = None

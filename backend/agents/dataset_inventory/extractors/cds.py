@@ -1,4 +1,4 @@
-"""Copernicus Climate Data Store inventory extractor."""
+"""Copernicus Climate and Atmosphere Data Store inventory extractor."""
 
 from __future__ import annotations
 
@@ -14,8 +14,12 @@ from backend.agents.contract_drafting.schemas import DatasetCandidate
 from backend.agents.dataset_inventory.schemas import DatasetInventory, InventoryEvidence
 
 
-CDS_PROCESS_BASE_URL = "https://cds.climate.copernicus.eu/api/retrieve/v1/processes/"
-CDS_CATALOGUE_BASE_URL = "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/"
+COPERNICUS_DATA_STORE_HOSTS = frozenset(
+    {
+        "ads.atmosphere.copernicus.eu",
+        "cds.climate.copernicus.eu",
+    }
+)
 CONSTRAINT_KEYS = (
     "type",
     "items",
@@ -31,19 +35,21 @@ CONSTRAINT_KEYS = (
 
 
 class CDSProcessMetadataExtractor:
-    """Extract CDS request options from official Retrieve API process metadata."""
+    """Extract CDS/ADS options from official Retrieve API process metadata."""
 
     name = "cds_process_metadata"
     extraction_method = "deterministic"
 
     def can_handle(self, candidate: DatasetCandidate) -> bool:
         parsed = urlparse(str(candidate.url))
-        return parsed.netloc == "cds.climate.copernicus.eu" and "/datasets/" in parsed.path
+        return parsed.netloc in COPERNICUS_DATA_STORE_HOSTS and "/datasets/" in parsed.path
 
     def extract(self, candidate: DatasetCandidate, *, dataset_slug: str) -> DatasetInventory:
         dataset_id = dataset_id_from_cds_url(str(candidate.url))
-        metadata_url = f"{CDS_PROCESS_BASE_URL}{dataset_id}"
-        catalogue_url = f"{CDS_CATALOGUE_BASE_URL}{dataset_id}"
+        parsed = urlparse(str(candidate.url))
+        api_root = f"{parsed.scheme}://{parsed.netloc}/api"
+        metadata_url = f"{api_root}/retrieve/v1/processes/{dataset_id}"
+        catalogue_url = f"{api_root}/catalogue/v1/collections/{dataset_id}"
         process = fetch_cds_process_metadata(metadata_url)
         catalogue = fetch_cds_catalogue_metadata(catalogue_url)
         warnings: list[str] = []
@@ -265,7 +271,7 @@ def merge_form_metadata(
             continue
 
         values = details.get("values")
-        if isinstance(values, list) and name not in options:
+        if isinstance(values, list) and values and name not in options:
             options[name] = [str(value) for value in values]
         if isinstance(values, list):
             field_summary["form_option_count"] = len(values)

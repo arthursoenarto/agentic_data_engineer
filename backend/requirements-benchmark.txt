@@ -1,0 +1,15 @@
+-r requirements.txt
+numpy>=2,<3
+matplotlib>=3.10,<4
+psutil>=5.9,<8
+torch>=2,<3
+zarr>=3.1,<4
+netCDF4>=1.7,<2
+h5netcdf>=1.6,<2
+h5py>=3.12,<4
+cfgrib>=0.9.15,<1
+xarray>=2025.1
+dask[array]>=2024.8
+pandas>=2.2
+pyarrow>=17,<22
+pytest>=8,<10

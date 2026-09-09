@@ -14,15 +14,23 @@ from backend.access_probes.runner import (
     write_access_probe,
 )
 from backend.access_probes.schemas import AccessContext, AccessProbeResult, CredentialEnvVar
+from backend.access_probes.offline import (
+    FrozenAccessProbeMetadata,
+    FrozenCharacterisationArtifacts,
+    characterize_frozen_dataset,
+)
 
 __all__ = [
     "ACCESS_CONTEXT_FILENAME",
     "AccessContext",
     "AccessProbeResult",
     "CredentialEnvVar",
+    "FrozenAccessProbeMetadata",
+    "FrozenCharacterisationArtifacts",
     "PROBE_RESULT_NAME",
     "PROBE_SCRIPT_NAME",
     "access_context_path",
+    "characterize_frozen_dataset",
     "read_access_context",
     "read_access_probe",
     "run_project_access_probe",
