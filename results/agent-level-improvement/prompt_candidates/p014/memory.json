@@ -1,0 +1,58 @@
+{
+  "schema_version": "gepa_prompt_memory.v1",
+  "memory_id": "memory-p014",
+  "parent_memory_id": "memory-p010",
+  "lessons": [
+    {
+      "lesson_id": "lesson_b210312a8a4b",
+      "trigger": "When optimizing ERA5 regular-grid Zarr for tensor_loading.v1 full-field C,H,W reads.",
+      "recommendation": "Use explicit sample-access-aligned chunks: one time sample and one selector plane per chunk, with the full selected latitude and longitude extents, while preserving all dimensions and channels.",
+      "scope": "Regular-grid Zarr v3 pipelines with full-field tensor consumer workloads.",
+      "evidence": "The feasible parent passed all constraints but measured 30.9009 consumer_samples_per_second with 197 chunk objects for 28 samples and 3 channels; the workload read shuffled full C,H,W tensors.",
+      "caveat": "This trajectory contains no measured alternate layout, so the chunking recommendation is a plausible engineering hypothesis rather than proven causation.",
+      "origin_candidate_id": "p001",
+      "origin_iteration": 1
+    },
+    {
+      "lesson_id": "lesson_b0d869123521",
+      "trigger": "When optimizing footprint for ERA5 regular-grid Zarr where diagnostics separate chunk and metadata bytes.",
+      "recommendation": "Target explicit deterministic lossless compression of data chunks before metadata tweaks, because the measured footprint is almost entirely chunk payload. Keep semantic content and artifact declarations unchanged.",
+      "scope": "Regular-grid Zarr v3 pipelines with decoded float32 ERA5 pressure-level arrays and consolidated metadata.",
+      "evidence": "The feasible parent passed all hard constraints with output_bytes 175,189,531; diagnostics reported chunk_bytes 175,164,494 and metadata_bytes 25,037.",
+      "caveat": "This identifies where bytes are concentrated in one trajectory; it does not prove that any specific compressor or level will reduce bytes on every fixture.",
+      "origin_candidate_id": "p002",
+      "origin_iteration": 2
+    },
+    {
+      "lesson_id": "lesson_1b1592ee6bb0",
+      "trigger": "When optimizing footprint for ERA5 pressure-level regular-grid Zarr after the sample-aligned full-spatial chunk layout is already feasible.",
+      "recommendation": "Prefer high-strength lossless Blosc-Zstd with bitshuffle for float32 data chunks before considering throughput-biased codecs; preserve the validated chunk topology and artifact declarations.",
+      "scope": "ERA5 pressure-level Zarr v3 pipelines for tensor_loading.v1 full-field C,H,W reads with decoded float32 arrays.",
+      "evidence": "Measured feasible trajectories: Blosc-Zstd clevel 7 bitshuffle output_bytes 108,202,642; Blosc-Zstd clevel 3 about 111,163,324; LZ4 bitshuffle about 128,426,256; LZ4/shuffle about 168.8 MB; uncompressed about 348.9 MB. All cited feasible runs passed hard constraints.",
+      "caveat": "These are single noisy trajectory measurements on one fixture and do not prove the codec caused every byte difference or that clevel 7/9 is always optimal.",
+      "origin_candidate_id": "p010",
+      "origin_iteration": 10
+    },
+    {
+      "lesson_id": "lesson_effb5fc969c3",
+      "trigger": "When optimizing footprint for ERA5 pressure-level Zarr after Blosc-Zstd bitshuffle compression is already feasible.",
+      "recommendation": "Use or keep lossless Blosc-Zstd bitshuffle at clevel 9 for decoded float32 data chunks before trying weaker throughput-biased encodings; validate the codec by reopening and inspecting Zarr v3 metadata.",
+      "scope": "ERA5 pressure-level regular-grid Zarr v3 pipelines with sample/selector/full-spatial chunks and exact semantic-equivalence requirements.",
+      "evidence": "A feasible clevel 9 bitshuffle run passed all hard constraints with output_bytes 104,831,028. Earlier feasible measured runs included clevel 7 bitshuffle at 108,202,642, clevel 3 around 111,163,324, LZ4 bitshuffle around 128,426,256, and uncompressed around 348.9 MB.",
+      "caveat": "These are noisy single-trajectory measurements on one fixture; they support a bounded preference but do not prove clevel 9 will always minimize bytes.",
+      "origin_candidate_id": "p014",
+      "origin_iteration": 14
+    },
+    {
+      "lesson_id": "lesson_c4995991306b",
+      "trigger": "When multiple requested ERA5 pressure-level channels share the same source variable.",
+      "recommendation": "Consider publishing one native array per source variable with a real selected pressure-level dimension and selector chunk size 1, then map each field-selector channel through artifact selectors instead of duplicating one array per channel.",
+      "scope": "Regular-grid Zarr artifact layouts whose consumer/interface supports channel selectors and selector_coordinate_paths.",
+      "evidence": "A prior feasible grouped-array trajectory passed all hard constraints for full-field tensor loading with uncompressed chunks and source-variable grouping; it preserved requested channels and measured output_bytes in the same range as uncompressed separate-array trajectories.",
+      "caveat": "The observed byte difference in uncompressed runs was small and mixed, so grouping is mainly a compatibility-proven metadata-reduction tactic, not proven to improve every footprint run.",
+      "origin_candidate_id": "p014",
+      "origin_iteration": 14
+    }
+  ],
+  "created_at": "2026-09-08T04:44:22.327456+00:00"
+}

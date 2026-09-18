@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "d74cb2053a01b72784a1584d657e623b94a259aa0bb0ed1f49ef04ea7ddaf156",
+  "parent_source_sha256": "3c59fc74016ad6e63bdf8be7375e8b0b2ff9deb6535a2ce258694cd1c34aa86e",
+  "proposal": {
+    "title": "Use Blosc zlib bitshuffle for lossless footprint reduction",
+    "hypothesis": "Operational evidence shows Zarr metadata is 0.0% of measured output bytes and chunk payloads dominate the 340873314-byte store, while the measured path is cache-hit only, so provider/cache changes cannot reduce output_bytes. If the current one-sample full-field chunks keep the same layout but switch from low-compression LZ4 without shuffle to Blosc's lossless zlib codec with bitshuffle, smooth float32 ERA5 fields should expose repeated bit-plane structure to DEFLATE and substantially reduce data chunk bytes without changing frozen array paths, dimensions, coordinates, selector paths, validation, provenance, rerun behavior, dependency set, Zarr v3 consolidated policy, or semantic values.",
+    "target_objectives": [
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Compression CPU is expected to increase, so materialization_seconds may worsen and warm full-field consumer_samples_per_second may decrease relative to the current LZ4/no-shuffle speed-focused candidate. The intended causal effect is isolated to smaller lossless data chunks.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='zlib', clevel=9, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "rationale": "Replace the speed-oriented LZ4/no-shuffle data chunk codec with a stronger lossless DEFLATE-family codec plus bitshuffle, targeting the chunk-byte-dominated footprint while preserving all public Zarr names and logical data."
+      }
+    ],
+    "validation_plan": "Run the evaluator command unchanged. Confirm contract_correctness, semantic_equivalence, rerun_safety, and provenance_security remain passing; verify consolidated Zarr v3 publication still contains the frozen arrays, coordinates, and selector dimensions; compare output_bytes against the current 340873314-byte measurement."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 15617,
+    "cached_input_tokens": 0,
+    "output_tokens": 1498,
+    "reasoning_tokens": 1034,
+    "total_tokens": 17115,
+    "estimated_cost_usd": 0.123025,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

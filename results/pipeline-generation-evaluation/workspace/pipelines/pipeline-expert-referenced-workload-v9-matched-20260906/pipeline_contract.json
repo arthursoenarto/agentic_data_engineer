@@ -1,0 +1,88 @@
+{
+  "schema_version": "etl_pipeline_contract.v3",
+  "implementation_interface_version": "family_pipeline_interface.v3",
+  "pipeline_id": "pipeline-expert-referenced-workload-v9-matched-20260906",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "generation_mode": "dataset_family",
+  "command_template": [
+    "python",
+    "run_pipeline.py",
+    "--contract",
+    "{contract_lock_json}",
+    "--inventory",
+    "{dataset_inventory_json}",
+    "--cache-dir",
+    "{cache_dir}",
+    "--output-dir",
+    "{output_dir}",
+    "--run-receipt",
+    "{pipeline_run_json}"
+  ],
+  "success_exit_code": 0,
+  "accepted_lock_schema_versions": [
+    "dataset_contract_lock.v1"
+  ],
+  "accepted_contract_schema_versions": [
+    "dataset_contract.v1"
+  ],
+  "accepted_inventory_schema_versions": [
+    "dataset_inventory.v1"
+  ],
+  "credential_environment_variables": [],
+  "placeholders": {
+    "contract": "{contract_lock_json}",
+    "inventory": "{dataset_inventory_json}",
+    "cache_dir": "{cache_dir}",
+    "output_dir": "{output_dir}",
+    "run_receipt": "{pipeline_run_json}"
+  },
+  "output_artifact": {
+    "artifact_id": "reanalysis_era5_pressure_levels_dataset",
+    "data_model": "xarray_dataset",
+    "storage_format": "zarr",
+    "path_template": "{output_dir}"
+  },
+  "policy": {
+    "provider": "ECMWF",
+    "dataset_id": "reanalysis-era5-pressure-levels",
+    "acquisition_format": "grib",
+    "publication_format": "zarr",
+    "data_model": "xarray_dataset",
+    "zarr": {
+      "schema_version": "regular_grid_zarr_output_policy.v1",
+      "dataset_class": "regular_rectilinear_grid",
+      "format_version": 3,
+      "consolidated_metadata": true,
+      "coordinate_metadata": {
+        "sample": {},
+        "y": {},
+        "x": {}
+      }
+    },
+    "cache_partitioning": [
+      "field",
+      "selectors",
+      "date"
+    ],
+    "atomic_cache_publication": true,
+    "atomic_output_publication": true,
+    "implementation_constraints": {
+      "objective_priority": [
+        "consumer_samples_per_second",
+        "output_bytes",
+        "materialization_seconds",
+        "q_engineering"
+      ],
+      "consumer_workload": {
+        "kind": "full_field_tensor",
+        "tensor_layout": "C,H,W",
+        "dtype": "float32",
+        "access_pattern": "shuffled_per_sample",
+        "sample_count": 28,
+        "cache_mode": "warm"
+      }
+    }
+  },
+  "generation_manifest_reference": "manifest.json",
+  "generation_manifest_hash": "f54dc9601f13115c648b74b72db7428578fe4bfcfc2a6bbf418ec853817d9dc3"
+}

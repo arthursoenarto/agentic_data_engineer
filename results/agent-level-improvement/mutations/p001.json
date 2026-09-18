@@ -1,0 +1,57 @@
+{
+  "candidate_id": "p001",
+  "effective_system_sha256": "593a1b4da7ee638ad8ea11c34aaf5b481a5cf53158b8ec4bec07a22ebfa195fa",
+  "evaluation_feedback_sha256": "062cb311d84f63b4dd851dae8f6f646a5fd5967811d99e8aa7eecd7822b3aa30",
+  "experiment_id": "gepa_memory_pareto_tensor_20260908_v1",
+  "iteration": 1,
+  "llm_usage": {
+    "cached_input_tokens": 0,
+    "call_count": 1,
+    "estimated_cost_usd": 0.1665,
+    "input_tokens": 19080,
+    "output_tokens": 2370,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 968,
+    "total_tokens": 21450
+  },
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p001/memory.json",
+  "model": "gpt-5.5",
+  "mutation": {
+    "expected_effect": "Increase consumer_samples_per_second for tensor_loading.v1 full-field C,H,W reads. Materialization time and output bytes may change, but they are not scheduled objectives in this slot.",
+    "hypothesis": "If generated ERA5 regular-grid Zarr outputs use one spatially complete chunk per selected time and per selected pressure-level plane for each data variable, then a shuffled full-field tensor consumer can retrieve each sample with fewer chunk lookups and no partial-spatial chunk assembly. This should improve consumer_samples_per_second relative to unconstrained/default chunking, provided semantic validation and artifact layout remain unchanged.",
+    "memory_updates": [
+      {
+        "caveat": "This trajectory contains no measured alternate layout, so the chunking recommendation is a plausible engineering hypothesis rather than proven causation.",
+        "evidence": "The feasible parent passed all constraints but measured 30.9009 consumer_samples_per_second with 197 chunk objects for 28 samples and 3 channels; the workload read shuffled full C,H,W tensors.",
+        "recommendation": "Use explicit sample-access-aligned chunks: one time sample and one selector plane per chunk, with the full selected latitude and longitude extents, while preserving all dimensions and channels.",
+        "scope": "Regular-grid Zarr v3 pipelines with full-field tensor consumer workloads.",
+        "trigger": "When optimizing ERA5 regular-grid Zarr for tensor_loading.v1 full-field C,H,W reads."
+      }
+    ],
+    "reflection": "The parent pipeline passed all hard constraints and produced semantically exact Zarr v3 output, but the measured full-field tensor consumer throughput was 30.90 samples/s with 197 chunk objects for 28 samples and 3 requested channels. The frozen workload reads shuffled complete C,H,W tensors, so the most direct bounded mutation is to make the generation prompt require access-pattern-aligned Zarr chunking for regular-grid full-field tensor reads. This preserves rows, fields, coordinates, dimensions, and semantic values while changing only physical storage layout.",
+    "risk": "Full-spatial chunks may increase memory pressure during writing or reduce performance for other access patterns. The implementation must compute chunks from the selected output shape and fall back safely if a valid lock selects a much larger or unusual grid.",
+    "system_prompt": "# Expert typed dataset-family pipeline generation\n\nGenerate a standalone deterministic adapter for one frozen dataset inventory. The seed contract is a development case, not the only supported request.\n\nRequirements:\n- Return structured JSON matching the supplied response schema and source only under the requested output directory. Include root `pipeline_impl.py`, exact dependencies, concise documentation, and realistic offline tests. Declare maintained Python 3.13-compatible dependency ranges; do not pin obsolete exact versions that conflict with a newer compatible host dependency.\n- Do not generate framework-owned files. Define `pipeline_impl.run_pipeline(contract_lock, inventory, cache_dir, output_dir)`.\n- Read the selected contract from the full lock envelope and validate runtime fields, selectors, scope, and combinations against the inventory.\n- Treat `cache_dir` as an external input/cache root. If it contains `source_fixture_manifest.json`, verify and consume its listed raw files before provider construction, credential checks, or network activity. A complete local fixture must support read-only, credential-free execution.\n- Derive all filtering from the runtime lock. Do not hardcode the seed scope as the only valid request. Preserve native values, missingness, timestamps, station identities, units, coordinates, and quality flags where available. Preserve every selected grid dimension as an actual output dimension even when its selected cardinality is one; a scalar coordinate is not a substitute for a contract-declared selector dimension. Treat an inclusive date-only end bound as the complete final UTC calendar day, then apply any selected times exactly; never truncate it at midnight.\n- Decode provider packing and missing-value conventions before publication. For CF NetCDF inputs, apply scale/offset and fill-value masking, then prevent source encodings from silently repacking decoded values in the public Zarr.\n- Apply the fixed publication policy exactly with maintained libraries. For regular grids, publish genuine consolidated Zarr v3 and return the declared grid artifact layout. For station time series, publish canonical long-form Parquet using Zstandard compression with required columns `station_id`, `timestamp`, `field_id`, and `value`; use the declared composite primary key and return the tabular artifact layout.\n- Throughput-focused regular-grid storage layout: when the requested consumer workload is full-field tensor loading with complete C,H,W reads, prioritize `consumer_samples_per_second` by publishing data variables with chunks aligned to the sample access pattern. After filtering and transposing to canonical dimension order, choose Zarr chunks so each data-variable chunk contains exactly one selected sample/time and one selected selector plane where applicable, and the full selected spatial extent: for ERA5 pressure-level grids use chunks equivalent to `(time=1, pressure_level=1, latitude=full_selected_latitude_count, longitude=full_selected_longitude_count)` for variables with those dimensions. For variables without a selector dimension, use `(time=1, latitude=full_selected_latitude_count, longitude=full_selected_longitude_count)`. Apply this through explicit deterministic Zarr encodings rather than relying on library defaults. Do not drop, fuse, scalarize, reorder semantically significant dimensions, omit fields, or change values to achieve throughput. Keep metadata consolidated and coordinates valid Zarr arrays. Prefer simple, deterministic, fast read-oriented encoding choices compatible with Zarr v3 and the host libraries; do not introduce nonportable codecs or runtime services.\n- Publish outputs atomically, reopen and validate them, and return secret-safe cache evidence. Never invoke an LLM or depend on this repository at runtime.\n- Use a compact modular design with separate responsibilities only where they improve correctness. Include offline tests for contract validation, source fixture reuse, filtering, exact rerun behavior, publication, read-back, and the intended full-field tensor chunk layout for regular-grid outputs.\n\nHard boundaries:\n- Contract correctness, semantic equivalence, rerun safety, and provenance security are mandatory and may not be traded for throughput.\n- A throughput change must not drop rows, fields, selector coordinates, dimensions, coordinate values, missingness, timestamps, units, or quality metadata available from the source.\n- Keep runtime behavior deterministic: stable sorting, stable field/channel IDs, deterministic temporary publication cleanup, no wall-clock-dependent data values, no random chunking, no network fallback when a complete fixture is present, and no secret leakage in warnings, diagnostics, metadata, or cache evidence.\n- Optimize exactly the scheduled objective when a focus is provided. For a throughput slot, prefer read-path layout improvements over footprint reductions; do not weaken semantic equivalence or contract validation to improve measured speed.\n"
+  },
+  "parent_candidate_id": "p000",
+  "parent_generation_prompt_sha256": "d6d43bcf289ab61d76cf88a3a9148f8f30f12cbfc60866c885c329e158863569",
+  "parent_memory_sha256": "3f65cd15b5ab548942184aa25be687e8a01149b54b5d7906446b36215d3a6067",
+  "proposal_focus": "throughput",
+  "schema_version": "gepa_prompt_memory_mutation.v1",
+  "system_prompt_sha256": "0fe19156373e4b443861ef07baf6800fa3f38a27825445652c19dc3d441db191",
+  "target_objectives": [
+    "consumer_samples_per_second"
+  ],
+  "user_prompt_sha256": "6cd74467cf0932bd7d0b78da8829e105221259d6c6d00f91a0c042d5dd8a18b5"
+}

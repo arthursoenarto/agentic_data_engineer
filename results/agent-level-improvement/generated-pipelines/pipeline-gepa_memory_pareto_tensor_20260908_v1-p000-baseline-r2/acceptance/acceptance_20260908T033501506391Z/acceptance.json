@@ -1,0 +1,624 @@
+{
+  "schema_version": "family_pipeline_acceptance.v1",
+  "acceptance_id": "acceptance_20260908T033501506391Z",
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2",
+  "candidate_origin": "repaired",
+  "repair_reference": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/stage_a_run.json",
+  "generated_source_sha256_before": "5d17480ae826c4aa9c362be7bf6355302dde93dea41ea6abbcfe1ad6b1794e8a",
+  "generated_source_sha256_after": "5d17480ae826c4aa9c362be7bf6355302dde93dea41ea6abbcfe1ad6b1794e8a",
+  "contract_lock_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+  "inventory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/dataset_inventory.json",
+  "frozen_cache_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/acceptance/acceptance_20260908T033501506391Z/frozen_cache",
+  "frozen_cache_sha256_before": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51",
+  "frozen_cache_sha256_after": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51",
+  "initial_run_receipt": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/runs/pipeline_run_20260908T033502476204Z_45a38504/pipeline_run.json",
+  "rerun_receipt": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/runs/pipeline_run_20260908T033505265813Z_21ed2f87/pipeline_run.json",
+  "dataset_artifact": {
+    "schema_version": "dataset_artifact_layout.v1",
+    "storage_format": "zarr",
+    "store_path": "dataset.zarr",
+    "dimensions": {
+      "sample": "time",
+      "x": "longitude",
+      "y": "latitude"
+    },
+    "coordinates": {
+      "sample": "time",
+      "x": "longitude",
+      "y": "latitude"
+    },
+    "channels": [
+      {
+        "field_id": "temperature[pressure_level=\"500\"]",
+        "array_path": "temperature_pressure_level_500",
+        "selectors": {
+          "pressure_level": "500"
+        },
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__temperature_pressure_level_500"
+        }
+      },
+      {
+        "field_id": "temperature[pressure_level=\"850\"]",
+        "array_path": "temperature_pressure_level_850",
+        "selectors": {
+          "pressure_level": "850"
+        },
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__temperature_pressure_level_850"
+        }
+      },
+      {
+        "field_id": "geopotential[pressure_level=\"500\"]",
+        "array_path": "geopotential_pressure_level_500",
+        "selectors": {
+          "pressure_level": "500"
+        },
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__geopotential_pressure_level_500"
+        }
+      }
+    ]
+  },
+  "checks": [
+    {
+      "check_id": "generation.generated_tests",
+      "required": false,
+      "status": "fail",
+      "feedback_code": "GENERATED_TESTS_FAILED",
+      "summary": "Generated diagnostic tests failed.",
+      "evidence": {
+        "exit_code": 2,
+        "stdout_log": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/acceptance/acceptance_20260908T033501506391Z/generated_tests.stdout.log",
+        "stderr_log": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/acceptance/acceptance_20260908T033501506391Z/generated_tests.stderr.log"
+      }
+    },
+    {
+      "check_id": "generation.interface_execution",
+      "required": true,
+      "status": "pass",
+      "feedback_code": "INTERFACE_EXECUTION_PASSED",
+      "summary": "Both framework-controlled materializations succeeded.",
+      "evidence": {
+        "initial_status": "succeeded",
+        "rerun_status": "succeeded",
+        "error": null
+      }
+    },
+    {
+      "check_id": "generation.credential_free_read_only_cache",
+      "required": true,
+      "status": "pass",
+      "feedback_code": "READ_ONLY_CACHE_RERUN_PASSED",
+      "summary": "Both credential-free runs used only the supplied read-only cache.",
+      "evidence": {
+        "initial": {
+          "cache_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/acceptance/acceptance_20260908T033501506391Z/frozen_cache",
+          "hits": 2,
+          "misses": 0,
+          "acquired": 0,
+          "reused_keys": [
+            "fixture:temperature:sha256:eec8fa73209cd07b",
+            "fixture:geopotential:sha256:b26a549498e76315"
+          ],
+          "acquired_keys": [],
+          "notes": []
+        },
+        "rerun": {
+          "cache_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r2/acceptance/acceptance_20260908T033501506391Z/frozen_cache",
+          "hits": 2,
+          "misses": 0,
+          "acquired": 0,
+          "reused_keys": [
+            "fixture:temperature:sha256:eec8fa73209cd07b",
+            "fixture:geopotential:sha256:b26a549498e76315"
+          ],
+          "acquired_keys": [],
+          "notes": []
+        }
+      }
+    },
+    {
+      "check_id": "generation.real_zarr_layout",
+      "required": true,
+      "status": "pass",
+      "feedback_code": "REAL_ZARR_LAYOUT_PASSED",
+      "summary": "Declared Zarr arrays are readable and stable across exact reruns.",
+      "evidence": {
+        "initial": {
+          "store_path": "dataset.zarr",
+          "zarr_format": 3,
+          "consolidated_metadata": true,
+          "arrays": {
+            "geopotential_pressure_level_500": {
+              "shape": [
+                1,
+                28,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500",
+                "time",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "latitude": {
+              "shape": [
+                721
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "latitude"
+              ]
+            },
+            "longitude": {
+              "shape": [
+                1440
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "longitude"
+              ]
+            },
+            "pressure_level__geopotential_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "StringDType()",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_850": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_850"
+              ]
+            },
+            "temperature_pressure_level_500": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_500",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "temperature_pressure_level_850": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_850",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "time": {
+              "shape": [
+                28
+              ],
+              "dtype": "int64",
+              "dimensions": [
+                "time"
+              ]
+            }
+          },
+          "field_ids": [
+            "geopotential[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"850\"]"
+          ],
+          "required_coordinate_metadata": {}
+        },
+        "rerun": {
+          "store_path": "dataset.zarr",
+          "zarr_format": 3,
+          "consolidated_metadata": true,
+          "arrays": {
+            "geopotential_pressure_level_500": {
+              "shape": [
+                1,
+                28,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500",
+                "time",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "latitude": {
+              "shape": [
+                721
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "latitude"
+              ]
+            },
+            "longitude": {
+              "shape": [
+                1440
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "longitude"
+              ]
+            },
+            "pressure_level__geopotential_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "StringDType()",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_850": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_850"
+              ]
+            },
+            "temperature_pressure_level_500": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_500",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "temperature_pressure_level_850": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_850",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "time": {
+              "shape": [
+                28
+              ],
+              "dtype": "int64",
+              "dimensions": [
+                "time"
+              ]
+            }
+          },
+          "field_ids": [
+            "geopotential[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"850\"]"
+          ],
+          "required_coordinate_metadata": {}
+        }
+      }
+    },
+    {
+      "check_id": "generation.zarr_v3_consolidated",
+      "required": true,
+      "status": "pass",
+      "feedback_code": "ZARR_V3_CONSOLIDATED_PASSED",
+      "summary": "Both outputs use Zarr format 3 with consolidated root metadata.",
+      "evidence": {
+        "initial": {
+          "store_path": "dataset.zarr",
+          "zarr_format": 3,
+          "consolidated_metadata": true,
+          "arrays": {
+            "geopotential_pressure_level_500": {
+              "shape": [
+                1,
+                28,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500",
+                "time",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "latitude": {
+              "shape": [
+                721
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "latitude"
+              ]
+            },
+            "longitude": {
+              "shape": [
+                1440
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "longitude"
+              ]
+            },
+            "pressure_level__geopotential_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "StringDType()",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_850": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_850"
+              ]
+            },
+            "temperature_pressure_level_500": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_500",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "temperature_pressure_level_850": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_850",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "time": {
+              "shape": [
+                28
+              ],
+              "dtype": "int64",
+              "dimensions": [
+                "time"
+              ]
+            }
+          },
+          "field_ids": [
+            "geopotential[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"850\"]"
+          ],
+          "required_coordinate_metadata": {}
+        },
+        "rerun": {
+          "store_path": "dataset.zarr",
+          "zarr_format": 3,
+          "consolidated_metadata": true,
+          "arrays": {
+            "geopotential_pressure_level_500": {
+              "shape": [
+                1,
+                28,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500",
+                "time",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "latitude": {
+              "shape": [
+                721
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "latitude"
+              ]
+            },
+            "longitude": {
+              "shape": [
+                1440
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "longitude"
+              ]
+            },
+            "pressure_level__geopotential_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "StringDType()",
+              "dimensions": [
+                "pressure_level__geopotential_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_500": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_500"
+              ]
+            },
+            "pressure_level__temperature_pressure_level_850": {
+              "shape": [
+                1
+              ],
+              "dtype": "float64",
+              "dimensions": [
+                "pressure_level__temperature_pressure_level_850"
+              ]
+            },
+            "temperature_pressure_level_500": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_500",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "temperature_pressure_level_850": {
+              "shape": [
+                28,
+                1,
+                721,
+                1440
+              ],
+              "dtype": "float32",
+              "dimensions": [
+                "time",
+                "pressure_level__temperature_pressure_level_850",
+                "latitude",
+                "longitude"
+              ]
+            },
+            "time": {
+              "shape": [
+                28
+              ],
+              "dtype": "int64",
+              "dimensions": [
+                "time"
+              ]
+            }
+          },
+          "field_ids": [
+            "geopotential[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"500\"]",
+            "temperature[pressure_level=\"850\"]"
+          ],
+          "required_coordinate_metadata": {}
+        }
+      }
+    },
+    {
+      "check_id": "generation.real_parquet_layout",
+      "required": false,
+      "status": "pass",
+      "feedback_code": "REAL_PARQUET_LAYOUT_PASSED",
+      "summary": "Declared Parquet table is readable and stable across exact reruns.",
+      "evidence": {
+        "status": "not_applicable"
+      }
+    },
+    {
+      "check_id": "generation.exact_output_rerun",
+      "required": false,
+      "status": "pass",
+      "feedback_code": "EXACT_OUTPUT_RERUN_PASSED",
+      "summary": "Exact rerun output fingerprints match.",
+      "evidence": {
+        "initial_sha256": "c8f8c198cd5b64f5290031725f935f802e01f25e73b6ea920ecb46cce95a9f1e",
+        "rerun_sha256": "c8f8c198cd5b64f5290031725f935f802e01f25e73b6ea920ecb46cce95a9f1e"
+      }
+    },
+    {
+      "check_id": "generation.frozen_inputs_unchanged",
+      "required": true,
+      "status": "pass",
+      "feedback_code": "FROZEN_INPUTS_UNCHANGED",
+      "summary": "Generated source and frozen cache remained unchanged.",
+      "evidence": {
+        "source_before": "5d17480ae826c4aa9c362be7bf6355302dde93dea41ea6abbcfe1ad6b1794e8a",
+        "source_after": "5d17480ae826c4aa9c362be7bf6355302dde93dea41ea6abbcfe1ad6b1794e8a",
+        "cache_before": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51",
+        "cache_after": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51"
+      }
+    }
+  ],
+  "final_status": "passed",
+  "generated_at": "2026-09-08T03:35:08.106085+00:00"
+}

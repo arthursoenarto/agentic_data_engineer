@@ -1,0 +1,39 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T04:38:33.376153+00:00",
+  "depth": 3,
+  "failure": null,
+  "focus": "joint",
+  "hypothesis": "If the generated ERA5 regular-grid Zarr pipeline preserves the validated one-time, one-pressure-level, full-latitude/full-longitude chunk topology and changes only the explicit lossless data-array codec from Blosc-Zstd clevel 7 bitshuffle to Blosc-LZ4 clevel 1 bitshuffle, then shuffled warm full C,H,W reads may improve consumer_samples_per_second by reducing decompression cost while output_bytes remains substantially below byte-shuffle LZ4 and uncompressed trajectories because bitshuffle exposes float32 structure before LZ4 encoding.",
+  "iteration": 12,
+  "memory_lesson_count": 3,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p012/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p012.json",
+  "objective": null,
+  "parent_prompt_id": "p002",
+  "policy_reason": "Candidate failed search eligibility; archive retained.",
+  "prompt_id": "p012",
+  "reflection": "The parent is feasible and exact with sample-aligned full-spatial chunks and Blosc-Zstd clevel 7 bitshuffle, measuring 62.061 consumer_samples_per_second and 108,202,642 output_bytes. Prior feasible trajectories show the main tradeoff is the lossless physical data-chunk codec: uncompressed chunks greatly improved throughput but made output ~348.9 MB; Blosc-LZ4 clevel 1 bitshuffle measured higher throughput than the parent at 80.299 samples/s while keeping output to 128,426,256 bytes, much smaller than byte-shuffle LZ4 at ~168.8 MB. For this joint slot, the bounded mutation should preserve the validated dataset semantics and chunk topology but change only the data-array codec from footprint-oriented Zstd to read-speed-biased LZ4 with bitshuffle to search a Pareto point between parent footprint and high-throughput trajectories.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:35:08.976845+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second",
+    "output_bytes"
+  ],
+  "trial": {
+    "error": "JSONDecodeError: Unterminated string starting at: line 19 column 18 (char 36407)",
+    "evaluation_report": null,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1",
+    "prompt_id": "p012",
+    "repair_attempts": 0,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1/stage_a_run.json",
+    "status": "failed",
+    "trial_id": "p012-search-r1"
+  }
+}

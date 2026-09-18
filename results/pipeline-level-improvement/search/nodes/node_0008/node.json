@@ -1,0 +1,37 @@
+{
+  "schema_version": "pipeline_search_node.v1",
+  "node_id": "node_0008",
+  "parent_id": "node_0007",
+  "iteration": 8,
+  "depth": 5,
+  "phase": "pareto_archive",
+  "branch_id": null,
+  "status": "optimization_ready",
+  "candidate_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0008/candidate",
+  "proposal_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0008/proposal.json",
+  "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0008/search_measurement.json",
+  "evaluation_seconds": 17.2373100420009,
+  "constraints": {
+    "contract_correctness": "pass",
+    "semantic_equivalence": "pass",
+    "rerun_safety": "pass",
+    "provenance_security": "pass"
+  },
+  "optimization_ready": true,
+  "objective": {
+    "materialization_seconds": 3.102549832998193,
+    "consumer_samples_per_second": 75.30366883429723,
+    "output_bytes": 114727843,
+    "q_engineering": null
+  },
+  "parent_relation": "tradeoff",
+  "objective_changes": {
+    "consumer_samples_per_second": -0.0761553183801888,
+    "output_bytes": 0.08173494608883207
+  },
+  "admitted_to_archive": true,
+  "policy_reason": "Admitted as a non-dominated tradeoff.",
+  "failure": null,
+  "created_at": "2026-09-07T21:10:04.358401Z",
+  "completed_at": "2026-09-07T21:10:52.148931Z"
+}

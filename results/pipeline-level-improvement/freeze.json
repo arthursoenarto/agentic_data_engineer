@@ -1,0 +1,257 @@
+{
+  "files": [
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/PROTOCOL.md",
+      "sha256": "5fd4fc4b7710127fca39255f1e6b08f211fa526b489dd0ad615b04a789147478"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/run.py",
+      "sha256": "a92e596f0266b7b01446bba165f430430fd6db755634abcc6c1ce37929b676b0"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/plot.py",
+      "sha256": "5428ad1bcd12d4610497c54537a96ab7cefa229eb1da2c237ee04c565a87a0d7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/plan.json",
+      "sha256": "08f656a56abf1891ff614e8239faba3f3f7c02cc68fc4e5b8472ed74af04d5dc"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/suite_spec.yaml",
+      "sha256": "fa37cce48839de75e2ca4e5aa47b1b1d9d0916d5115b27ea45cc48cd3ba2d230"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+      "sha256": "0a3250858b866990cf1f20b37eaf53ebefba871cc2c99116af8bbbb8272814ef"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/prompt_lock.json",
+      "sha256": "4ab9252ded5e4baabc418c73bface360b4aed0c407cae18d23164497796eed19"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/dataset_inventory.json",
+      "sha256": "ead7da894193ccccc308655589ab56c9849e85be673cdf7f391c89d99af03b20"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1/source_fixture_manifest.json",
+      "sha256": "e5e9533b17138fd61e216d781ac2e6aabc95895c124e8936ce0def2a0139ccd7"
+    },
+    {
+      "path": "backend/agents/pipeline_improvement/prompts/default_system.md",
+      "sha256": "ee1de05fe07b6f96828cd521e176dba401eb5a353d0e7a1818b31280d4075b2d"
+    },
+    {
+      "path": "backend/agents/pipeline_improvement/prompts/default_user.md",
+      "sha256": "0c8813eb93f98f77423d5fc6f25ae66386fb22185870166b2d04d7f1db45035f"
+    },
+    {
+      "path": "backend/evaluation/constrained.py",
+      "sha256": "94417072305971c0a48cf67a34e1c4b1a122e060b242add97bea31e69a221d07"
+    },
+    {
+      "path": "backend/evaluation/constrained_schemas.py",
+      "sha256": "e4962ea43cd572faef70737a938a521e315286cb8ac5453ff09b763bb72adaad"
+    },
+    {
+      "path": "backend/evaluation/tensor_loading.py",
+      "sha256": "8bf8efc8dac78446933dbdc59d3d348ae0fd6be6cb62a0c7be7967655f9c2917"
+    },
+    {
+      "path": "backend/orchestration/candidate_lifecycle.py",
+      "sha256": "a45e8091a76881ef5f88be391ca6fc45dce6a762785a59c4efaae63104a9ae7b"
+    },
+    {
+      "path": "backend/orchestration/pareto.py",
+      "sha256": "091de61d96aca661e27d66221d2faba7b0d6276b600d4e557ba8cd62db3e18fc"
+    },
+    {
+      "path": "backend/orchestration/pareto_archive_search.py",
+      "sha256": "1dadbbdf43e2bbf34fdad4193f49eb7c67a36f8670b2d7e260a5bac27548478c"
+    },
+    {
+      "path": "backend/orchestration/self_improvement.py",
+      "sha256": "340c7949d280490bf94f5f200b044bfaa4e6a21f0d8d69bba97c4531f6a5969e"
+    },
+    {
+      "path": "backend/orchestration/self_improvement_schemas.py",
+      "sha256": "a05b9820e3ad81eb44edf05870b64cbee13836ccb919b3623837ac99daee26fe"
+    },
+    {
+      "path": "backend/orchestration/stage_a.py",
+      "sha256": "6b0d0c82434365c67279ed5c411aef766fbaba5bc9e3e35f73d03479fef101f4"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/baselines/baseline-r1.json",
+      "sha256": "16a5d6f479e672349749a4cbeba89f3fb0cdf512bc854a0f7faebba9bd3518b0"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/baselines/baseline-r1.json",
+      "sha256": "2ecd2ba2571eb8a8d53905a63e91173addf1beb7309437f2e6220c6f846fd55a"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/suites/pipeline-era5-pareto-baseline-r1-20260907.json",
+      "sha256": "0dc025ed39deaaf5ce4541e44b443a963323ab3108d5cb2c547d92ff9a5833d7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/pipeline_impl.py",
+      "sha256": "248b8d9c3b0184e610e9f2ed2282b260f7b32a04a01679ea82cd6299555984a2"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/pyproject.toml",
+      "sha256": "e5e38f34288e458491a3ec328c7312b057cab9955fd7febc9a0d31325c9c5f91"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/README.md",
+      "sha256": "269f13d7611265f591931dd4d21a3b1cc35330daefd1576370fd381455311d75"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/tests/test_pipeline_impl.py",
+      "sha256": "7d79b0588f55aacc590965a8cb8b9076479713d7a6d1d00e02d4311a88dc1bff"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/run_pipeline.py",
+      "sha256": "18667271058d8918eb9d7cdd2bd2abc59ab067373d0f4645026350551d47d2b7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/pipeline_contract.json",
+      "sha256": "459145b5b79773d561a55397d9584f68e3ca599744b8706de36aa29ca9c5de20"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/pipeline_contract.json",
+      "sha256": "459145b5b79773d561a55397d9584f68e3ca599744b8706de36aa29ca9c5de20"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/manifest.json",
+      "sha256": "213817fedac3b23dd5323ba4800b5be40d5035dc9a338f5824256a494659d27e"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/runs/stage_a/stage-a-era5-pareto-baseline-r1-20260907/stage_a_run.json",
+      "sha256": "39c4beada5223bd6b3c976ef73a3a72268c695061dc425530f8d2c943011cfa8"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/evaluations/baseline-r1/evaluation.json",
+      "sha256": "b4fb1ba22a00d9acfa2a40dfbde043fb528af75eaddcfa4260a1354f87f8902b"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/calls/baseline-r1/call-001.json",
+      "sha256": "5e890a6583b634241a5dc58cee796a938afbca24702198bdac03fab96abeddee"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/baselines/baseline-r2.json",
+      "sha256": "ffb4bf0b1e40cb9280e5e76fb8d5aff3ce1b9a65bdfb013107ca11ad26f5d725"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/baselines/baseline-r2.json",
+      "sha256": "ef242033cad8edf5973d7c751f8d5581381c3b73b0e15d6d290da28a52c532b3"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/suites/pipeline-era5-pareto-baseline-r2-20260907.json",
+      "sha256": "5c7f4d98a362cdf4b30071954093d08fa3ce210808a090c17d20b9666c927e2f"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/pipeline_impl.py",
+      "sha256": "59e7470576e9f4ec41632908280b0ce7318434bb6f684fa82ec578fa932ab0a9"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/pyproject.toml",
+      "sha256": "27d4733571a9a0d23e61e98ef3946ec568437dc1a7a9ae593aa8ff19e8d92891"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/README.md",
+      "sha256": "70aae5c160931a65c8257118565b4a18b07ca5e27b74b63fd63b8073b6e85f48"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/tests/test_pipeline_impl.py",
+      "sha256": "992f5409f771b0c01c17ef5b3bea43a7de9ad11062dd846b9eac54d306c83625"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/run_pipeline.py",
+      "sha256": "18667271058d8918eb9d7cdd2bd2abc59ab067373d0f4645026350551d47d2b7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/pipeline_contract.json",
+      "sha256": "806badfd442b4719798f95053e7cf5d69f49a9dfe7a6f132d2ed12e5a31ad265"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/pipeline_contract.json",
+      "sha256": "806badfd442b4719798f95053e7cf5d69f49a9dfe7a6f132d2ed12e5a31ad265"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r2-20260907/manifest.json",
+      "sha256": "601d8996e90c6358ef12cb9cf781e03f614c61bc918f4097e6f4cc71a919a33d"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/runs/stage_a/stage-a-era5-pareto-baseline-r2-20260907/stage_a_run.json",
+      "sha256": "204c42b14bec26720541ccfed934ad579cce32c27e39c6d71a75235a5e894c9f"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/evaluations/baseline-r2/evaluation.json",
+      "sha256": "13d24bfb6fa1e99c81b61301c4679106b01468a67d2060d85854eef3d1af4ffe"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/calls/baseline-r2/call-001.json",
+      "sha256": "03fabea5a0b78188f9fdc0bc42fb6180b61e205877f44feee30771371ca8f0d5"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/baselines/baseline-r3.json",
+      "sha256": "8d9d29fa0957770218cf2cfacb9954cf1f472a9babd1ff64d26d3fd3a6d6cf42"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/baselines/baseline-r3.json",
+      "sha256": "4d6be9c720604b528397e1162545c91c2dbb2b28202d1b792f134ccd9bc3fe91"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/suites/pipeline-era5-pareto-baseline-r3-20260907.json",
+      "sha256": "1ad7cf3dc58ce8902ec675c69ae809337b8dd76f46b12761c63f1a959d6ccf18"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/pipeline_impl.py",
+      "sha256": "5b6b7cec86ed71fd662f4e65f5c4051724e8646ab5ceefeacef008d9c299ca9a"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/requirements.txt",
+      "sha256": "0bed3829ef5193fcb1f740351d35a3072eb1a920b627ace80894e618cc4f7cda"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/README.md",
+      "sha256": "00f136969ce15948df3d7c40e733b72cc808b713220e5e2198b7dcc0c9918801"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/tests/test_pipeline_impl.py",
+      "sha256": "418311400ac46729474fa8207ab785070ed989c7ba634794884fb82a62d24d18"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/run_pipeline.py",
+      "sha256": "18667271058d8918eb9d7cdd2bd2abc59ab067373d0f4645026350551d47d2b7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/pipeline_contract.json",
+      "sha256": "0a54c5f3399c54de13b10ab7b81b05574eede26fd2221f298ed891edf89d4e35"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/pipeline_contract.json",
+      "sha256": "0a54c5f3399c54de13b10ab7b81b05574eede26fd2221f298ed891edf89d4e35"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907/manifest.json",
+      "sha256": "55eaba3ebb013afc4c50c2d815a12b219fd92bbd04c92860b8f666654ce9a87d"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/runs/stage_a/stage-a-era5-pareto-baseline-r3-20260907/stage_a_run.json",
+      "sha256": "86bc3b599d3d70b6c35192f0e7e02c6a0d19350f4c60fdf4b27326805ef2d6d5"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/evaluations/baseline-r3/evaluation.json",
+      "sha256": "cf4f7c9e613ee09633a69fb9f22607e8930cb2c562593fc840c3ad9e42278a62"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/calls/baseline-r3/call-001.json",
+      "sha256": "dc26ba66e70edece505e8e068f6f1dcd8c2ced6e1f66355aff1b513b356ad4ff"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/calls/baseline-r3/call-002.json",
+      "sha256": "50857775cc7d4de6a848e5755543f0492da4d21edc01c046bf486a2b773cc316"
+    }
+  ],
+  "schema_version": "experiment_freeze.v1"
+}

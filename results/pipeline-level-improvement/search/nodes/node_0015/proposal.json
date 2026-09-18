@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "66d24b26b82b79a2037445193e0d2ed8814dc6462ba67bd68064454ba8ba0317",
+  "parent_source_sha256": "3c59fc74016ad6e63bdf8be7375e8b0b2ff9deb6535a2ce258694cd1c34aa86e",
+  "proposal": {
+    "title": "Use one large Blosc LZ4 block per full-field chunk",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, provider/cache changes cannot improve consumer_samples_per_second, and each sample read touches three full-spatial one-sample channel chunks. The current chunks use Blosc LZ4 without shuffle at clevel=1, so decode still pays per-block framing and dispatch inside each large chunk. If the codec keeps the same chunk layout and lossless LZ4 settings but sets a 4 MiB Blosc block size, each approximately 4.15 MiB full-field chunk should be decoded as about one large block instead of many smaller internal blocks, reducing per-sample decode overhead and increasing consumer_samples_per_second while preserving frozen array paths, dimensions, coordinates, selector paths, validation, provenance, rerun behavior, dependency set, and Zarr v3 consolidated publication.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output bytes may change slightly because LZ4 block boundaries affect compression opportunities, and materialization time may shift modestly from altered encoder block handling. No semantic, interface, dependency, or metadata changes are expected.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4, blocksize=4 * 1024 * 1024),)",
+        "rationale": "Tune only Blosc's internal LZ4 block size for the existing full-field chunks, aiming to reduce warm-read decode overhead without changing public arrays, coordinates, validation, or dependencies."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare consumer_samples_per_second against the current 116.23 samples/s baseline, while confirming contract correctness, semantic equivalence, rerun safety, provenance/security, consolidated Zarr v3 output, frozen array paths, and selector coordinate paths still pass."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 16017,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1528,
+    "reasoning_tokens": 1034,
+    "total_tokens": 17545,
+    "estimated_cost_usd": 0.117861,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

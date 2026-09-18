@@ -1,0 +1,224 @@
+{
+  "columns": [
+    "Core",
+    "Data Structure",
+    "Output Format",
+    "Consumer Workload",
+    "Objectives",
+    "Engineering Quality",
+    "Dataset Mapping/Oracle"
+  ],
+  "rows": [
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 5,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "reanalysis_era5_pressure_levels",
+      "display_name": "ERA5 pressure levels",
+      "role": "development"
+    },
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "openaq_v3",
+      "display_name": "OpenAQ",
+      "role": "development"
+    },
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 5,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "cams_eac4",
+      "display_name": "CAMS EAC4",
+      "role": "held_out"
+    },
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 5,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "noaa_oisst_v21",
+      "display_name": "NOAA OISST v2.1",
+      "role": "held_out"
+    },
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "noaa_ghcn_daily",
+      "display_name": "NOAA GHCN-Daily",
+      "role": "held_out"
+    },
+    {
+      "cells": {
+        "Consumer Workload": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Core": {
+          "resolved_check_count": 13,
+          "state": "resolved"
+        },
+        "Data Structure": {
+          "resolved_check_count": 4,
+          "state": "resolved"
+        },
+        "Dataset Mapping/Oracle": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Engineering Quality": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        },
+        "Objectives": {
+          "resolved_check_count": 3,
+          "state": "resolved"
+        },
+        "Output Format": {
+          "resolved_check_count": 1,
+          "state": "resolved"
+        }
+      },
+      "dataset_slug": "usgs_daily_water",
+      "display_name": "USGS Daily Values",
+      "role": "held_out"
+    }
+  ],
+  "schema_version": "evaluation_coverage_matrix.v1"
+}

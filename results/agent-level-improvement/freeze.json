@@ -1,0 +1,81 @@
+{
+  "files": [
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/PROTOCOL.md",
+      "sha256": "6b86a700d46c56ec60db2606a1c181c3b1eabc74f7e440fce69a65c46d0d91d7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/suite_spec.yaml",
+      "sha256": "55570e2d27fcfab0f1a7ee4dce7e4e97fc427823ae029935692ec2ad8985e3ef"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prepare.py",
+      "sha256": "54eb16913c8670cb60ab92ccc561187baf326a00dbd4c86d400001dbb7de258c"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/run.py",
+      "sha256": "6630e16bab2427f2aad42b4f9f1354b28b31b84eaaa1eab9f08a8aec12472a39"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/plot.py",
+      "sha256": "f548e9a349a6e871bba0652155593fcd7c33ace72c8936c7e1fb933891e04a7c"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/plan.json",
+      "sha256": "3351b85c6e099e1731ee68c10b4912de062d2f13f4d429d33b885dac65e9bc0c"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+      "sha256": "0a3250858b866990cf1f20b37eaf53ebefba871cc2c99116af8bbbb8272814ef"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/dataset_inventory.json",
+      "sha256": "ead7da894193ccccc308655589ab56c9849e85be673cdf7f391c89d99af03b20"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1/source_fixture_manifest.json",
+      "sha256": "e5e9533b17138fd61e216d781ac2e6aabc95895c124e8936ce0def2a0139ccd7"
+    },
+    {
+      "path": "backend/agents/etl_pipeline/prompts/shared/expert_family_v2_system.md",
+      "sha256": "d6d43bcf289ab61d76cf88a3a9148f8f30f12cbfc60866c885c329e158863569"
+    },
+    {
+      "path": "backend/agents/etl_pipeline/prompts/shared/expert_family_v2_user.md",
+      "sha256": "ea8ef7c9b6b2f7351eac68a14d9e9c23779493bf3d88a8e1a46b18191451d3f1"
+    },
+    {
+      "path": "backend/agents/pipeline_repair/prompts/default_system.md",
+      "sha256": "b7947ec4e208e7c317eadac3c8a4e2f324882452e0e3d50617d1223cac3b13b2"
+    },
+    {
+      "path": "backend/agents/pipeline_repair/prompts/default_user.md",
+      "sha256": "bb66f250ae9bba943944f0af4122aaeb6f9c7ec54986b6e925256facbbb9b600"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/__init__.py",
+      "sha256": "29fc6f69084db042b25f7d3be5cd421e281156777526fd5664abbd19aed771e4"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/gepa_memory.py",
+      "sha256": "0816863594355faf9294edd59203dfb6cf33cd673c662ab6efc2e8239573122e"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/gepa_search.py",
+      "sha256": "0fbe441c7fb124a8f8b2488433ed8b3b6e55ca9f4071b55b4c4b4fc36a63a4fb"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/prompts/gepa_memory_v1_system.md",
+      "sha256": "7019b6a0cdf1cf582df3d29117f7da835e0cf02250543ea5a04890a7bc80b147"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/prompts/gepa_memory_v1_user.md",
+      "sha256": "f7b8e16fb7662989b212c70422fa29d5f611fae6809d4309a3ace0b67ff4665d"
+    },
+    {
+      "path": "project/benchmarks/experiments/self_improvement_support/station_evaluator.py",
+      "sha256": "a5aa550d2564df51609b32c453be18162d8cd9f48f80eef33aa6019d8248ff2a"
+    }
+  ],
+  "schema_version": "experiment_freeze.v1"
+}

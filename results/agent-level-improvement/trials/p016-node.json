@@ -1,0 +1,78 @@
+{
+  "admitted_to_archive": true,
+  "completed_at": "2026-09-08T04:59:07.031299+00:00",
+  "depth": 5,
+  "failure": null,
+  "focus": "joint",
+  "hypothesis": "If the generated ERA5 regular-grid Zarr pipeline preserves uncompressed sample-access-aligned full-spatial chunks but groups requested pressure-level channels that share the same native variable into one native data array with a real selected pressure_level dimension and chunk size 1 along that selector, then warm shuffled full C,H,W reads may remain at the uncompressed throughput frontier or improve slightly by reducing array/metadata traversal, while output_bytes may decrease modestly through fewer data arrays and metadata objects. The artifact must still declare every requested field-selector channel unambiguously.",
+  "iteration": 16,
+  "memory_lesson_count": 5,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p016/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p016.json",
+  "objective": {
+    "consumer_samples_per_second": 178.87092558315533,
+    "materialization_seconds": 4.595392000002903,
+    "output_bytes": 348891177,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p007",
+  "policy_reason": "Admitted and dominated ['p007'].",
+  "prompt_id": "p016",
+  "reflection": "The parent is feasible and very fast because it uses uncompressed, sample-access-aligned full-spatial chunks, but output_bytes is essentially the full float32 payload. A large codec change would improve bytes but likely sacrifice much of the measured throughput, based on prior LZ4/Zstd trajectories. The best bounded joint mutation supported by supplied evidence is to keep the uncompressed full-field chunk topology and consolidate only channels that share the same native source variable into one data array with a real selector dimension and selector chunk size 1. Prior node p013 measured this style as feasible with slightly higher throughput and slightly lower bytes than the ungrouped uncompressed parent, while p014 showed a similar small byte reduction under Zstd9. This targets both scheduled objectives without changing values, coordinates, dimensions, or fixed artifact semantics.",
+  "removed_ids": [
+    "p007"
+  ],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:53:18.578237+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second",
+    "output_bytes"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 178.87092558315533,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p016-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.569205,
+      "input_tokens": 16965,
+      "output_tokens": 16146,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 3398,
+      "total_tokens": 33111
+    },
+    "materialization_seconds": 4.595392000002903,
+    "output_bytes": 348891177,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p016-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p016-search-r1",
+    "prompt_id": "p016",
+    "repair_attempts": 2,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p016-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p016-search-r1"
+  }
+}

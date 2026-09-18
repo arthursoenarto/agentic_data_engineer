@@ -1,0 +1,15 @@
+{
+  "schema_version": "llm_cost_audit.v1",
+  "status": "corrected_post_run",
+  "reason": "The generated results.json labelled generation-only usage as generation_and_repair_usd. Repair-agent usage is preserved separately in Stage A repair logs and is added here without altering the frozen raw result.",
+  "generation_usd": 12.061572,
+  "repair_usd": 10.88944,
+  "prompt_memory_mutation_usd": 4.40401,
+  "total_usd": 27.355022,
+  "repair_logs": 48,
+  "repair_logs_with_llm_calls": 23,
+  "repair_llm_calls": 46,
+  "repair_input_tokens": 1417706,
+  "repair_output_tokens": 126697,
+  "engineering_quality_judge_usd": 0.0
+}

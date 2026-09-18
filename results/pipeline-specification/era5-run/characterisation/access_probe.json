@@ -1,0 +1,31 @@
+{
+  "schema_version": "access_probe.v1",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "provider": "ECMWF",
+  "ok": true,
+  "status": "verified_offline_fixture",
+  "checked_at": "2026-09-07T01:31:41.475348+00:00",
+  "credential_names": [
+    "CDSAPI_KEY",
+    "CDSAPI_URL"
+  ],
+  "summary": "Frozen source fixture is readable and identity-verified.",
+  "details": {
+    "checked_entries": [
+      {
+        "relative_path": "raw/temperature.grib",
+        "sha256": "eec8fa73209cd07b91c62086a04ab7381f7f9884ae779747b711cb3cf65cda9c",
+        "size_bytes": 116288928
+      },
+      {
+        "relative_path": "raw/geopotential.grib",
+        "sha256": "b26a549498e76315b75fff7a45d836794c70c9f3e2d33b985c2698040878ff1b",
+        "size_bytes": 58144464
+      }
+    ],
+    "entry_count": 2,
+    "errors": [],
+    "fixture_id": "era5_january_2024_6hourly_global_3ch_7d_v1",
+    "provider_network_enabled": false
+  }
+}

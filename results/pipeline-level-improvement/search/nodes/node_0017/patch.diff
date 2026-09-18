@@ -1,0 +1,11 @@
+--- a/pipeline_impl.py
++++ b/pipeline_impl.py
+@@ -492,7 +492,7 @@
+     backup_path = final_store.with_name(f'.{final_store.name}.bak-{os.getpid()}')
+     try:
+         encoding: dict[str, dict[str, Any]] = {}
+-        data_compressors = (BloscCodec(cname='lz4', clevel=5, shuffle=BloscShuffle.noshuffle, typesize=4),)
++        data_compressors = (BloscCodec(cname='blosclz', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4),)
+         for name, da in ds.data_vars.items():
+             encoding[name] = {
+                 'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),

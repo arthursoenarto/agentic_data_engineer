@@ -1,0 +1,75 @@
+{
+  "admitted_to_archive": true,
+  "completed_at": "2026-09-08T03:54:15.589335+00:00",
+  "depth": 3,
+  "failure": null,
+  "focus": "throughput",
+  "hypothesis": "If the generated ERA5 regular-grid Zarr pipeline preserves the validated full-field tensor chunk layout but switches from footprint-oriented high-level compression to an explicit read-speed-biased, lossless Zarr v3-compatible codec such as Blosc-LZ4 or low-level Blosc-Zstd with shuffle/bitshuffle, then shuffled warm full C,H,W reads may improve consumer_samples_per_second by reducing decompression CPU per sample while retaining one spatially complete chunk per requested channel per time.",
+  "iteration": 3,
+  "memory_lesson_count": 3,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p003/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p003.json",
+  "objective": {
+    "consumer_samples_per_second": 77.77411396752778,
+    "materialization_seconds": 3.162791874987306,
+    "output_bytes": 168822158,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p002",
+  "policy_reason": "Admitted as a non-dominated tradeoff.",
+  "prompt_id": "p003",
+  "reflection": "The parent candidate is feasible and passes all hard constraints, but its system prompt is still footprint-focused and explicitly asks for stronger-than-default lossless compression. The scheduled slot is now throughput, with consumer_samples_per_second as the only required objective. The measured output uses full-field sample-aligned chunks and consolidated Zarr v3, both appropriate for C,H,W reads, but data chunks are compressed with Blosc-Zstd clevel 7 and bitshuffle. For a warm shuffled full-field tensor reader, preserving the sample-aligned chunk topology while biasing the codec toward faster decode is a bounded mutation that targets read throughput without dropping fields, rows, dimensions, selector coordinates, or semantic content. The prompt should therefore keep the successful correctness, fixture, validation, and publication requirements, but replace footprint-first storage guidance with read-speed-first lossless encoding guidance.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T03:49:48.175500+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 77.77411396752778,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p003-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.447175,
+      "input_tokens": 16139,
+      "output_tokens": 12216,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 2584,
+      "total_tokens": 28355
+    },
+    "materialization_seconds": 3.162791874987306,
+    "output_bytes": 168822158,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p003-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p003-search-r1",
+    "prompt_id": "p003",
+    "repair_attempts": 1,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p003-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p003-search-r1"
+  }
+}

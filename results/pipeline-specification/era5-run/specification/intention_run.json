@@ -1,0 +1,449 @@
+{
+  "schema_version": "intention_space_run.v1",
+  "run_id": "reanalysis_era5_pressure_levels-r1",
+  "created_at": "2026-09-07T01:32:00.991966+00:00",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "model": "gpt-5.5",
+  "prompt_version": "intention_space_e1_exact_v1",
+  "system_prompt_sha256": "ebfb2ea676843cb6bb70de1bb242547d3a570e9bdeeb347d45ede4f5f350b8a9",
+  "user_prompt_sha256": "4b7e6c6511f816df92d527e966624d5bb245e644189c4e9af254e57b7c00d900",
+  "inventory": {
+    "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/runs/reanalysis_era5_pressure_levels/r1/characterisation/dataset_inventory.json",
+    "sha256": "ead7da894193ccccc308655589ab56c9849e85be673cdf7f391c89d99af03b20"
+  },
+  "interaction": {
+    "path": "interaction.jsonl",
+    "sha256": "be298fe7bdf814e9f4ed36819f6e2bae644233b092df325a6fdef148242f520f"
+  },
+  "intention": {
+    "path": "intention.md",
+    "sha256": "6890676782f73c26baa0ee647983f5da1599a33238232544798e918a8c6027c3"
+  },
+  "editable_contract": {
+    "path": "contracts/contract.yaml",
+    "sha256": "aab1152d55bc9eb7ce2c815e30b6f71e894fa98a334e309ee417663cf859ea18"
+  },
+  "contract_lock": {
+    "path": "contracts/contract_v1.lock.json",
+    "sha256": "45ea24ce3b445069089b766ea5a1915978cb16b3e87bd9792d55c2bdf7df7c0c"
+  },
+  "credentials": {
+    "path": "credentials.json",
+    "sha256": "e69128a451749a4656ad8d196da8f5bf923c1e7f5a92effe54365fadffce8c79"
+  },
+  "draft": {
+    "goal": "Prepare an ML-ready ERA5 pressure-levels pipeline contract for repeated ML training reads with correctness mandatory and optimization priorities set by the user.",
+    "selected_data_summary": "ERA5 pressure-level reanalysis for 2024-01-01 through 2024-01-07 inclusive, global area, UTC times 00:00/06:00/12:00/18:00, with temperature at 500 hPa, temperature at 850 hPa, and geopotential at 500 hPa.",
+    "decisions": [
+      "Use the selected ERA5 pressure-levels dataset and scope exactly as supplied.",
+      "Required output target is Zarr version 3.",
+      "Downstream use is repeated ML training reads.",
+      "Use workload_kind full_field_tensor from the supported regular_rectilinear_grid capability.",
+      "Correctness is mandatory.",
+      "Optimization priority 1 is to maximize consumer_samples_per_second.",
+      "Optimization priority 2 is to minimize output_bytes.",
+      "materialization_seconds and q_engineering are descriptive measurements only and must not override the ordered objectives."
+    ],
+    "assumptions": [
+      "Credentials are supplied externally through environment-variable references only.",
+      "No aggregation, unit conversion, feature engineering, or physical storage layout is requested."
+    ],
+    "clarification_questions": [],
+    "credential_references": [
+      {
+        "name": "CDSAPI_KEY",
+        "purpose": "Authenticate requests to the Copernicus Climate Data Store API.",
+        "required": true
+      },
+      {
+        "name": "CDSAPI_URL",
+        "purpose": "Configure the Copernicus Climate Data Store API endpoint.",
+        "required": true
+      }
+    ],
+    "contract": {
+      "schema_version": "dataset_contract.v2",
+      "dataset_slug": "reanalysis_era5_pressure_levels",
+      "title": "ERA5 workload-aware expert prompt pilot",
+      "source_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download",
+      "intent": "Prepare an ML-ready pipeline for ERA5 pressure levels using exactly the selected data and scope.",
+      "summary": "ERA5 pressure-level reanalysis subset for repeated ML training reads, output as Zarr version 3.",
+      "provider": "ECMWF",
+      "dataset_family": "reanalysis",
+      "access_methods": [
+        "cdsapi"
+      ],
+      "credential_requirements": [
+        "CDSAPI_KEY",
+        "CDSAPI_URL"
+      ],
+      "fields": [
+        {
+          "name": "temperature",
+          "display_name": "Temperature",
+          "selectors": [
+            {
+              "dimension": "pressure_level",
+              "value": "500",
+              "unit": "hPa",
+              "label": null
+            }
+          ],
+          "units": null,
+          "description": null
+        },
+        {
+          "name": "temperature",
+          "display_name": "Temperature",
+          "selectors": [
+            {
+              "dimension": "pressure_level",
+              "value": "850",
+              "unit": "hPa",
+              "label": null
+            }
+          ],
+          "units": null,
+          "description": null
+        },
+        {
+          "name": "geopotential",
+          "display_name": "Geopotential",
+          "selectors": [
+            {
+              "dimension": "pressure_level",
+              "value": "500",
+              "unit": "hPa",
+              "label": null
+            }
+          ],
+          "units": null,
+          "description": null
+        }
+      ],
+      "scope": {
+        "date_range": {
+          "end_date": "2024-01-07",
+          "inclusive": true,
+          "start_date": "2024-01-01"
+        },
+        "geography": {
+          "area": "global",
+          "cds_area": [
+            90,
+            -180,
+            -90,
+            180
+          ],
+          "cds_area_order": [
+            "north",
+            "west",
+            "south",
+            "east"
+          ]
+        },
+        "product_type": "reanalysis",
+        "time": {
+          "selected_times": [
+            "00:00",
+            "06:00",
+            "12:00",
+            "18:00"
+          ],
+          "timestep": "6 hours",
+          "timezone": "UTC"
+        }
+      },
+      "defaults_used": [],
+      "human_editable_fields": [
+        "fields",
+        "scope",
+        "advanced_options",
+        "pipeline_requirements"
+      ],
+      "assumptions": [
+        "Credentials are supplied through CDSAPI_KEY and CDSAPI_URL environment-variable references.",
+        "No aggregation, unit conversion, feature engineering, or physical storage layout has been selected."
+      ],
+      "risks_or_unknowns": [],
+      "evidence": [
+        {
+          "title": "ERA5 hourly data on pressure levels from 1940 to present",
+          "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download",
+          "note": "Trusted dataset inventory and user-selected scope."
+        }
+      ],
+      "advanced_options": {
+        "data_format": "grib",
+        "dataset_id": "reanalysis-era5-pressure-levels",
+        "download_format": "unarchived",
+        "product_type": [
+          "reanalysis"
+        ]
+      },
+      "pipeline_requirements": {
+        "downstream_use": {
+          "kind": "ml_training",
+          "workload_kind": "full_field_tensor",
+          "description": "The data will be read repeatedly during ML training."
+        },
+        "optimization": {
+          "ordered_objectives": [
+            {
+              "objective": "consumer_samples_per_second",
+              "direction": "maximize",
+              "priority": 1
+            },
+            {
+              "objective": "output_bytes",
+              "direction": "minimize",
+              "priority": 2
+            }
+          ],
+          "descriptive_measurements": [
+            "materialization_seconds",
+            "q_engineering"
+          ]
+        }
+      },
+      "human_confirmed": true,
+      "recommended_next_step": "Generate and evaluate candidate Zarr v3 pipelines against the declared workload and ordered objectives."
+    }
+  },
+  "agent_calls": [
+    {
+      "round_index": 0,
+      "system_prompt": "You are the bounded intention-specification component of a scientific data engineering system.\n\nTranslate the replayed interaction into one strict structured proposal. Preserve every selected field, selector, scope value, and objective exactly. The user's JSON selection block is authoritative: copy its `fields`, `scope`, and `advanced_options` without adding derived aliases such as separate year/month/day or area fields. Use only inventory-supported provider-native names.\n\nReturn a `dataset_contract.v2` contract with typed pipeline requirements. Correctness is mandatory. Preserve the ordered optimisation priorities exactly and keep descriptive measurements separate. Choose the class-specific workload supplied in the capability context. Do not add aggregation, unit conversion, feature engineering, or physical storage layout unless explicitly selected.\n\nNever include credential values. Environment-variable names are sufficient credential references. If the interaction already supplies exact fields, scope, access references, output target, workload, and objective ordering, return no clarification questions. Ask only when an execution-critical choice is genuinely absent; never ask about implementation choices delegated to pipeline generation or evaluation.",
+      "user_prompt": "Replayed interaction:\n\n[\n  {\n    \"role\": \"user\",\n    \"content\": \"Prepare an ML-ready pipeline for ERA5 pressure levels. Use exactly this selected data and scope:\\n{\\n  \\\"advanced_options\\\": {\\n    \\\"data_format\\\": \\\"grib\\\",\\n    \\\"dataset_id\\\": \\\"reanalysis-era5-pressure-levels\\\",\\n    \\\"download_format\\\": \\\"unarchived\\\",\\n    \\\"product_type\\\": [\\n      \\\"reanalysis\\\"\\n    ]\\n  },\\n  \\\"credential_references\\\": [\\n    \\\"CDSAPI_KEY\\\",\\n    \\\"CDSAPI_URL\\\"\\n  ],\\n  \\\"dataset_family\\\": \\\"reanalysis\\\",\\n  \\\"dataset_slug\\\": \\\"reanalysis_era5_pressure_levels\\\",\\n  \\\"fields\\\": [\\n    {\\n      \\\"description\\\": null,\\n      \\\"display_name\\\": \\\"Temperature\\\",\\n      \\\"name\\\": \\\"temperature\\\",\\n      \\\"selectors\\\": [\\n        {\\n          \\\"dimension\\\": \\\"pressure_level\\\",\\n          \\\"label\\\": null,\\n          \\\"unit\\\": \\\"hPa\\\",\\n          \\\"value\\\": \\\"500\\\"\\n        }\\n      ],\\n      \\\"units\\\": null\\n    },\\n    {\\n      \\\"description\\\": null,\\n      \\\"display_name\\\": \\\"Temperature\\\",\\n      \\\"name\\\": \\\"temperature\\\",\\n      \\\"selectors\\\": [\\n        {\\n          \\\"dimension\\\": \\\"pressure_level\\\",\\n          \\\"label\\\": null,\\n          \\\"unit\\\": \\\"hPa\\\",\\n          \\\"value\\\": \\\"850\\\"\\n        }\\n      ],\\n      \\\"units\\\": null\\n    },\\n    {\\n      \\\"description\\\": null,\\n      \\\"display_name\\\": \\\"Geopotential\\\",\\n      \\\"name\\\": \\\"geopotential\\\",\\n      \\\"selectors\\\": [\\n        {\\n          \\\"dimension\\\": \\\"pressure_level\\\",\\n          \\\"label\\\": null,\\n          \\\"unit\\\": \\\"hPa\\\",\\n          \\\"value\\\": \\\"500\\\"\\n        }\\n      ],\\n      \\\"units\\\": null\\n    }\\n  ],\\n  \\\"provider\\\": \\\"Copernicus Climate Data Store\\\",\\n  \\\"required_output\\\": {\\n    \\\"format\\\": \\\"zarr\\\",\\n    \\\"version\\\": 3\\n  },\\n  \\\"scope\\\": {\\n    \\\"date_range\\\": {\\n      \\\"end_date\\\": \\\"2024-01-07\\\",\\n      \\\"inclusive\\\": true,\\n      \\\"start_date\\\": \\\"2024-01-01\\\"\\n    },\\n    \\\"geography\\\": {\\n      \\\"area\\\": \\\"global\\\",\\n      \\\"cds_area\\\": [\\n        90,\\n        -180,\\n        -90,\\n        180\\n      ],\\n      \\\"cds_area_order\\\": [\\n        \\\"north\\\",\\n        \\\"west\\\",\\n        \\\"south\\\",\\n        \\\"east\\\"\\n      ]\\n    },\\n    \\\"product_type\\\": \\\"reanalysis\\\",\\n    \\\"time\\\": {\\n      \\\"selected_times\\\": [\\n        \\\"00:00\\\",\\n        \\\"06:00\\\",\\n        \\\"12:00\\\",\\n        \\\"18:00\\\"\\n      ],\\n      \\\"timestep\\\": \\\"6 hours\\\",\\n      \\\"timezone\\\": \\\"UTC\\\"\\n    }\\n  },\\n  \\\"source_url\\\": \\\"https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download\\\",\\n  \\\"title\\\": \\\"ERA5 workload-aware expert prompt pilot\\\"\\n}\"\n  },\n  {\n    \"role\": \"system\",\n    \"content\": \"Confirm the downstream access pattern and the relative importance of runtime, storage, and engineering objectives.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"The data will be read repeatedly during ML training. Correctness is mandatory. First maximise consumer throughput; second minimise native output size. Still report materialisation time and engineering quality for analysis, but do not use them to override those priorities.\"\n  }\n]\n\nTrusted dataset inventory:\n\n{\n  \"availability\": {\n    \"constraint_fields\": [\n      \"day\",\n      \"month\",\n      \"pressure_level\",\n      \"product_type\",\n      \"time\",\n      \"variable\",\n      \"year\"\n    ],\n    \"constraint_rule_count\": 126,\n    \"constraints_url\": \"https://object-store.os-api.cci2.ecmwf.int:443/cci2-prod-catalogue/resources/reanalysis-era5-pressure-levels/constraints_260b0265b2126a5264d333c4f201720032e588c038f45ba2db0d50456f2f6b99.json\"\n  },\n  \"constraints\": {\n    \"area\": {\n      \"items\": {\n        \"type\": \"number\"\n      },\n      \"maxItems\": 4,\n      \"minItems\": 4,\n      \"type\": \"array\"\n    },\n    \"data_format\": {\n      \"type\": \"string\"\n    },\n    \"day\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"download_format\": {\n      \"type\": \"string\"\n    },\n    \"month\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"pressure_level\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"product_type\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"time\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"variable\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    },\n    \"year\": {\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"type\": \"array\"\n    }\n  },\n  \"dataset_id\": \"reanalysis-era5-pressure-levels\",\n  \"dataset_slug\": \"reanalysis_era5_pressure_levels\",\n  \"defaults\": {\n    \"area\": [\n      90,\n      -180,\n      -90,\n      180\n    ],\n    \"data_format\": \"grib\",\n    \"download_format\": \"unarchived\",\n    \"product_type\": [\n      \"reanalysis\"\n    ]\n  },\n  \"description\": \"ERA5 is the fifth generation ECMWF reanalysis for the global climate and weather for the past 8 decades.\\nData is available from 1940 onwards.\\nERA5 replaces the ERA-Interim reanalysis.\\nReanalysis combines model data with observations from across the world into a globally complete and consistent dataset using the laws of physics. This principle, called data assimilation, is based on the method used by numerical weather prediction centres, where every so many hours (12 hours at ECMWF) a previous forecast is combined with newly available observations in an optimal way to produce a new best estimate of the state of the atmosphere, called analysis, from which an updated, improved forecast is issued. Reanalysis works in the same way, but at reduced resolution to allow for the provision of a dataset spanning back several decades. Reanalysis does not have the constraint of issuing timely forecasts, so there is more time to collect observations, and when going further back in time, to allow for the ingestion of improved versions of the original observations, which all benefit the quality of the reanalysis product.\\nERA5 provides hourly estimates for a large number of atmospheric, ocean-wave and land-surface quantities.\\nAn uncertainty estimate is sampled by an underlying 10-member ensemble\\nat three-hourly intervals. Ensemble mean and spread have been pre-computed for convenience.\\nSuch uncertainty estimates are closely related to the information content of the available observing system which\\nhas evolved considerably over time. They also indicate flow-dependent sensitive areas.\\nTo facilitate many climate applications, monthly-mean averages have been pre-calculated too,\\nthough monthly means are not available for the ensemble mean and spread.\\nERA5 is updated daily with a latency of about 5 days. In case that serious flaws are detected in this early release (called ERA5T), this data could be different from the final release 2 to 3 months later. In case that this occurs users are notified.\\nThe data set presented here is a regridded subset of the full ERA5 data set on native resolution.\\nIt is online on spinning disk, which should ensure fast and easy access.\\nIt should satisfy the requirements for most common applications.\\nAn overview of all ERA5 datasets can be found in this article.\\nInformation on access to ERA5 data on native resolution is provided in these guidelines.\\nData has been regridded to a regular lat-lon grid of 0.25 degrees for the reanalysis and 0.5 degrees for\\nthe uncertainty estimate (0.5 and 1 degree respectively for ocean waves).\\nThere are four main sub sets: hourly and monthly products, both on pressure levels (upper air fields) and single levels (atmospheric, ocean-wave and land surface quantities).\\nThe present entry is \\\"ERA5 hourly data on pressure levels from 1940 to present\\\".\",\n  \"extraction_method\": \"deterministic\",\n  \"extractor_name\": \"cds_process_metadata\",\n  \"note\": \"Extracted from official CDS process, catalogue, form, and layout metadata without LLM calls.\",\n  \"option_units\": {\n    \"area\": \"north/west/south/east degrees\",\n    \"pressure_level\": \"hPa\",\n    \"time\": \"UTC\"\n  },\n  \"options\": {\n    \"data_format\": [\n      \"grib\",\n      \"netcdf\"\n    ],\n    \"day\": [\n      \"01\",\n      \"02\",\n      \"03\",\n      \"04\",\n      \"05\",\n      \"06\",\n      \"07\",\n      \"08\",\n      \"09\",\n      \"10\",\n      \"11\",\n      \"12\",\n      \"13\",\n      \"14\",\n      \"15\",\n      \"16\",\n      \"17\",\n      \"18\",\n      \"19\",\n      \"20\",\n      \"21\",\n      \"22\",\n      \"23\",\n      \"24\",\n      \"25\",\n      \"26\",\n      \"27\",\n      \"28\",\n      \"29\",\n      \"30\",\n      \"31\"\n    ],\n    \"download_format\": [\n      \"zip\",\n      \"unarchived\"\n    ],\n    \"month\": [\n      \"01\",\n      \"02\",\n      \"03\",\n      \"04\",\n      \"05\",\n      \"06\",\n      \"07\",\n      \"08\",\n      \"09\",\n      \"10\",\n      \"11\",\n      \"12\"\n    ],\n    \"pressure_level\": [\n      \"1\",\n      \"10\",\n      \"100\",\n      \"1000\",\n      \"125\",\n      \"150\",\n      \"175\",\n      \"2\",\n      \"20\",\n      \"200\",\n      \"225\",\n      \"250\",\n      \"3\",\n      \"30\",\n      \"300\",\n      \"350\",\n      \"400\",\n      \"450\",\n      \"5\",\n      \"50\",\n      \"500\",\n      \"550\",\n      \"600\",\n      \"650\",\n      \"7\",\n      \"70\",\n      \"700\",\n      \"750\",\n      \"775\",\n      \"800\",\n      \"825\",\n      \"850\",\n      \"875\",\n      \"900\",\n      \"925\",\n      \"950\",\n      \"975\"\n    ],\n    \"product_type\": [\n      \"ensemble_mean\",\n      \"ensemble_members\",\n      \"ensemble_spread\",\n      \"reanalysis\"\n    ],\n    \"time\": [\n      \"00:00\",\n      \"01:00\",\n      \"02:00\",\n      \"03:00\",\n      \"04:00\",\n      \"05:00\",\n      \"06:00\",\n      \"07:00\",\n      \"08:00\",\n      \"09:00\",\n      \"10:00\",\n      \"11:00\",\n      \"12:00\",\n      \"13:00\",\n      \"14:00\",\n      \"15:00\",\n      \"16:00\",\n      \"17:00\",\n      \"18:00\",\n      \"19:00\",\n      \"20:00\",\n      \"21:00\",\n      \"22:00\",\n      \"23:00\"\n    ],\n    \"variable\": [\n      \"divergence\",\n      \"fraction_of_cloud_cover\",\n      \"geopotential\",\n      \"ozone_mass_mixing_ratio\",\n      \"potential_vorticity\",\n      \"relative_humidity\",\n      \"specific_cloud_ice_water_content\",\n      \"specific_cloud_liquid_water_content\",\n      \"specific_humidity\",\n      \"specific_rain_water_content\",\n      \"specific_snow_water_content\",\n      \"temperature\",\n      \"u_component_of_wind\",\n      \"v_component_of_wind\",\n      \"vertical_velocity\",\n      \"vorticity\"\n    ],\n    \"year\": [\n      \"1940\",\n      \"1941\",\n      \"1942\",\n      \"1943\",\n      \"1944\",\n      \"1945\",\n      \"1946\",\n      \"1947\",\n      \"1948\",\n      \"1949\",\n      \"1950\",\n      \"1951\",\n      \"1952\",\n      \"1953\",\n      \"1954\",\n      \"1955\",\n      \"1956\",\n      \"1957\",\n      \"1958\",\n      \"1959\",\n      \"1960\",\n      \"1961\",\n      \"1962\",\n      \"1963\",\n      \"1964\",\n      \"1965\",\n      \"1966\",\n      \"1967\",\n      \"1968\",\n      \"1969\",\n      \"1970\",\n      \"1971\",\n      \"1972\",\n      \"1973\",\n      \"1974\",\n      \"1975\",\n      \"1976\",\n      \"1977\",\n      \"1978\",\n      \"1979\",\n      \"1980\",\n      \"1981\",\n      \"1982\",\n      \"1983\",\n      \"1984\",\n      \"1985\",\n      \"1986\",\n      \"1987\",\n      \"1988\",\n      \"1989\",\n      \"1990\",\n      \"1991\",\n      \"1992\",\n      \"1993\",\n      \"1994\",\n      \"1995\",\n      \"1996\",\n      \"1997\",\n      \"1998\",\n      \"1999\",\n      \"2000\",\n      \"2001\",\n      \"2002\",\n      \"2003\",\n      \"2004\",\n      \"2005\",\n      \"2006\",\n      \"2007\",\n      \"2008\",\n      \"2009\",\n      \"2010\",\n      \"2011\",\n      \"2012\",\n      \"2013\",\n      \"2014\",\n      \"2015\",\n      \"2016\",\n      \"2017\",\n      \"2018\",\n      \"2019\",\n      \"2020\",\n      \"2021\",\n      \"2022\",\n      \"2023\",\n      \"2024\",\n      \"2025\",\n      \"2026\"\n    ]\n  },\n  \"output_transmission\": [\n    \"reference\"\n  ],\n  \"provider\": \"ECMWF\",\n  \"request_fields\": [\n    \"product_type\",\n    \"variable\",\n    \"year\",\n    \"month\",\n    \"day\",\n    \"time\",\n    \"pressure_level\",\n    \"area\",\n    \"data_format\",\n    \"download_format\"\n  ],\n  \"schema_version\": \"dataset_inventory.v1\",\n  \"source_url\": \"https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download\",\n  \"title\": \"ERA5 hourly data on pressure levels from 1940 to present\",\n  \"warnings\": []\n}\n\nSupported capabilities and access references:\n\n{\n  \"credential_references\": [\n    \"CDSAPI_KEY\",\n    \"CDSAPI_URL\"\n  ],\n  \"evaluation_targets\": [\n    {\n      \"data_class\": \"regular_rectilinear_grid\",\n      \"engineering_profile\": \"general_pipeline\",\n      \"output_format\": \"zarr\",\n      \"output_format_version\": 3,\n      \"workload_kind\": \"full_field_tensor\"\n    }\n  ],\n  \"provider_network_during_evaluation\": false,\n  \"required_output_format\": \"zarr\"\n}\n\nExisting intention-space state:\n\n{}\n\nProduce one concise structured proposal. Copy the authoritative selection block exactly into the contract. Do not broaden, normalize, or duplicate its scope. Record only decisions and assumptions that materially affect execution or evaluation.",
+      "system_prompt_sha256": "ebfb2ea676843cb6bb70de1bb242547d3a570e9bdeeb347d45ede4f5f350b8a9",
+      "user_prompt_sha256": "4b7e6c6511f816df92d527e966624d5bb245e644189c4e9af254e57b7c00d900",
+      "latency_seconds": 19.49837945890613,
+      "usage": {
+        "call_count": 1,
+        "input_tokens": 6589,
+        "cached_input_tokens": 0,
+        "output_tokens": 2397,
+        "reasoning_tokens": 1034,
+        "total_tokens": 8986,
+        "estimated_cost_usd": 0.104855,
+        "pricing": [
+          {
+            "model_family": "gpt-5.5",
+            "input_usd_per_million": 5.0,
+            "cached_input_usd_per_million": 0.5,
+            "output_usd_per_million": 30.0,
+            "long_context_threshold_tokens": 272000,
+            "long_context_input_multiplier": 2.0,
+            "long_context_output_multiplier": 1.5,
+            "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+            "verified_at": "2026-07-21"
+          }
+        ]
+      },
+      "draft": {
+        "goal": "Prepare an ML-ready ERA5 pressure-levels pipeline contract for repeated ML training reads with correctness mandatory and optimization priorities set by the user.",
+        "selected_data_summary": "ERA5 pressure-level reanalysis for 2024-01-01 through 2024-01-07 inclusive, global area, UTC times 00:00/06:00/12:00/18:00, with temperature at 500 hPa, temperature at 850 hPa, and geopotential at 500 hPa.",
+        "decisions": [
+          "Use the selected ERA5 pressure-levels dataset and scope exactly as supplied.",
+          "Required output target is Zarr version 3.",
+          "Downstream use is repeated ML training reads.",
+          "Use workload_kind full_field_tensor from the supported regular_rectilinear_grid capability.",
+          "Correctness is mandatory.",
+          "Optimization priority 1 is to maximize consumer_samples_per_second.",
+          "Optimization priority 2 is to minimize output_bytes.",
+          "materialization_seconds and q_engineering are descriptive measurements only and must not override the ordered objectives."
+        ],
+        "assumptions": [
+          "Credentials are supplied externally through environment-variable references only.",
+          "No aggregation, unit conversion, feature engineering, or physical storage layout is requested."
+        ],
+        "clarification_questions": [],
+        "credential_references": [
+          {
+            "name": "CDSAPI_KEY",
+            "purpose": "Authenticate requests to the Copernicus Climate Data Store API.",
+            "required": true
+          },
+          {
+            "name": "CDSAPI_URL",
+            "purpose": "Configure the Copernicus Climate Data Store API endpoint.",
+            "required": true
+          }
+        ],
+        "contract": {
+          "schema_version": "dataset_contract.v2",
+          "dataset_slug": "reanalysis_era5_pressure_levels",
+          "title": "ERA5 workload-aware expert prompt pilot",
+          "source_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download",
+          "intent": "Prepare an ML-ready pipeline for ERA5 pressure levels using exactly the selected data and scope.",
+          "summary": "ERA5 pressure-level reanalysis subset for repeated ML training reads, output as Zarr version 3.",
+          "provider": "ECMWF",
+          "dataset_family": "reanalysis",
+          "access_methods": [
+            "cdsapi"
+          ],
+          "credential_requirements": [
+            "CDSAPI_KEY",
+            "CDSAPI_URL"
+          ],
+          "fields": [
+            {
+              "name": "temperature",
+              "display_name": "Temperature",
+              "selectors": [
+                {
+                  "dimension": "pressure_level",
+                  "value": "500",
+                  "unit": "hPa",
+                  "label": null
+                }
+              ],
+              "units": null,
+              "description": null
+            },
+            {
+              "name": "temperature",
+              "display_name": "Temperature",
+              "selectors": [
+                {
+                  "dimension": "pressure_level",
+                  "value": "850",
+                  "unit": "hPa",
+                  "label": null
+                }
+              ],
+              "units": null,
+              "description": null
+            },
+            {
+              "name": "geopotential",
+              "display_name": "Geopotential",
+              "selectors": [
+                {
+                  "dimension": "pressure_level",
+                  "value": "500",
+                  "unit": "hPa",
+                  "label": null
+                }
+              ],
+              "units": null,
+              "description": null
+            }
+          ],
+          "scope": {
+            "date_range": {
+              "end_date": "2024-01-07",
+              "inclusive": true,
+              "start_date": "2024-01-01"
+            },
+            "geography": {
+              "area": "global",
+              "cds_area": [
+                90,
+                -180,
+                -90,
+                180
+              ],
+              "cds_area_order": [
+                "north",
+                "west",
+                "south",
+                "east"
+              ]
+            },
+            "product_type": "reanalysis",
+            "time": {
+              "selected_times": [
+                "00:00",
+                "06:00",
+                "12:00",
+                "18:00"
+              ],
+              "timestep": "6 hours",
+              "timezone": "UTC"
+            }
+          },
+          "defaults_used": [],
+          "human_editable_fields": [
+            "fields",
+            "scope",
+            "advanced_options",
+            "pipeline_requirements"
+          ],
+          "assumptions": [
+            "Credentials are supplied through CDSAPI_KEY and CDSAPI_URL environment-variable references.",
+            "No aggregation, unit conversion, feature engineering, or physical storage layout has been selected."
+          ],
+          "risks_or_unknowns": [],
+          "evidence": [
+            {
+              "title": "ERA5 hourly data on pressure levels from 1940 to present",
+              "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download",
+              "note": "Trusted dataset inventory and user-selected scope."
+            }
+          ],
+          "advanced_options": {
+            "data_format": "grib",
+            "dataset_id": "reanalysis-era5-pressure-levels",
+            "download_format": "unarchived",
+            "product_type": [
+              "reanalysis"
+            ]
+          },
+          "pipeline_requirements": {
+            "downstream_use": {
+              "kind": "ml_training",
+              "workload_kind": "full_field_tensor",
+              "description": "The data will be read repeatedly during ML training."
+            },
+            "optimization": {
+              "ordered_objectives": [
+                {
+                  "objective": "consumer_samples_per_second",
+                  "direction": "maximize",
+                  "priority": 1
+                },
+                {
+                  "objective": "output_bytes",
+                  "direction": "minimize",
+                  "priority": 2
+                }
+              ],
+              "descriptive_measurements": [
+                "materialization_seconds",
+                "q_engineering"
+              ]
+            }
+          },
+          "human_confirmed": true,
+          "recommended_next_step": "Generate and evaluate candidate Zarr v3 pipelines against the declared workload and ordered objectives."
+        }
+      }
+    }
+  ],
+  "clarification_rounds": 0,
+  "clarification_turns": 1,
+  "llm_latency_seconds": 19.49837945890613,
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 6589,
+    "cached_input_tokens": 0,
+    "output_tokens": 2397,
+    "reasoning_tokens": 1034,
+    "total_tokens": 8986,
+    "estimated_cost_usd": 0.104855,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "completed_at": "2026-09-07T20:47:30.384060+00:00",
+  "hard_gates_passed": true,
+  "imported_at": "2026-09-07T21:03:27.161480+00:00",
+  "imported_from": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/baselines/baseline-r3.json",
+  "llm_usage": {
+    "calls": 2,
+    "generation_usd": 0.466325,
+    "repair_usd": 0.18694,
+    "total_usd": 0.653265
+  },
+  "objectives": {
+    "consumer_samples_per_second": 31.998436647612852,
+    "materialization_seconds": 2.3327188750045025,
+    "output_bytes": 182559952
+  },
+  "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r3-20260907",
+  "pipeline_id": "pipeline-era5-pareto-baseline-r3-20260907",
+  "repair_attempts": 1,
+  "repetition": 3,
+  "schema_version": "pipeline_pareto_baseline.v1",
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/runs/stage_a/stage-a-era5-pareto-baseline-r3-20260907/stage_a_run.json",
+  "status": "passed",
+  "suite": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/suites/pipeline-era5-pareto-baseline-r3-20260907.json"
+}

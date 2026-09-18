@@ -1,0 +1,75 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T05:04:18.691676+00:00",
+  "depth": 5,
+  "failure": null,
+  "focus": "throughput",
+  "hypothesis": "If the generated ERA5 regular-grid Zarr pipeline preserves the validated sample-access-aligned full-spatial chunk topology, artifact declarations, dimensions, selector coordinate paths, channel arrays, decoded float32 values, timestamps, and provenance behavior, but changes only the data-array physical encoding from Blosc-LZ4 bitshuffle to uncompressed Zarr v3 chunks for this throughput-only slot, then warm shuffled full C,H,W tensor reads may substantially improve consumer_samples_per_second by eliminating per-chunk decompression work.",
+  "iteration": 17,
+  "memory_lesson_count": 7,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p017/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p017.json",
+  "objective": {
+    "consumer_samples_per_second": 184.3515698293121,
+    "materialization_seconds": 2.738383874995634,
+    "output_bytes": 348898641,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p008",
+  "policy_reason": "Within measurement tolerance of ['p016'].",
+  "prompt_id": "p017",
+  "reflection": "The current parent is feasible and correct, but it is a joint-objective LZ4-bitshuffle artifact measuring 80.2985 samples/s. The scheduled slot is now throughput-only, with consumer_samples_per_second as the only required objective. Prior feasible throughput-only trajectories using the same sample-access-aligned full-spatial chunk topology but uncompressed data chunks measured much higher throughput, 169.7737 and 171.8689 samples/s, while preserving all hard constraints. Later grouped-uncompressed variants measured still higher, but adding grouping on top of changing compression would be more than one bounded mutation from the parent. The clean mutation for this slot is therefore to preserve the validated data model and chunk topology and change only data chunk physical encoding from lossless LZ4-bitshuffle to uncompressed Zarr v3 chunks.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:59:07.031747+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 184.3515698293121,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p017-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.501115,
+      "input_tokens": 16937,
+      "output_tokens": 13881,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 3938,
+      "total_tokens": 30818
+    },
+    "materialization_seconds": 2.738383874995634,
+    "output_bytes": 348898641,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p017-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p017-search-r1",
+    "prompt_id": "p017",
+    "repair_attempts": 2,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p017-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p017-search-r1"
+  }
+}

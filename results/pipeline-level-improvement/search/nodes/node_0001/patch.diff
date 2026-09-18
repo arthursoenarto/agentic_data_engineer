@@ -1,0 +1,17 @@
+--- a/pipeline_impl.py
++++ b/pipeline_impl.py
+@@ -490,7 +490,13 @@
+     tmp_path = Path(tempfile.mkdtemp(prefix=f'.{final_store.name}.tmp-', dir=tmp_parent))
+     backup_path = final_store.with_name(f'.{final_store.name}.bak-{os.getpid()}')
+     try:
+-        encoding = {name: {} for name in list(ds.data_vars) + list(ds.coords)}
++        encoding: dict[str, dict[str, Any]] = {}
++        for name, da in ds.data_vars.items():
++            encoding[name] = {
++                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims)
++            }
++        for name in ds.coords:
++            encoding[name] = {}
+         ds.to_zarr(tmp_path, mode='w', consolidated=True, zarr_format=3, encoding=encoding)
+         _validate_published_zarr(tmp_path, request, channels)
+         if backup_path.exists():

@@ -1,0 +1,23 @@
+{
+  "baseline_generations": 3,
+  "confirmation_generations": 3,
+  "created_at": "2026-09-08T03:26:18.518464+00:00",
+  "engineering_quality_judge_calls": 0,
+  "experiment_id": "gepa_memory_pareto_tensor_20260908_v1",
+  "fixture_manifest_sha256": "e5e9533b17138fd61e216d781ac2e6aabc95895c124e8936ce0def2a0139ccd7",
+  "focus_allocation": {
+    "footprint": 5,
+    "joint": 5,
+    "throughput": 10
+  },
+  "model": "gpt-5.5",
+  "parent_selection": "uniform_from_current_pareto_archive",
+  "parent_selection_seed": 20260908,
+  "pareto_objectives": [
+    "consumer_samples_per_second",
+    "output_bytes"
+  ],
+  "reference_sha256": "b2cedac1a4ffb5ad1cf62f31ce48308dc0307f3de82d301947bcb7b6c58c8282",
+  "schema_version": "gepa_memory_experiment_plan.v1",
+  "search_nodes": 20
+}

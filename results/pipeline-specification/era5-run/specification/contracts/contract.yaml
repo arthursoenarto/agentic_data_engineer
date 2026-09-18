@@ -1,0 +1,101 @@
+schema_version: dataset_contract.v2
+dataset_slug: reanalysis_era5_pressure_levels
+title: ERA5 workload-aware expert prompt pilot
+source_url: https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download
+intent: Prepare an ML-ready pipeline for ERA5 pressure levels using exactly the selected
+  data and scope.
+summary: ERA5 pressure-level reanalysis subset for repeated ML training reads, output
+  as Zarr version 3.
+provider: ECMWF
+dataset_family: reanalysis
+access_methods:
+- cdsapi
+credential_requirements:
+- CDSAPI_KEY
+- CDSAPI_URL
+fields:
+- name: temperature
+  display_name: Temperature
+  selectors:
+  - dimension: pressure_level
+    value: '500'
+    unit: hPa
+- name: temperature
+  display_name: Temperature
+  selectors:
+  - dimension: pressure_level
+    value: '850'
+    unit: hPa
+- name: geopotential
+  display_name: Geopotential
+  selectors:
+  - dimension: pressure_level
+    value: '500'
+    unit: hPa
+scope:
+  date_range:
+    end_date: '2024-01-07'
+    inclusive: true
+    start_date: '2024-01-01'
+  geography:
+    area: global
+    cds_area:
+    - 90
+    - -180
+    - -90
+    - 180
+    cds_area_order:
+    - north
+    - west
+    - south
+    - east
+  product_type: reanalysis
+  time:
+    selected_times:
+    - 00:00
+    - 06:00
+    - '12:00'
+    - '18:00'
+    timestep: 6 hours
+    timezone: UTC
+defaults_used: []
+human_editable_fields:
+- fields
+- scope
+- advanced_options
+- pipeline_requirements
+assumptions:
+- Credentials are supplied through CDSAPI_KEY and CDSAPI_URL environment-variable
+  references.
+- No aggregation, unit conversion, feature engineering, or physical storage layout
+  has been selected.
+risks_or_unknowns: []
+evidence:
+- title: ERA5 hourly data on pressure levels from 1940 to present
+  url: https://cds.climate.copernicus.eu/datasets/reanalysis-era5-pressure-levels?tab=download
+  note: Trusted dataset inventory and user-selected scope.
+advanced_options:
+  data_format: grib
+  dataset_id: reanalysis-era5-pressure-levels
+  download_format: unarchived
+  product_type:
+  - reanalysis
+pipeline_requirements:
+  downstream_use:
+    kind: ml_training
+    workload_kind: full_field_tensor
+    description: The data will be read repeatedly during ML training.
+  optimization:
+    ordered_objectives:
+    - objective: consumer_samples_per_second
+      direction: maximize
+      priority: 1
+    - objective: output_bytes
+      direction: minimize
+      priority: 2
+    descriptive_measurements:
+    - materialization_seconds
+    - q_engineering
+human_confirmed: true
+recommended_next_step: Generate and evaluate candidate Zarr v3 pipelines against the
+  declared workload and ordered objectives.

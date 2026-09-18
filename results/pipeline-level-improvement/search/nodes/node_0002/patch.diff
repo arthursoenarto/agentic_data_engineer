@@ -1,0 +1,23 @@
+--- a/pipeline_impl.py
++++ b/pipeline_impl.py
+@@ -12,6 +12,7 @@
+ import numpy as np
+ import pandas as pd
+ import xarray as xr
++from zarr.codecs import ZstdCodec
+
+ PIPELINE_ID = 'pipeline-era5-pareto-baseline-r1-20260907'
+ DATASET_SLUG = 'reanalysis_era5_pressure_levels'
+@@ -491,9 +492,11 @@
+     backup_path = final_store.with_name(f'.{final_store.name}.bak-{os.getpid()}')
+     try:
+         encoding: dict[str, dict[str, Any]] = {}
++        data_compressors = (ZstdCodec(level=6, checksum=False),)
+         for name, da in ds.data_vars.items():
+             encoding[name] = {
+-                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims)
++                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),
++                'compressors': data_compressors,
+             }
+         for name in ds.coords:
+             encoding[name] = {}

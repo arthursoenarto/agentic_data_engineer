@@ -1,0 +1,46 @@
+{
+  "constraints": {
+    "contract_correctness": "pass",
+    "provenance_security": "pass",
+    "rerun_safety": "pass",
+    "semantic_equivalence": "pass"
+  },
+  "consumer_samples_per_second": 25.099816592034127,
+  "error": null,
+  "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p000-baseline-r1/evaluation.json",
+  "feasible": true,
+  "generation_llm_usage": {
+    "cached_input_tokens": 0,
+    "call_count": 1,
+    "estimated_cost_usd": 0.501605,
+    "input_tokens": 14575,
+    "output_tokens": 14291,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 3073,
+    "total_tokens": 28866
+  },
+  "materialization_seconds": 2.60394637499121,
+  "output_bytes": 181419147,
+  "phase": "baseline",
+  "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r1",
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r1",
+  "prompt_id": "p000",
+  "repair_attempts": 2,
+  "repetition": 1,
+  "schema_version": "gepa_memory_trial.v1",
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p000-baseline-r1/stage_a_run.json",
+  "status": "passed",
+  "trial_id": "p000-baseline-r1"
+}

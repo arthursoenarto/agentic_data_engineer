@@ -1,0 +1,161 @@
+{
+  "diagnostic_operational_metrics": {},
+  "eligible_operational_objectives": {},
+  "extensibility_probe": {
+    "deterministic_run_path": null,
+    "error": "The alternate-contract probe requires a feasible primary candidate.",
+    "feedback_code": "EXTENSIBILITY_BLOCKED_BY_CONSTRAINTS",
+    "fresh_output_succeeded": null,
+    "local_cache_and_oracle_valid": null,
+    "required": true,
+    "same_candidate_source": null,
+    "same_inventory": null,
+    "source_unchanged": null,
+    "status": "not_assessed",
+    "suite_path": null
+  },
+  "hard_constraints": {
+    "contract_correctness": {
+      "checks": [
+        {
+          "check_id": "contract.grounding",
+          "feedback_code": "CONTRACT_GROUNDING_VALID",
+          "status": "pass",
+          "summary": "Contract lock, inventory, mappings, suite inputs, and controlled command are grounded."
+        },
+        {
+          "check_id": "contract.reference_integrity",
+          "feedback_code": "REFERENCE_VALID",
+          "status": "pass",
+          "summary": "The frozen independent Zarr oracle is complete and block-readable."
+        },
+        {
+          "check_id": "contract.initial_execution",
+          "feedback_code": "INITIAL_EXECUTION_VALID",
+          "status": "pass",
+          "summary": "The evaluator-controlled initial materialization succeeded."
+        },
+        {
+          "check_id": "contract.zarr_integrity",
+          "feedback_code": "ZARR_INTEGRITY_FAILED",
+          "status": "fail",
+          "summary": "Candidate output is outside the supported class or failed Zarr validation."
+        },
+        {
+          "check_id": "contract.zarr_output_policy",
+          "feedback_code": "ZARR_OUTPUT_POLICY_BLOCKED",
+          "status": "not_assessed",
+          "summary": "The Zarr output policy requires a valid mapped candidate store."
+        }
+      ],
+      "status": "fail"
+    },
+    "provenance_security": {
+      "checks": [
+        {
+          "check_id": "security.execution_isolation",
+          "feedback_code": "EXECUTION_ISOLATION_VALID",
+          "status": "pass",
+          "summary": "All candidate executions were network-disabled, read-only outside evaluator-owned writable roots, and secret-free by construction."
+        },
+        {
+          "check_id": "provenance.identities",
+          "feedback_code": "PROVENANCE_IDENTITIES_MISSING",
+          "status": "not_assessed",
+          "summary": "Required provenance identities could not all be established."
+        },
+        {
+          "check_id": "provenance.trusted_inputs_unchanged",
+          "feedback_code": "TRUSTED_INPUTS_UNCHANGED",
+          "status": "pass",
+          "summary": "Frozen suite inputs and evaluator source remained unchanged during execution."
+        },
+        {
+          "check_id": "provenance.candidate_claims",
+          "feedback_code": "CANDIDATE_CLAIMS_VALID",
+          "status": "pass",
+          "summary": "Candidate-authored manifest and pipeline-contract claims are linked and consistent."
+        },
+        {
+          "check_id": "provenance.receipt.initial",
+          "feedback_code": "RECEIPT_VALID",
+          "status": "pass",
+          "summary": "The initial receipt has valid linked identities."
+        },
+        {
+          "check_id": "provenance.receipt.rerun",
+          "feedback_code": "RECEIPT_VALID",
+          "status": "pass",
+          "summary": "The rerun receipt has valid linked identities."
+        },
+        {
+          "check_id": "security.secret_scan",
+          "feedback_code": "SECRET_SCAN_CLEAN",
+          "status": "pass",
+          "summary": "Candidate sources, output metadata, receipts, and logs contain no detected secrets."
+        }
+      ],
+      "status": "not_assessed"
+    },
+    "rerun_safety": {
+      "checks": [
+        {
+          "check_id": "rerun.execution",
+          "feedback_code": "RERUN_EXECUTION_VALID",
+          "status": "pass",
+          "summary": "The exact controlled rerun succeeded."
+        },
+        {
+          "check_id": "rerun.logical_equivalence",
+          "feedback_code": "RERUN_OUTPUT_INVALID",
+          "status": "fail",
+          "summary": "Both outputs must be valid Zarr grids before fingerprint comparison."
+        }
+      ],
+      "status": "fail"
+    },
+    "semantic_equivalence": {
+      "checks": [
+        {
+          "check_id": "semantic.native_values_and_missingness",
+          "feedback_code": "SEMANTIC_BLOCKED_BY_STRUCTURE",
+          "status": "not_assessed",
+          "summary": "Semantic comparison requires valid candidate and reference grids."
+        }
+      ],
+      "status": "not_assessed"
+    }
+  },
+  "rerun_timings": {
+    "initial": {
+      "execution_seconds": 2.8528137499961304,
+      "setup_seconds": 0.13892687500629108,
+      "total_seconds": 3.004744457997731,
+      "validation_seconds": 0.007623042009072378
+    },
+    "rerun": {
+      "execution_seconds": 2.772196542005986,
+      "setup_seconds": 0.12875187500321772,
+      "total_seconds": 2.912829334003618,
+      "validation_seconds": 0.007378666996373795
+    }
+  },
+  "resource_diagnostics": {
+    "initial": {
+      "peak_rss_bytes": 1638858752,
+      "read_bytes": null,
+      "sample_interval_seconds": 0.05,
+      "system_cpu_seconds": 0.887764608,
+      "user_cpu_seconds": 3.501768448,
+      "write_bytes": null
+    },
+    "rerun": {
+      "peak_rss_bytes": 1661075456,
+      "read_bytes": null,
+      "sample_interval_seconds": 0.05,
+      "system_cpu_seconds": 0.839273472,
+      "user_cpu_seconds": 3.459835392,
+      "write_bytes": null
+    }
+  }
+}

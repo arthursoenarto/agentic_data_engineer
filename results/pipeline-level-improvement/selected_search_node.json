@@ -1,0 +1,50 @@
+{
+  "archive_ids": [
+    "node_0003",
+    "node_0007",
+    "node_0010",
+    "node_0011",
+    "node_0012",
+    "node_0013",
+    "node_0018"
+  ],
+  "rule": "maximum throughput on final Pareto archive; footprint tie-break",
+  "schema_version": "pipeline_pareto_selected_node.v1",
+  "selected": {
+    "admitted_to_archive": true,
+    "branch_id": null,
+    "candidate_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0003/candidate",
+    "completed_at": "2026-09-07T21:06:46.361734Z",
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "created_at": "2026-09-07T21:05:41.622496Z",
+    "depth": 3,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0003/search_measurement.json",
+    "evaluation_seconds": 12.977827709000849,
+    "failure": null,
+    "iteration": 3,
+    "node_id": "node_0003",
+    "objective": {
+      "consumer_samples_per_second": 209.71910695278441,
+      "materialization_seconds": 2.9956199579974054,
+      "output_bytes": 348881582,
+      "q_engineering": null
+    },
+    "objective_changes": {
+      "consumer_samples_per_second": 2.7450333592084566,
+      "output_bytes": -1.1587185813526157
+    },
+    "optimization_ready": true,
+    "parent_id": "node_0002",
+    "parent_relation": "tradeoff",
+    "phase": "pareto_archive",
+    "policy_reason": "Admitted as a non-dominated tradeoff.",
+    "proposal_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0003/proposal.json",
+    "schema_version": "pipeline_search_node.v1",
+    "status": "optimization_ready"
+  }
+}

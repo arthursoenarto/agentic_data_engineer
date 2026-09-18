@@ -1,0 +1,101 @@
+{
+  "created_at": "2026-09-07T01:42:49.686559+00:00",
+  "datasets": [
+    {
+      "dataset_slug": "reanalysis_era5_pressure_levels",
+      "display_name": "ERA5 pressure levels",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "development",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    },
+    {
+      "dataset_slug": "openaq_v3",
+      "display_name": "OpenAQ",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "development",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    },
+    {
+      "dataset_slug": "cams_eac4",
+      "display_name": "CAMS EAC4",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "held_out",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    },
+    {
+      "dataset_slug": "noaa_oisst_v21",
+      "display_name": "NOAA OISST v2.1",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "held_out",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    },
+    {
+      "dataset_slug": "noaa_ghcn_daily",
+      "display_name": "NOAA GHCN-Daily",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "held_out",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    },
+    {
+      "dataset_slug": "usgs_daily_water",
+      "display_name": "USGS Daily Values",
+      "failures": [],
+      "mean_mandatory_check_recall": 1.0,
+      "planning_complete_runs": 3,
+      "role": "held_out",
+      "successful_runs": 3,
+      "total_runs": 3,
+      "unresolved_gap_runs": 0
+    }
+  ],
+  "development_success_rate": 1.0,
+  "executable_suite_ready_note": "Always false before a generated candidate, physical mappings, and frozen oracle are bound. E1 evaluates planning_complete instead.",
+  "experiment_id": "e1_specification_evaluation_coverage_20260907_v2",
+  "held_out_success_rate": 1.0,
+  "llm_usage": {
+    "cached_input_tokens": 55296,
+    "call_count": 36,
+    "estimated_cost_usd": 2.952053,
+    "input_tokens": 236533,
+    "output_tokens": 67274,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 26678,
+    "total_tokens": 303807
+  },
+  "model": "gpt-5.5",
+  "runs": 18,
+  "schema_version": "e1_summary.v1",
+  "successful_runs": 18
+}

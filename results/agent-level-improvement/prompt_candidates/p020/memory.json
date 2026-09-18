@@ -1,0 +1,48 @@
+{
+  "schema_version": "gepa_prompt_memory.v1",
+  "memory_id": "memory-p020",
+  "parent_memory_id": "memory-p010",
+  "lessons": [
+    {
+      "lesson_id": "lesson_b210312a8a4b",
+      "trigger": "When optimizing ERA5 regular-grid Zarr for tensor_loading.v1 full-field C,H,W reads.",
+      "recommendation": "Use explicit sample-access-aligned chunks: one time sample and one selector plane per chunk, with the full selected latitude and longitude extents, while preserving all dimensions and channels.",
+      "scope": "Regular-grid Zarr v3 pipelines with full-field tensor consumer workloads.",
+      "evidence": "The feasible parent passed all constraints but measured 30.9009 consumer_samples_per_second with 197 chunk objects for 28 samples and 3 channels; the workload read shuffled full C,H,W tensors.",
+      "caveat": "This trajectory contains no measured alternate layout, so the chunking recommendation is a plausible engineering hypothesis rather than proven causation.",
+      "origin_candidate_id": "p001",
+      "origin_iteration": 1
+    },
+    {
+      "lesson_id": "lesson_b0d869123521",
+      "trigger": "When optimizing footprint for ERA5 regular-grid Zarr where diagnostics separate chunk and metadata bytes.",
+      "recommendation": "Target explicit deterministic lossless compression of data chunks before metadata tweaks, because the measured footprint is almost entirely chunk payload. Keep semantic content and artifact declarations unchanged.",
+      "scope": "Regular-grid Zarr v3 pipelines with decoded float32 ERA5 pressure-level arrays and consolidated metadata.",
+      "evidence": "The feasible parent passed all hard constraints with output_bytes 175,189,531; diagnostics reported chunk_bytes 175,164,494 and metadata_bytes 25,037.",
+      "caveat": "This identifies where bytes are concentrated in one trajectory; it does not prove that any specific compressor or level will reduce bytes on every fixture.",
+      "origin_candidate_id": "p002",
+      "origin_iteration": 2
+    },
+    {
+      "lesson_id": "lesson_1b1592ee6bb0",
+      "trigger": "When optimizing footprint for ERA5 pressure-level regular-grid Zarr after the sample-aligned full-spatial chunk layout is already feasible.",
+      "recommendation": "Prefer high-strength lossless Blosc-Zstd with bitshuffle for float32 data chunks before considering throughput-biased codecs; preserve the validated chunk topology and artifact declarations.",
+      "scope": "ERA5 pressure-level Zarr v3 pipelines for tensor_loading.v1 full-field C,H,W reads with decoded float32 arrays.",
+      "evidence": "Measured feasible trajectories: Blosc-Zstd clevel 7 bitshuffle output_bytes 108,202,642; Blosc-Zstd clevel 3 about 111,163,324; LZ4 bitshuffle about 128,426,256; LZ4/shuffle about 168.8 MB; uncompressed about 348.9 MB. All cited feasible runs passed hard constraints.",
+      "caveat": "These are single noisy trajectory measurements on one fixture and do not prove the codec caused every byte difference or that clevel 7/9 is always optimal.",
+      "origin_candidate_id": "p010",
+      "origin_iteration": 10
+    },
+    {
+      "lesson_id": "lesson_508a27398fb2",
+      "trigger": "When optimizing ERA5 pressure-level Zarr jointly for full-field C,H,W tensor reads after per-channel Blosc-Zstd clevel=9 bitshuffle is feasible.",
+      "recommendation": "Consider grouping requested pressure-level channels that share the same native variable into one native-variable data array with a real selected pressure-level dimension, selector chunk size 1, and explicit per-channel artifact selectors; keep the strong lossless codec and publish only requested planes.",
+      "scope": "ERA5 pressure-level regular-grid Zarr v3 pipelines for tensor_loading.v1 with decoded float32 arrays and selected pressure-level channels.",
+      "evidence": "Feasible p010 measured 56.0989 samples/s and 104,831,028 bytes with per-channel arrays. Feasible grouped compressed p014 measured 56.4772 samples/s and 104,818,741 bytes; p018 measured 56.3243 samples/s and 104,826,039 bytes. All cited runs passed hard constraints.",
+      "caveat": "The improvements are small and come from noisy single-run trajectories; they suggest a useful bounded mutation but do not prove grouping caused the measured differences or will always improve both objectives.",
+      "origin_candidate_id": "p020",
+      "origin_iteration": 20
+    }
+  ],
+  "created_at": "2026-09-08T05:14:28.042640+00:00"
+}

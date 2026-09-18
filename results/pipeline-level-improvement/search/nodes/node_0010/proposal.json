@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "30d5fcaaa8ff397d6f9516ceb34c968c8a3d95840c8593ea16306c13b8d452d9",
+  "parent_source_sha256": "6aace65d4d4e5769c2fb5c4103c47e9659915dd0abeef92e463afd654e78c9c7",
+  "proposal": {
+    "title": "Use larger Blosc compression blocks for smaller data chunks",
+    "hypothesis": "Operational evidence shows Zarr metadata is 0.0% of measured output bytes and the measured materialization path is cache-hit only, so footprint gains must come from lossless data-chunk encoding rather than provider/cache or metadata changes. If the existing Blosc bitshuffle+Zstd codec keeps the same chunk layout and compression level but uses a larger 1 MiB Blosc block size, Zstd should see longer bitshuffled byte streams from smooth float32 ERA5 fields within each chunk and reduce chunk payload bytes while preserving all frozen array paths, dimensions, coordinates, selector paths, Zarr v3 consolidated policy, validation, provenance, rerun behavior, dependencies, and semantic values.",
+    "target_objectives": [
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Larger compression blocks may modestly increase encode/decode CPU time and could slightly affect materialization_seconds or consumer_samples_per_second, but the experiment targets only output_bytes. Memory impact should remain small relative to the current full-field chunk sizes.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='zstd', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='zstd', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4, blocksize=1024 * 1024),)",
+        "rationale": "Adds an explicit 1 MiB Blosc block size to the existing lossless codec so compression operates over larger bitshuffled blocks, targeting chunk payload bytes without changing layout, names, validation, or dependencies."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare the multi-objective vector, with primary attention to output_bytes. Confirm contract_correctness, semantic_equivalence, rerun_safety, and provenance_security remain passing and that frozen array paths, coordinates, selector dimensions, and consolidated Zarr v3 output are unchanged."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 14006,
+    "cached_input_tokens": 1792,
+    "output_tokens": 2018,
+    "reasoning_tokens": 1552,
+    "total_tokens": 16024,
+    "estimated_cost_usd": 0.122506,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

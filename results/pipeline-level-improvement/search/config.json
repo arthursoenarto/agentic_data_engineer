@@ -1,0 +1,66 @@
+{
+  "schema_version": "pipeline_self_improvement_config.v1",
+  "run_id": "si-era5-tensor-pareto-20-v3-20260907",
+  "dataset_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace",
+  "root_candidate_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907",
+  "base_suite": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/suites/pipeline-era5-pareto-baseline-r1-20260907.json",
+  "strategy": "pareto_archive",
+  "max_iterations": 20,
+  "max_wall_time_seconds": 10800,
+  "operational_repetitions": 1,
+  "stagnation_patience": 2,
+  "branch_width": 2,
+  "max_edits_per_proposal": 3,
+  "pareto_objectives": [
+    "consumer_samples_per_second",
+    "output_bytes"
+  ],
+  "proposal_focus_allocation": {
+    "throughput": 10,
+    "footprint": 5,
+    "joint": 5
+  },
+  "parent_selection_seed": 20260907,
+  "proposal_objective_cycle": [
+    [
+      "materialization_seconds",
+      "consumer_samples_per_second"
+    ],
+    [
+      "output_bytes"
+    ],
+    [
+      "materialization_seconds"
+    ],
+    [
+      "q_engineering"
+    ],
+    [
+      "consumer_samples_per_second"
+    ]
+  ],
+  "max_documentation_proposals": 0,
+  "proposal_novelty_threshold": 0.72,
+  "proposal_history_mode": "full",
+  "llm_model": "gpt-5.5",
+  "llm_timeout_seconds": 900,
+  "require_extensibility_probe": false,
+  "tolerances": {
+    "materialization_seconds": {
+      "relative": 0.05,
+      "absolute": 0.05
+    },
+    "consumer_samples_per_second": {
+      "relative": 0.05,
+      "absolute": 1.0
+    },
+    "output_bytes": {
+      "relative": 0.005,
+      "absolute": 65536.0
+    },
+    "q_engineering": {
+      "relative": 0.0,
+      "absolute": 0.1
+    }
+  }
+}

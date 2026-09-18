@@ -1,0 +1,66 @@
+{
+  "condition": "naive_llm",
+  "consumer_samples_per_second": 50.81810340152411,
+  "error": null,
+  "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/evaluations/naive-direct/evaluation.json",
+  "feasible": true,
+  "generated_tests": {
+    "evidence": {
+      "status": "disabled"
+    },
+    "feedback_code": "GENERATED_TESTS_PASSED",
+    "status": "pass",
+    "summary": "Generated diagnostic tests passed."
+  },
+  "generation_llm_usage": {
+    "cached_input_tokens": 0,
+    "call_count": 1,
+    "estimated_cost_usd": 0.366435,
+    "input_tokens": 14103,
+    "output_tokens": 9864,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 4142,
+    "total_tokens": 23967
+  },
+  "hard_gates": {
+    "contract_correctness": "pass",
+    "provenance_security": "pass",
+    "rerun_safety": "pass",
+    "semantic_equivalence": "pass"
+  },
+  "label": "Naive Direct",
+  "llm_cost_usd": {
+    "engineering_judge": 0.182475,
+    "generation": 0.366435,
+    "repairs": 0.15041,
+    "total_measured": 0.6993199999999999
+  },
+  "materialization_seconds": 2.019795292057097,
+  "mismatch_count": 0,
+  "objective_vector_complete": true,
+  "optimization_ready": true,
+  "output_bytes": 175177300,
+  "pipeline_id": "pipeline-naive-direct-workload-v9-matched-20260906",
+  "prompt_hashes": {
+    "system": "1e04e4cbd4584cefa0f5ae3da8e4fd54169cb3cd1cf5abe0e02c547282deb656",
+    "user": "830ab22fbcbcda928a448ff0f776c0e0221ed6bcd62b3474f721d89f6273903c"
+  },
+  "prompt_id": "naive-family-v2-frozen",
+  "q_engineering": 2.0,
+  "repair_attempts": 1,
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/workspace/runs/stage_a/stage-a-naive-direct-workload-v9-matched-20260906/stage_a_run.json",
+  "status": "passed",
+  "values_compared": 87212160
+}

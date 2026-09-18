@@ -1,0 +1,100 @@
+{
+  "cache": {
+    "acquired": 0,
+    "acquired_keys": [],
+    "cache_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/inputs/cache",
+    "hits": 2,
+    "misses": 0,
+    "notes": [],
+    "reused_keys": [
+      "fixture:temperature:eec8fa73209cd07b:116288928",
+      "fixture:geopotential:b26a549498e76315:58144464"
+    ]
+  },
+  "command": [
+    "<REPOSITORY_ROOT>/tmp/venvs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p004-search-r1/bin/python",
+    "run_pipeline.py",
+    "--contract",
+    "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/inputs/contract.lock.json",
+    "--inventory",
+    "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/inputs/inventory.json",
+    "--cache-dir",
+    "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/inputs/cache",
+    "--output-dir",
+    "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/initial_writable/output",
+    "--run-receipt",
+    "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/initial_writable/pipeline_run.json"
+  ],
+  "completed_at": "2026-09-08T03:59:30.042697+00:00",
+  "contract_lock_hash": "342de7fac172907070d18cb9785e2c4b60489fe691238786d55c228e12b54d69",
+  "dataset_artifact": {
+    "channels": [
+      {
+        "array_path": "temperature",
+        "field_id": "temperature[pressure_level=\"500\"]",
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__temperature"
+        },
+        "selectors": {
+          "pressure_level": "500"
+        }
+      },
+      {
+        "array_path": "temperature",
+        "field_id": "temperature[pressure_level=\"850\"]",
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__temperature"
+        },
+        "selectors": {
+          "pressure_level": "850"
+        }
+      },
+      {
+        "array_path": "geopotential",
+        "field_id": "geopotential[pressure_level=\"500\"]",
+        "selector_coordinate_paths": {
+          "pressure_level": "pressure_level__geopotential"
+        },
+        "selectors": {
+          "pressure_level": "500"
+        }
+      }
+    ],
+    "coordinates": {
+      "sample": "time",
+      "x": "longitude",
+      "y": "latitude"
+    },
+    "dimensions": {
+      "sample": "time",
+      "x": "longitude",
+      "y": "latitude"
+    },
+    "schema_version": "dataset_artifact_layout.v1",
+    "storage_format": "zarr",
+    "store_path": "era5_pressure_levels.zarr"
+  },
+  "diagnostics": [],
+  "duration_seconds": 4.98438508300751,
+  "exit_code": 0,
+  "final_status": "succeeded",
+  "inventory_hash": "7cc09995d907e537e117989c85665c5d58a8c6ae901a7cd0fc1223a64d2e15ca",
+  "manifest_hash": "6667913f13d5cb45bb64f3bec5c6571b537de7811e1c6039d3d2f30ea6e6d234",
+  "outputs": [
+    {
+      "artifact_id": "reanalysis_era5_pressure_levels_dataset",
+      "file_count": 101,
+      "path": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p004-search-r1/materializations/initial/initial_writable/output",
+      "sha256": "14e2e7bd04298d6b9a96e5ee4b1bb6b908cc0d9d0e7b36df17f3d2a234d44726",
+      "size_bytes": 111163324,
+      "storage_format": "zarr"
+    }
+  ],
+  "pipeline_contract_hash": "17172c3034863afacf22eabd0a7fac5d8cdf9795212e384a1e7fa1fb7912507f",
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p004-search-r1",
+  "repair_run_reference": null,
+  "run_id": "initial_writable",
+  "schema_version": "etl_pipeline_run.v1",
+  "started_at": "2026-09-08T03:59:25.059017+00:00",
+  "warnings": []
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "offline_fixture_access_probe.v1",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "provider": "ECMWF",
+  "access_method": "immutable_local_fixture_replay",
+  "fixture_manifest_path": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1/source_fixture_manifest.json",
+  "fixture_manifest_sha256": "e5e9533b17138fd61e216d781ac2e6aabc95895c124e8936ce0def2a0139ccd7",
+  "credential_references": [
+    "CDSAPI_KEY",
+    "CDSAPI_URL"
+  ],
+  "provider_network_enabled": false,
+  "inventory_source_path": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/dataset_inventory.json",
+  "inventory_sha256": "ead7da894193ccccc308655589ab56c9849e85be673cdf7f391c89d99af03b20"
+}

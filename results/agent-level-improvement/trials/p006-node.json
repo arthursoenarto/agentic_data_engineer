@@ -1,0 +1,60 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T04:12:13.527658+00:00",
+  "depth": 4,
+  "failure": null,
+  "focus": "footprint",
+  "hypothesis": "If the generated ERA5 pressure-level Zarr pipeline preserves the validated one-time, one-selector-plane, full-latitude/full-longitude chunk topology and fixed artifact schema, but changes the explicit data-array codec from read-speed-biased Blosc-LZ4 clevel 1 shuffle to a footprint-oriented lossless Zarr v3-compatible Blosc-Zstd configuration such as clevel 7 with bitshuffle or shuffle, then output_bytes may decrease because measured footprint is dominated by compressed chunk payload bytes and a prior feasible footprint trajectory measured substantially lower bytes. This should preserve exact semantic equivalence because the change is confined to lossless chunk encoding.",
+  "iteration": 6,
+  "memory_lesson_count": 4,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p006/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p006.json",
+  "objective": null,
+  "parent_prompt_id": "p003",
+  "policy_reason": "Candidate failed search eligibility; archive retained.",
+  "prompt_id": "p006",
+  "reflection": "The current parent is feasible and passes all hard constraints, but it is a throughput-oriented LZ4/shuffle Zarr v3 trajectory with output_bytes 168,822,158. The scheduled slot is footprint only, so the prompt should stop optimizing read speed and instead target lossless chunk payload compression while preserving the already-validated full-field tensor chunk topology, artifact schema, consolidated Zarr v3 policy, exact semantic equivalence, fixture-only execution, and deterministic publication. Prior feasible footprint-oriented nodes using the same broad layout family measured much smaller output_bytes, especially p002 at 108,202,642, while p004 with a weaker/balanced setting measured 111,163,324. The bounded mutation is therefore to replace the throughput codec preference with explicit strong deterministic lossless compression for data chunks, preferably Blosc-Zstd at a high but practical compression level with bitshuffle/shuffle for float32, without changing rows, fields, dimensions, coordinates, channel declarations, or publication policy.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:06:34.124538+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "output_bytes"
+  ],
+  "trial": {
+    "error": null,
+    "evaluation_report": null,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.502505,
+      "input_tokens": 16489,
+      "output_tokens": 14002,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 2767,
+      "total_tokens": 30491
+    },
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p006-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p006-search-r1",
+    "prompt_id": "p006",
+    "repair_attempts": 3,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p006-search-r1/stage_a_run.json",
+    "status": "failed",
+    "trial_id": "p006-search-r1"
+  }
+}

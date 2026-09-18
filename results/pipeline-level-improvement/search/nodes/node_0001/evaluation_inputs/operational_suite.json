@@ -1,0 +1,275 @@
+{
+  "schema_version": "evaluation_constrained.regular_grid_zarr.v2",
+  "suite_id": "era5_pipeline_pareto_tensor_v1_pipeline-era5-pareto-baseline-r1-20260907__node_0001",
+  "suite_version": "1.0.0",
+  "candidate_id": "pipeline-era5-pareto-baseline-r1-20260907",
+  "description": "Pipeline-level Pareto search on the frozen seven-day global ERA5 task.",
+  "contract_lock": {
+    "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+    "sha256": "342de7fac172907070d18cb9785e2c4b60489fe691238786d55c228e12b54d69"
+  },
+  "inventory": {
+    "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/dataset_inventory.json",
+    "sha256": "7cc09995d907e537e117989c85665c5d58a8c6ae901a7cd0fc1223a64d2e15ca"
+  },
+  "candidate_source": {
+    "cwd": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate",
+    "paths": [
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/pipeline_impl.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/pyproject.toml",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/README.md",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/tests/test_pipeline_impl.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/run_pipeline.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/pipeline_contract.json"
+    ],
+    "sha256": "4be98cd598f89b6b65cd269d10cad6fead981f807651dfb0e4418ebf34dbb2ee"
+  },
+  "execution": {
+    "command": [
+      "python",
+      "run_pipeline.py",
+      "--contract",
+      "{contract_lock_json}",
+      "--inventory",
+      "{dataset_inventory_json}",
+      "--cache-dir",
+      "{cache_dir}",
+      "--output-dir",
+      "{output_dir}",
+      "--run-receipt",
+      "{pipeline_run_json}"
+    ],
+    "timeout_seconds": 3600.0,
+    "pipeline_contract": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/pipeline_contract.json",
+      "sha256": "b83810de89cc82f68d3e115ba5aee3fb1b60f06a7f0f6ff1ea8e25eada336685"
+    },
+    "manifest": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/self_improvement/si-era5-tensor-pareto-20-v3-20260907/nodes/node_0001/candidate/manifest.json",
+      "sha256": "7eda6982c1a054faa9236cb0c2fabce2a230f266668ce85715678c23d1428486"
+    },
+    "frozen_cache": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v1/workspace/pipelines/pipeline-era5-pareto-baseline-r1-20260907/acceptance/acceptance_20260907T204010104211Z/frozen_cache",
+      "sha256": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51"
+    },
+    "python_executable": "<REPOSITORY_ROOT>/tmp/venvs/stage_a/stage-a-era5-pareto-baseline-r1-20260907/bin/python"
+  },
+  "reference": {
+    "artifact": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+      "sha256": "b2cedac1a4ffb5ad1cf62f31ce48308dc0307f3de82d301947bcb7b6c58c8282"
+    },
+    "content_id": "sha256:b2cedac1a4ffb5ad1cf62f31ce48308dc0307f3de82d301947bcb7b6c58c8282",
+    "provenance": "Derived independently from the frozen handwritten TerraIO January 2024 materialization using prepare_inputs.py."
+  },
+  "grid": {
+    "dataset_class": "regular_rectilinear_grid",
+    "output_format": "zarr",
+    "expected_shape": {
+      "sample": 28,
+      "y": 721,
+      "x": 1440
+    },
+    "candidate_grid": {
+      "dimensions": {
+        "sample": "time",
+        "y": "latitude",
+        "x": "longitude"
+      },
+      "sample_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "time",
+        "normalization": "cf_datetime_ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": null,
+        "expected_step_seconds": 21600.0
+      },
+      "y_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "latitude",
+        "normalization": "ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      },
+      "x_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "longitude",
+        "normalization": "longitude_modulo_360",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      }
+    },
+    "reference_grid": {
+      "dimensions": {
+        "sample": "sample",
+        "y": "y",
+        "x": "x"
+      },
+      "sample_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "sample",
+        "normalization": "cf_datetime_ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": null,
+        "expected_step_seconds": 21600.0
+      },
+      "y_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "y",
+        "normalization": "ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      },
+      "x_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "x",
+        "normalization": "longitude_modulo_360",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      }
+    },
+    "channels": [
+      {
+        "field_id": "temperature[pressure_level=\"500\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "temperature_pressure_level_500",
+          "selectors": {
+            "pressure_level": "500"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__temperature_pressure_level_500"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "temperature_pl_500",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      },
+      {
+        "field_id": "temperature[pressure_level=\"850\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "temperature_pressure_level_850",
+          "selectors": {
+            "pressure_level": "850"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__temperature_pressure_level_850"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "temperature_pl_850",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      },
+      {
+        "field_id": "geopotential[pressure_level=\"500\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "geopotential_pressure_level_500",
+          "selectors": {
+            "pressure_level": "500"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__geopotential_pressure_level_500"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "geopotential_pl_500",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      }
+    ]
+  },
+  "comparison": {
+    "coordinates_atol": 0.0,
+    "value_policy": {
+      "atol": 0.0,
+      "rtol": 0.0,
+      "equal_nan": true,
+      "missing_values": []
+    },
+    "max_block_bytes": 16777216,
+    "mismatch_examples": 8
+  },
+  "workload": {
+    "kind": "full_field_tensor",
+    "protocol": "tensor_loading.v1",
+    "tensor_layout": "C,H,W",
+    "dtype": "float32",
+    "access_pattern": "shuffled",
+    "cache_mode": "warm",
+    "warmup_passes": 1,
+    "repetitions": 5,
+    "max_samples": 28,
+    "seed": 20260907
+  },
+  "security": {
+    "secret_environment_variables": [
+      "CDSAPI_KEY",
+      "CDS_PERSONAL_ACCESS_TOKEN",
+      "CDS_API_TOKEN",
+      "OPENAI_API_KEY"
+    ],
+    "max_text_file_bytes": 1000000
+  },
+  "output_policy": {
+    "schema_version": "regular_grid_zarr_output_policy.v1",
+    "dataset_class": "regular_rectilinear_grid",
+    "format_version": 3,
+    "consolidated_metadata": true,
+    "coordinate_metadata": {
+      "sample": {},
+      "y": {},
+      "x": {}
+    },
+    "open_latency_repetitions": 5
+  }
+}

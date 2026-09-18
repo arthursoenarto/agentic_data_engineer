@@ -1,0 +1,14 @@
+{
+  "error": "JSONDecodeError: Unterminated string starting at: line 19 column 18 (char 36407)",
+  "evaluation_report": null,
+  "phase": "search",
+  "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1",
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1",
+  "prompt_id": "p012",
+  "repair_attempts": 0,
+  "repetition": 1,
+  "schema_version": "gepa_memory_trial.v1",
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p012-search-r1/stage_a_run.json",
+  "status": "failed",
+  "trial_id": "p012-search-r1"
+}

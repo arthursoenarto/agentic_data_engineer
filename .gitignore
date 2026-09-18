@@ -6,12 +6,14 @@ thesis/
 skills/
 test/
 tmp/
-.DS_Store
 
 # Keep GitHub documentation minimal. Prompt Markdown is executable input.
 *.md
 !/README.md
 !backend/**/prompts/**/*.md
+!/results/
+!/results/**
+.DS_Store
 node_modules/
 .next/
 out/

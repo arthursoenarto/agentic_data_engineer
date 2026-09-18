@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "810506a0e565860ca1644a35dbe6ef2e4bbdae4f26d80fe87f565de464241de6",
+  "parent_source_sha256": "cae28b8e79e94f13cf9512cc2558c88a69aa959dddcd24b418eafb70f13db1e9",
+  "proposal": {
+    "title": "Use BloscLZ for lower-overhead warm full-field chunk reads",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, and provider/cache changes cannot improve consumer_samples_per_second. With one-sample full-field chunks, each sample read currently decodes three large Blosc LZ4 chunks with no shuffle. If the codec switches to BloscLZ at a low compression level while preserving the same chunk layout, array paths, dimensions, selector coordinates, validation, provenance, dependency set, rerun behavior, and Zarr v3 consolidated publication, the Blosc fast-path codec may reduce decompression dispatch and back-reference work per full-field sample, increasing consumer_samples_per_second.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output bytes may increase because BloscLZ at low compression can be less compact than LZ4 level 5, and materialization time may change modestly with the different encoder. The intended measured gain is higher warm-cache consumer throughput without changing semantics or public interfaces.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=5, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='blosclz', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "rationale": "Changes only the lossless data-chunk codec to a low-overhead Blosc codec for the warm full-field read path while preserving chunk shape, names, coordinates, selectors, store policy, validation, and dependencies."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and require contract correctness, semantic equivalence, rerun safety, and provenance/security to remain passing. Compare the reported consumer_samples_per_second against the current 109.06 samples/s while monitoring output_bytes and materialization_seconds as tradeoffs."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 16884,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1719,
+    "reasoning_tokens": 1262,
+    "total_tokens": 18603,
+    "estimated_cost_usd": 0.127926,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "5a76aeb6e67ba44672c044116a0d6cf80aece1615263cfaa210ac30bb0b8f48e",
+  "parent_source_sha256": "2b85bc89c52078ba39fbf530c45fd9631ac9a573636ac9f46df8ad8ff4fa4e4a",
+  "proposal": {
+    "title": "Disable CF fill-value masking metadata on fully written data chunks",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, while provider/cache changes cannot improve consumer_samples_per_second. The current uncompressed one-sample full-field chunks minimize decompression, so remaining read overhead can come from xarray's CF decode path checking float data against default missing-value metadata. If published data arrays explicitly omit _FillValue metadata while all chunks remain fully materialized and validation/array paths/dimensions/selectors stay unchanged, consumer reads should avoid per-chunk missing-value masking work and increase consumer_samples_per_second without changing semantic float values.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output bytes may change only by a few metadata bytes, and materialization time should be similar. This does not target compression ratio or provider acquisition; if the evaluator already bypasses CF mask checks, the throughput effect may be neutral.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n            }",
+        "new_text": "            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n                '_FillValue': None,\n            }",
+        "rationale": "Keeping fully written uncompressed chunks but suppressing default floating _FillValue metadata can reduce xarray/Zarr decode-side masking checks during warm full-field reads, without changing names, coordinates, selector dimensions, chunk layout, or values."
+      }
+    ],
+    "validation_plan": "Run the evaluator command unchanged. Confirm contract correctness, semantic equivalence, provenance/security, and rerun safety still pass; verify frozen Zarr v3 paths and selector coordinates remain unchanged; compare consumer_samples_per_second against the current 209.7 samples/s baseline."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 17644,
+    "cached_input_tokens": 1792,
+    "output_tokens": 3598,
+    "reasoning_tokens": 3106,
+    "total_tokens": 21242,
+    "estimated_cost_usd": 0.188096,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

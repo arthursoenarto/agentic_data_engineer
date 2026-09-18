@@ -1,0 +1,23 @@
+{
+  "schema_version": "pipeline_search_measurement.v1",
+  "node_id": "node_0009",
+  "full_evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/evaluations/self_improvement/si-era5-tensor-pareto-20-v3-20260907/node_0009/evaluation.json",
+  "operational_repetitions": [
+    {
+      "repetition": 1,
+      "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/pipeline_pareto_tensor_20260907_v3/workspace/runs/evaluations/self_improvement/si-era5-tensor-pareto-20-v3-20260907/node_0009/evaluation.json",
+      "objectives": {
+        "materialization_seconds": 2.826833125000121,
+        "output_bytes": 349365422,
+        "consumer_samples_per_second": 197.6989843487911
+      }
+    }
+  ],
+  "aggregate": "median",
+  "objective": {
+    "materialization_seconds": 2.826833125000121,
+    "consumer_samples_per_second": 197.6989843487911,
+    "output_bytes": 349365422,
+    "q_engineering": null
+  }
+}

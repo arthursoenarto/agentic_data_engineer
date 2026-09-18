@@ -1,0 +1,54 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "17130ca74a265f7a91d76213cd1af6a1caa34f95d6d3bc7c58b3c55d06faa31a",
+  "parent_source_sha256": "349586add7a3cf9039e4f88999740609c427c72f107efec11ffcaf2cd98e8530",
+  "proposal": {
+    "title": "Use byte-efficient Blosc bitshuffle with Zstd for data chunks",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access, and output bytes are almost entirely data chunks rather than metadata. If the existing one-sample full-field chunks are encoded with Blosc's lossless bitshuffle preconditioner plus Zstd instead of plain Zstd, smooth float32 ERA5 fields should compress to fewer chunk bytes while Blosc's blocked decode path and reduced compressed payload should improve per-sample read throughput. This preserves all frozen store paths, array names, dimensions, selector coordinates, Zarr v3 consolidated publication, validation, and semantic values.",
+    "target_objectives": [
+      "consumer_samples_per_second",
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Materialization time may increase slightly because bitshuffle adds preprocessing during writes, although Blosc's blocked compressor may offset some of that. Metadata size and object count should remain essentially unchanged.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "from zarr.codecs import ZstdCodec",
+        "new_text": "from zarr.codecs import BloscCodec, BloscShuffle",
+        "rationale": "Switches to Zarr's built-in Blosc codec wrapper without adding dependencies or changing the public pipeline interface."
+      },
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (ZstdCodec(level=6, checksum=False),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='zstd', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "rationale": "Applies a lossless bitshuffle preconditioner for float32 data chunks while retaining Zstd compression, targeting both smaller chunk payloads and faster warm-cache full-field reads."
+      }
+    ],
+    "validation_plan": "Run the frozen evaluator command unchanged. Confirm contract_correctness, semantic_equivalence, rerun_safety, and provenance_security remain passing; verify the Zarr store is still v3 consolidated with unchanged mapped array and coordinate paths; compare consumer_samples_per_second and output_bytes against node_0002."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 11617,
+    "cached_input_tokens": 1792,
+    "output_tokens": 2479,
+    "reasoning_tokens": 1994,
+    "total_tokens": 14096,
+    "estimated_cost_usd": 0.124391,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

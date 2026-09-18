@@ -1,0 +1,77 @@
+{
+  "alternate_contract": null,
+  "alternate_inputs_dir": null,
+  "alternate_suite_dir": null,
+  "candidate_cache": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1",
+  "command_timeout_seconds": 3600,
+  "condition": "expert_direct_llm",
+  "dataset_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/workspace",
+  "env_file": "<REPOSITORY_ROOT>/.env",
+  "evaluation_output_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/evaluations/expert-direct",
+  "evaluation_plan": null,
+  "evaluation_profile": null,
+  "extensibility_suite_builder": null,
+  "generation_prompt_override": {
+    "prompt_id": "expert-family-v9-workload-aware",
+    "schema_version": "generation_prompt_override.v1",
+    "system_prompt": "<REPOSITORY_ROOT>/backend/agents/etl_pipeline/prompts/shared/expert_family_v9_system.md",
+    "system_sha256": "4820036e2abe7a602a1065e35798af3c5b4dd526dfbcd58d196195805c709dba",
+    "user_prompt": "<REPOSITORY_ROOT>/backend/agents/etl_pipeline/prompts/shared/expert_family_v9_user.md",
+    "user_sha256": "7b377123e30062b48766917f560007da1dcf2246c20eec128fc2b98e7207efc0"
+  },
+  "inventory": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/dataset_inventory.json",
+  "linked_suite_dir": null,
+  "llm_timeout_seconds": 900,
+  "max_repair_attempts": 3,
+  "pipeline_id": "pipeline-expert-direct-workload-v9-matched-20260906",
+  "pipeline_policy": {
+    "acquisition_format": "grib",
+    "atomic_cache_publication": true,
+    "atomic_output_publication": true,
+    "cache_partitioning": [
+      "field",
+      "selectors",
+      "date"
+    ],
+    "data_model": "xarray_dataset",
+    "dataset_id": "reanalysis-era5-pressure-levels",
+    "implementation_constraints": {
+      "consumer_workload": {
+        "access_pattern": "shuffled_per_sample",
+        "cache_mode": "warm",
+        "dtype": "float32",
+        "kind": "full_field_tensor",
+        "sample_count": 28,
+        "tensor_layout": "C,H,W"
+      },
+      "objective_priority": [
+        "consumer_samples_per_second",
+        "output_bytes",
+        "materialization_seconds",
+        "q_engineering"
+      ]
+    },
+    "parquet": null,
+    "provider": "ECMWF",
+    "publication_format": "zarr",
+    "zarr": {
+      "consolidated_metadata": true,
+      "coordinate_metadata": {
+        "sample": {},
+        "x": {},
+        "y": {}
+      },
+      "dataset_class": "regular_rectilinear_grid",
+      "format_version": 3,
+      "schema_version": "regular_grid_zarr_output_policy.v1"
+    }
+  },
+  "primary_suite_builder": "<REPOSITORY_ROOT>/backend/scripts/build_accepted_regular_grid_suite.py",
+  "primary_suite_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/suites",
+  "primary_suite_spec": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/suite_spec.yaml",
+  "prompt_lock": null,
+  "repair_prompt_name": "default",
+  "schema_version": "stage_a_workflow_config.v1",
+  "seed_contract": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/inputs/contract_v1.lock.json",
+  "workflow_id": "stage-a-expert-direct-workload-v9-matched-20260906"
+}

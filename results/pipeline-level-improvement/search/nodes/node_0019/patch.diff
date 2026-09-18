@@ -1,0 +1,10 @@
+--- a/pipeline_impl.py
++++ b/pipeline_impl.py
+@@ -496,6 +496,7 @@
+             encoding[name] = {
+                 'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),
+                 'compressors': data_compressors,
++                '_FillValue': None,
+             }
+         for name in ds.coords:
+             encoding[name] = {}

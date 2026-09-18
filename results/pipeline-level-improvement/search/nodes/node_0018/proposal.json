@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "36b28db4af489b4e83c168c40fd907a1ac4b024c673ebfeabcc234e636da6ff6",
+  "parent_source_sha256": "33a224813c9359278fe3b924a404fa65f32a4676904e2eec5da337d1935648cc",
+  "proposal": {
+    "title": "Raise LZ4HC compression level for smaller Blosc chunks",
+    "hypothesis": "Operational evidence shows Zarr metadata is 0.0% of measured output bytes and the materialization path is cache-hit only, so footprint changes must target the lossless data-chunk encoder rather than metadata or provider acquisition. If the existing one-sample full-field chunks keep the same Blosc LZ4HC bitshuffle codec but raise LZ4HC compression effort from clevel=6 to clevel=9, the encoder should search harder for repeated byte patterns exposed by bitshuffle in smooth float32 ERA5 fields and reduce chunk payload bytes. This preserves frozen array paths, dimensions, coordinates, selector paths, store identity, validation, provenance, rerun behavior, dependencies, semantic values, and the public interface.",
+    "target_objectives": [
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Materialization may become slower and use slightly more CPU because LZ4HC level 9 performs more compression work. Consumer throughput may be similar or modestly lower/higher depending on compressed byte reduction versus unchanged LZ4 decode costs, but it is not the targeted objective.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4hc', clevel=6, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4hc', clevel=9, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "rationale": "Increase lossless LZ4HC encoder effort while keeping the same chunk layout, codec family, bitshuffle preconditioner, and public Zarr schema so any footprint change is attributable to compression level."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare the multi-objective vector, with primary attention to lower output_bytes. Confirm contract correctness, semantic equivalence, provenance/security, rerun safety, frozen channel mappings, consolidated Zarr v3 policy, and validation behavior remain passing."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 17276,
+    "cached_input_tokens": 1792,
+    "output_tokens": 959,
+    "reasoning_tokens": 495,
+    "total_tokens": 18235,
+    "estimated_cost_usd": 0.107086,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

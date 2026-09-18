@@ -1,0 +1,181 @@
+{
+  "created_at": "2026-09-07T01:31:37.042591+00:00",
+  "experiment_id": "e1_specification_evaluation_coverage_20260907_v2",
+  "files": [
+    {
+      "path": "backend/agents/evaluation_planning/agent.py",
+      "sha256": "87475fe6c95946c4760d14a681e16a98b3acb30d1484e0801e47575b5021f99f"
+    },
+    {
+      "path": "backend/agents/evaluation_planning/prompts/default_system.md",
+      "sha256": "159f04f18271d3d6afdac4fabf291b20d4e688f949bd80009a5c72c0020b233f"
+    },
+    {
+      "path": "backend/agents/evaluation_planning/prompts/default_user.md",
+      "sha256": "e32b6fb60d44dfce790d2362aee7931cb23262503647632a9f2e23065fb1681f"
+    },
+    {
+      "path": "backend/agents/evaluation_planning/schemas.py",
+      "sha256": "9e2b69ffa06f66d47f4d61beaf4f63033f3f97955ad4dc537990f876aefe853b"
+    },
+    {
+      "path": "backend/agents/intention_space/agent.py",
+      "sha256": "f77c2d4b5a70679e504cf43e8e1c3a1193f542d829ae12cdbfdd22af5cafeac7"
+    },
+    {
+      "path": "backend/agents/intention_space/prompts/e1_exact_system.md",
+      "sha256": "8ab0952c07370bef746a1a07ca62e7691aaf97779ef45990de8bdae7c9726cc0"
+    },
+    {
+      "path": "backend/agents/intention_space/prompts/e1_exact_user.md",
+      "sha256": "39a3348c0961fd5d742e10b3caa90c67f0c716922d51a75da31f52fdaf386b12"
+    },
+    {
+      "path": "backend/agents/intention_space/schemas.py",
+      "sha256": "fa00d63fe9d903c490472cb7e9a6291ba961229ad211a1e3ec196be345c3eca7"
+    },
+    {
+      "path": "backend/agents/intention_space/workflow.py",
+      "sha256": "27c7a822291480b2ef5d7906342f948d6c4ae417dd44c31f6c1bbf1d92c76048"
+    },
+    {
+      "path": "backend/evaluation/check_library.py",
+      "sha256": "e60ce1baef3f782d26cfc3539e8c025e1383dcadfec5d853dc6f711629032b6d"
+    },
+    {
+      "path": "backend/evaluation/check_promotion.py",
+      "sha256": "98fcb57453d721e10bb1a437110e29891b14fa56f930a3f302efa3f01b78038e"
+    },
+    {
+      "path": "backend/evaluation/planning.py",
+      "sha256": "65746261f28e17cf3c4c958f946eaf1260ea3cedda69fd1b70fe2e02f9b63bf7"
+    },
+    {
+      "path": "backend/experiments/e1_specification.py",
+      "sha256": "29da9b7e3911d1d8033a216869cdabab1e4b3bcdb31f26242da88b9da4765219"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/config.json",
+      "sha256": "b2d8b9237bc6d9724b581e7d30220b5e2a022e87ee4c25ff2b4807c805db3380"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/cams_eac4/expected.json",
+      "sha256": "bafdb51d9d29d0e4d4ebb41558828210c287cd473324d73155e16ee03000e45a"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/noaa_ghcn_daily/expected.json",
+      "sha256": "94d5da182028bfd4e57081befebd6e3a9a662545c1b01698853fcfacc51ac355"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/noaa_oisst_v21/expected.json",
+      "sha256": "bf6708f43b7bfc2c029257374860cf2b0a87d0098846924ba240e5dc5074be0d"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/openaq_v3/expected.json",
+      "sha256": "006622e143b2470b07a0ae9aece061ff9ef32abed7a2fd4dcd1aa3db5141a8ef"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/reanalysis_era5_pressure_levels/expected.json",
+      "sha256": "3db0d15080a147fa6731aff0f339a2f7942e8d224c9cf085fa65aad79f7d8860"
+    },
+    {
+      "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/references/usgs_daily_water/expected.json",
+      "sha256": "0b3b642c4f47d5342a428a2c2b57d5ac83d2453260114fe3735a4f011dfbc3a1"
+    },
+    {
+      "path": "project/datasets/cams_eac4/access_context.json",
+      "sha256": "cd25caa4914fa5b9031184cb4d8506628dad1380009aded30af21e931339050d"
+    },
+    {
+      "path": "project/datasets/cams_eac4/candidate.json",
+      "sha256": "a5ae2f82117cefcfa7b4ec2d82480875011cb2178c192f56498de3ceb614f677"
+    },
+    {
+      "path": "project/datasets/cams_eac4/contracts/contract_v3.lock.json",
+      "sha256": "48677bc1b8a4becb7ef1b5d94ba88c6df9f7e6974816ed9eae6dcf02a81cdc9c"
+    },
+    {
+      "path": "project/datasets/cams_eac4/data/source_fixtures/pilot_10mb_v3/source_fixture_manifest.json",
+      "sha256": "347dfeece09ce09103d341d78e96c6fc68737134c5a795dad41b3c5ecd7f02f8"
+    },
+    {
+      "path": "project/datasets/cams_eac4/dataset_inventory.json",
+      "sha256": "e2cf921c041fd55effa7295a004436f7bd680682548c27f17eaf0f51eabad776"
+    },
+    {
+      "path": "project/datasets/noaa_ghcn_daily/contracts/contract_v2.lock.json",
+      "sha256": "1eaf7ed9d1eae688c4cfca0b4fcadf8b51827d3ec6c24a840576d74c4a8ff8e2"
+    },
+    {
+      "path": "project/datasets/noaa_ghcn_daily/data/source_fixtures/pilot_10mb_v1/source_fixture_manifest.json",
+      "sha256": "d1df3839468f22bd684d7258125ab6a026a2faeba9ea268c49fa2d374212726f"
+    },
+    {
+      "path": "project/datasets/noaa_ghcn_daily/dataset_inventory.json",
+      "sha256": "849dced9230dc8b8b92711fe0bffd6a040743b8eee3c227e0bc67ee791c9fa5d"
+    },
+    {
+      "path": "project/datasets/noaa_oisst_v21/contracts/contract_v1.lock.json",
+      "sha256": "91d4dc0e4b8c765b5fac4d7847ebeec631b310ab75b9f37bb44b2afe821cd552"
+    },
+    {
+      "path": "project/datasets/noaa_oisst_v21/data/source_fixtures/pilot_10mb_v1/source_fixture_manifest.json",
+      "sha256": "2a623d9d556914275afffdbc095601c25cfb96f62940e141cd094011d0b0e257"
+    },
+    {
+      "path": "project/datasets/noaa_oisst_v21/dataset_inventory.json",
+      "sha256": "b19ef5435fe3ab7fc3c6d2b4a3b31d6ebc57c41aea574df44fa644383a1ea544"
+    },
+    {
+      "path": "project/datasets/openaq_v3/access_context.json",
+      "sha256": "c018018a1753551c8850048f559aaa8476afab4dab025f1e9d6c235e5e48f193"
+    },
+    {
+      "path": "project/datasets/openaq_v3/contracts/contract_v2.lock.json",
+      "sha256": "791a7bcf97376642535ff939725c64d537172a9bdbb5b3193fdce3dc93567def"
+    },
+    {
+      "path": "project/datasets/openaq_v3/data/source_fixtures/development_2017_2024_v1/source_fixture_manifest.json",
+      "sha256": "83b836d84def3238f9b48259865de0143ed5912fa004bbe3a1e5adbebe85f3d9"
+    },
+    {
+      "path": "project/datasets/openaq_v3/dataset_inventory.json",
+      "sha256": "2ee6c3dd3ab832be632790128c8a1b44f8ac07a046dacb533b274d2bce0c6aa6"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/access_context.json",
+      "sha256": "589b2b8c267d39201ae7e9244a15a4ec668b9f351061fb2a7eb5ad332dee81bc"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/inputs/contract_v1.lock.json",
+      "sha256": "7c59e2314d692b23d88204d02a5e4c59a901f654794620caa5df941f6c72c58e"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/candidate.json",
+      "sha256": "66cc3dda7f5a7edb58b50d76da236bdf22598907836227526fd28592a1951d1d"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1/source_fixture_manifest.json",
+      "sha256": "e5e9533b17138fd61e216d781ac2e6aabc95895c124e8936ce0def2a0139ccd7"
+    },
+    {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/dataset_inventory.json",
+      "sha256": "ead7da894193ccccc308655589ab56c9849e85be673cdf7f391c89d99af03b20"
+    },
+    {
+      "path": "project/datasets/usgs_daily_water/contracts/contract_v1.lock.json",
+      "sha256": "6719788b13d5e3dc2b7a7d0d012cb03c35832f141e1490c7d416cf57d705c19f"
+    },
+    {
+      "path": "project/datasets/usgs_daily_water/data/source_fixtures/pilot_10mb_v1/source_fixture_manifest.json",
+      "sha256": "5803aeac3ac0ecadfceba940b6aca554b3df9db45fc535d01b43959e65bbe24e"
+    },
+    {
+      "path": "project/datasets/usgs_daily_water/dataset_inventory.json",
+      "sha256": "631cba04ee05bd77388d279a142b6ae2b47a4339c893f58b89428039b81cce71"
+    }
+  ],
+  "model": "gpt-5.5",
+  "repetitions": 3,
+  "schema_version": "experiment_freeze_manifest.v1"
+}

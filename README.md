@@ -1,5 +1,10 @@
 # Agentic Data Engineer
 
+## Results
+
+Sample selected results from experiments on ERA5 are available in
+[`results/`](results/).
+
 ## Setup
 
 The thesis artifact is a library and CLI workflow; the historical HTTP/frontend

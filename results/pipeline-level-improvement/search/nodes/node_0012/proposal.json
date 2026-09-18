@@ -1,0 +1,48 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "192c16ffce514fc1a02a9fff70ce12f1819213472b60ca3458bb52332aeb3562",
+  "parent_source_sha256": "33a224813c9359278fe3b924a404fa65f32a4676904e2eec5da337d1935648cc",
+  "proposal": {
+    "title": "Use field-adaptive compression for the smoother geopotential channel",
+    "hypothesis": "Operational evidence shows the measured path is cache-hit only, the consumer workload is warm shuffled full-field tensor reads, and Zarr metadata is 0.0% of measured output bytes, so the joint lever is data-chunk encoding. If the two temperature channels keep the current fast LZ4HC bitshuffle codec while the smoother geopotential channel uses a more compact Blosc Zstd bitshuffle codec with larger blocks, total chunk bytes should fall, and the consumer may preserve or improve throughput because only one of three per-sample channel chunks pays the stronger decoder while moving fewer compressed bytes. This preserves all frozen array paths, dimensions, coordinates, selector paths, store identity, validation, provenance, rerun behavior, dependencies, and the public interface.",
+    "target_objectives": [
+      "consumer_samples_per_second",
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Geopotential writes may take longer because Zstd is stronger than LZ4HC, so materialization_seconds could increase or remain neutral. Consumer throughput could be slightly lower if the Zstd decode cost outweighs the reduced compressed payload, but the change is isolated to one channel to limit that risk while targeting lower output_bytes.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        encoding: dict[str, dict[str, Any]] = {}\n        data_compressors = (BloscCodec(cname='lz4hc', clevel=6, shuffle=BloscShuffle.bitshuffle, typesize=4),)\n        for name, da in ds.data_vars.items():\n            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n            }",
+        "new_text": "        encoding: dict[str, dict[str, Any]] = {}\n        fast_data_compressors = (BloscCodec(cname='lz4hc', clevel=6, shuffle=BloscShuffle.bitshuffle, typesize=4),)\n        compact_geopotential_compressors = (BloscCodec(cname='zstd', clevel=1, shuffle=BloscShuffle.bitshuffle, typesize=4, blocksize=1024 * 1024),)\n        for name, da in ds.data_vars.items():\n            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': compact_geopotential_compressors if name.startswith('geopotential_') else fast_data_compressors,\n            }",
+        "rationale": "Applies a variable-specific lossless codec only to the geopotential array, aiming to reduce chunk payload bytes where smooth fields should compress best while leaving the two temperature arrays on the faster current read path."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and confirm contract_correctness, semantic_equivalence, provenance_security, and rerun_safety still pass. Compare consumer_samples_per_second and output_bytes against node_0008, and inspect output_storage.chunk_bytes/object_count to attribute any footprint change to data chunks rather than metadata."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 14807,
+    "cached_input_tokens": 0,
+    "output_tokens": 5371,
+    "reasoning_tokens": 4635,
+    "total_tokens": 20178,
+    "estimated_cost_usd": 0.235165,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

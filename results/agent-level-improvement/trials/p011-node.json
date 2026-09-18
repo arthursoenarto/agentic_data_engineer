@@ -1,0 +1,60 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T04:35:08.976534+00:00",
+  "depth": 4,
+  "failure": null,
+  "focus": "throughput",
+  "hypothesis": "If the generated ERA5 regular-grid Zarr pipeline preserves the validated one-time, one-pressure-level, full-latitude/full-longitude chunk topology but changes only the data-array physical encoding from Blosc-Zstd clevel 9 bitshuffle to uncompressed Zarr v3 chunks for this throughput-only slot, then warm shuffled full C,H,W tensor reads may substantially improve consumer_samples_per_second by avoiding per-chunk decompression work. The output remains semantically identical because no values, dimensions, coordinates, timestamps, fields, selector declarations, missingness, units, or provenance behavior are changed.",
+  "iteration": 11,
+  "memory_lesson_count": 4,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p011/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p011.json",
+  "objective": null,
+  "parent_prompt_id": "p010",
+  "policy_reason": "Candidate failed search eligibility; archive retained.",
+  "prompt_id": "p011",
+  "reflection": "The parent is feasible and exact but is a footprint-oriented Zstd clevel 9 bitshuffle pipeline with measured consumer_samples_per_second 56.10. Prior throughput-focused feasible runs using the same sample/selector/full-spatial chunk topology but uncompressed data chunks measured about 169.77 and 171.87 samples/s, much higher than Zstd-9 and LZ4 trajectories. The scheduled objective is throughput only, so the bounded mutation should reverse the footprint codec choice and publish data chunks without compression while preserving all contract validation, fixture-only execution, artifact declarations, Zarr v3 consolidated policy, dimensions, fields, selector coordinates, values, and rerun behavior. This directly targets consumer read-path CPU overhead without changing semantic content.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:30:16.493070+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second"
+  ],
+  "trial": {
+    "error": null,
+    "evaluation_report": null,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.47674,
+      "input_tokens": 16400,
+      "output_tokens": 13158,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 3623,
+      "total_tokens": 29558
+    },
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p011-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p011-search-r1",
+    "prompt_id": "p011",
+    "repair_attempts": 3,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p011-search-r1/stage_a_run.json",
+    "status": "failed",
+    "trial_id": "p011-search-r1"
+  }
+}

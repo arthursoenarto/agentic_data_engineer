@@ -1,0 +1,48 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "866ba9e629508c93bb15739f75229302a0db5afbaae315106a021a996ef584b7",
+  "parent_source_sha256": "33a224813c9359278fe3b924a404fa65f32a4676904e2eec5da337d1935648cc",
+  "proposal": {
+    "title": "Use paired-float Blosc bitshuffle lanes for LZ4HC chunks",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor reads, provider/cache changes cannot improve it, and Zarr metadata is 0.0% of output bytes, so the causal lever is data-chunk encoding. If the existing one-sample full-field chunks keep the same LZ4HC codec but change Blosc bitshuffle from 4-byte float lanes to reversible 8-byte paired-float lanes, adjacent longitude values in smooth ERA5 fields may expose longer repeated exponent/sign-bit patterns to LZ4HC while reducing the number of shuffle lanes processed. This should reduce chunk payload bytes and may improve warm full-field read throughput by moving fewer compressed bytes per sample, without changing array paths, dimensions, coordinates, selector paths, validation, provenance, rerun behavior, dependencies, or the public interface.",
+    "target_objectives": [
+      "consumer_samples_per_second",
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Materialization may become slightly slower or faster depending on Blosc's paired-lane shuffle cost and LZ4HC match search behavior. If the paired-float lane arrangement is less favorable for these fields, output_bytes or consumer throughput may regress; semantic values and all frozen Zarr interfaces should remain unchanged because the transform is lossless and internal to chunk encoding.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4hc', clevel=6, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4hc', clevel=6, shuffle=BloscShuffle.bitshuffle, typesize=8),)",
+        "rationale": "Changes only the reversible Blosc bitshuffle lane width for data chunks, preserving chunk layout and all public Zarr names while testing whether paired adjacent float32 values compress and decode better for the warm full-field workload."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator on the unchanged command interface. Confirm contract correctness, semantic equivalence, provenance/security, and rerun safety still pass; verify the frozen array paths, coordinates, selector coordinate paths, Zarr v3 consolidated policy, and channel mappings are unchanged; compare consumer_samples_per_second and output_bytes against the current node_0008 measurements."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 16453,
+    "cached_input_tokens": 1792,
+    "output_tokens": 4374,
+    "reasoning_tokens": 3844,
+    "total_tokens": 20827,
+    "estimated_cost_usd": 0.205421,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

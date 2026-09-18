@@ -1,0 +1,199 @@
+{
+  "diagnostic_operational_metrics": {
+    "consumer_samples_per_second": 62.06110470054117,
+    "materialization_seconds": 2.4627075829921523,
+    "output_bytes": 108202642
+  },
+  "eligible_operational_objectives": {
+    "consumer_samples_per_second": 62.06110470054117,
+    "materialization_seconds": 2.4627075829921523,
+    "output_bytes": 108202642
+  },
+  "extensibility_probe": {
+    "deterministic_run_path": null,
+    "error": "No alternate-contract behavioral probe is configured.",
+    "feedback_code": "EXTENSIBILITY_PROBE_NOT_CONFIGURED",
+    "fresh_output_succeeded": null,
+    "local_cache_and_oracle_valid": null,
+    "required": true,
+    "same_candidate_source": null,
+    "same_inventory": null,
+    "source_unchanged": null,
+    "status": "not_assessed",
+    "suite_path": null
+  },
+  "hard_constraints": {
+    "contract_correctness": {
+      "checks": [
+        {
+          "check_id": "contract.grounding",
+          "feedback_code": "CONTRACT_GROUNDING_VALID",
+          "status": "pass",
+          "summary": "Contract lock, inventory, mappings, suite inputs, and controlled command are grounded."
+        },
+        {
+          "check_id": "contract.reference_integrity",
+          "feedback_code": "REFERENCE_VALID",
+          "status": "pass",
+          "summary": "The frozen independent Zarr oracle is complete and block-readable."
+        },
+        {
+          "check_id": "contract.initial_execution",
+          "feedback_code": "INITIAL_EXECUTION_VALID",
+          "status": "pass",
+          "summary": "The evaluator-controlled initial materialization succeeded."
+        },
+        {
+          "check_id": "contract.zarr_integrity",
+          "feedback_code": "ZARR_INTEGRITY_VALID",
+          "status": "pass",
+          "summary": "All mapped candidate Zarr stores are complete and block-readable."
+        },
+        {
+          "check_id": "contract.zarr_output_policy",
+          "feedback_code": "ZARR_V3_CONSOLIDATED_VALID",
+          "status": "pass",
+          "summary": "Mapped outputs use Zarr format 3 with complete consolidated metadata."
+        },
+        {
+          "check_id": "contract.declared_metadata",
+          "feedback_code": "DECLARED_METADATA_VALID",
+          "status": "pass",
+          "summary": "All declared dtype and metadata assertions pass."
+        },
+        {
+          "check_id": "contract.scope_coordinates",
+          "feedback_code": "SCOPE_COORDINATES_VALID",
+          "status": "pass",
+          "summary": "Sample and spatial coordinates match the frozen oracle."
+        },
+        {
+          "check_id": "contract.pytorch_consumer",
+          "feedback_code": "PYTORCH_CONSUMER_VALID",
+          "status": "pass",
+          "summary": "The output is consumable as warm shuffled float32 [C,H,W] tensors."
+        }
+      ],
+      "status": "pass"
+    },
+    "provenance_security": {
+      "checks": [
+        {
+          "check_id": "security.execution_isolation",
+          "feedback_code": "EXECUTION_ISOLATION_VALID",
+          "status": "pass",
+          "summary": "All candidate executions were network-disabled, read-only outside evaluator-owned writable roots, and secret-free by construction."
+        },
+        {
+          "check_id": "provenance.identities",
+          "feedback_code": "PROVENANCE_IDENTITIES_VALID",
+          "status": "pass",
+          "summary": "All required trusted-input and logical-output identities are recorded."
+        },
+        {
+          "check_id": "provenance.trusted_inputs_unchanged",
+          "feedback_code": "TRUSTED_INPUTS_UNCHANGED",
+          "status": "pass",
+          "summary": "Frozen suite inputs and evaluator source remained unchanged during execution."
+        },
+        {
+          "check_id": "provenance.candidate_claims",
+          "feedback_code": "CANDIDATE_CLAIMS_VALID",
+          "status": "pass",
+          "summary": "Candidate-authored manifest and pipeline-contract claims are linked and consistent."
+        },
+        {
+          "check_id": "provenance.receipt.initial",
+          "feedback_code": "RECEIPT_VALID",
+          "status": "pass",
+          "summary": "The initial receipt has valid linked identities."
+        },
+        {
+          "check_id": "provenance.receipt.rerun",
+          "feedback_code": "RECEIPT_VALID",
+          "status": "pass",
+          "summary": "The rerun receipt has valid linked identities."
+        },
+        {
+          "check_id": "security.secret_scan",
+          "feedback_code": "SECRET_SCAN_CLEAN",
+          "status": "pass",
+          "summary": "Candidate sources, output metadata, receipts, and logs contain no detected secrets."
+        }
+      ],
+      "status": "pass"
+    },
+    "rerun_safety": {
+      "checks": [
+        {
+          "check_id": "rerun.execution",
+          "feedback_code": "RERUN_EXECUTION_VALID",
+          "status": "pass",
+          "summary": "The exact controlled rerun succeeded."
+        },
+        {
+          "check_id": "rerun.zarr_output_policy",
+          "feedback_code": "RERUN_ZARR_V3_CONSOLIDATED_VALID",
+          "status": "pass",
+          "summary": "The rerun preserves the Zarr v3 consolidated output policy."
+        },
+        {
+          "check_id": "rerun.declared_metadata",
+          "feedback_code": "RERUN_METADATA_VALID",
+          "status": "pass",
+          "summary": "The rerun preserves all declared dtype and metadata assertions."
+        },
+        {
+          "check_id": "rerun.logical_equivalence",
+          "feedback_code": "RERUN_EQUIVALENT",
+          "status": "pass",
+          "summary": "Fresh outputs have identical evaluator-owned logical fingerprints."
+        }
+      ],
+      "status": "pass"
+    },
+    "semantic_equivalence": {
+      "checks": [
+        {
+          "check_id": "semantic.native_values_and_missingness",
+          "feedback_code": "SEMANTIC_EQUIVALENT",
+          "status": "pass",
+          "summary": "All native values and missingness markers match the oracle."
+        }
+      ],
+      "status": "pass"
+    }
+  },
+  "rerun_timings": {
+    "initial": {
+      "execution_seconds": 2.4627075829921523,
+      "setup_seconds": 0.13384229100483935,
+      "total_seconds": 3.1471270000038203,
+      "validation_seconds": 0.5457714999938617
+    },
+    "rerun": {
+      "execution_seconds": 2.373775875006686,
+      "setup_seconds": 0.13912891699874308,
+      "total_seconds": 3.0654310829995666,
+      "validation_seconds": 0.5484020000003511
+    }
+  },
+  "resource_diagnostics": {
+    "initial": {
+      "peak_rss_bytes": 1500823552,
+      "read_bytes": null,
+      "sample_interval_seconds": 0.05,
+      "system_cpu_seconds": 0.98895214,
+      "user_cpu_seconds": 4.60566016,
+      "write_bytes": null
+    },
+    "rerun": {
+      "peak_rss_bytes": 1749123072,
+      "read_bytes": null,
+      "sample_interval_seconds": 0.05,
+      "system_cpu_seconds": 0.988997177,
+      "user_cpu_seconds": 4.650201372,
+      "write_bytes": null
+    }
+  }
+}

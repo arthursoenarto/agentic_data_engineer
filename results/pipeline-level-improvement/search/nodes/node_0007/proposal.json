@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "27263e863776c671546c97b4b0ed67f8b8beada9da7d12f10b0a8da582cc30a8",
+  "parent_source_sha256": "6aace65d4d4e5769c2fb5c4103c47e9659915dd0abeef92e463afd654e78c9c7",
+  "proposal": {
+    "title": "Use Blosc LZ4 for lower-CPU full-field chunk reads",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, while provider/cache download changes cannot improve this objective. With the frozen one-sample full-field chunk layout, each sample read still pays decompression CPU for three large float32 channel chunks. If the data chunks keep the same Blosc bitshuffle preconditioner but switch from Zstd to the lower-CPU lossless LZ4 codec, warm full-field reads should decode faster and increase consumer_samples_per_second without changing array paths, dimensions, coordinates, selector paths, validation, provenance, rerun behavior, or the public pipeline interface.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output bytes are expected to increase because LZ4 generally compresses smooth float32 fields less tightly than Zstd. Materialization time may improve from cheaper compression, but it is not the targeted objective.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='zstd', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "rationale": "Keeps the existing chunk layout and lossless bitshuffle transform while replacing Zstd with a faster Blosc codec to reduce per-sample decode CPU in the measured warm-cache consumer path."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare consumer_samples_per_second against node_0004. Confirm contract_correctness, semantic_equivalence, rerun_safety, and provenance_security still pass, and verify frozen array names, coordinate names, selector coordinate paths, consolidated Zarr v3 policy, and channel mappings remain unchanged."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 12800,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1411,
+    "reasoning_tokens": 972,
+    "total_tokens": 14211,
+    "estimated_cost_usd": 0.098266,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

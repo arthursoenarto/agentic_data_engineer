@@ -1,0 +1,75 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T05:08:36.570106+00:00",
+  "depth": 6,
+  "failure": null,
+  "focus": "footprint",
+  "hypothesis": "If the generated ERA5 pressure-level Zarr pipeline preserves the validated grouped same-native-variable layout and one-time, one-pressure-level, full-latitude/full-longitude chunk topology, but changes only the data-array chunk encoding from uncompressed Zarr v3 chunks to deterministic lossless Blosc-Zstd clevel=9 with bitshuffle, then output_bytes should decrease substantially because the measured parent footprint is dominated by uncompressed chunk payload bytes. Semantic equivalence should remain exact because no decoded values, dimensions, selector coordinates, timestamps, missingness, fields, or artifact declarations are changed.",
+  "iteration": 18,
+  "memory_lesson_count": 6,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p018/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p018.json",
+  "objective": {
+    "consumer_samples_per_second": 56.32426340253388,
+    "materialization_seconds": 5.0062461660127155,
+    "output_bytes": 104826039,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p016",
+  "policy_reason": "Within measurement tolerance of ['p010'].",
+  "prompt_id": "p018",
+  "reflection": "The current parent is feasible and semantically exact, but it is a joint/throughput-oriented uncompressed grouped Zarr trajectory. Its measured output_bytes is 348,891,177, almost identical to logical uncompressed bytes, so the scheduled footprint-only objective is poorly served by keeping uncompressed chunks. Prior feasible footprint trajectories show a much smaller artifact when the same sample-aligned full-spatial topology uses lossless Blosc-Zstd with bitshuffle at clevel 9, including a grouped same-native-variable variant at 104,818,741 bytes. The safest bounded mutation for this slot is therefore to preserve the validated grouping, artifact declarations, selector dimensions, timestamps, coordinates, and exact decoded float32 values, while changing only the regular-grid data-chunk physical encoding from explicit uncompressed to explicit lossless Blosc-Zstd clevel=9 bitshuffle. This targets output_bytes directly and avoids row/field dropping or lossy transforms.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T05:04:18.692019+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "output_bytes"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 56.32426340253388,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p018-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.47557,
+      "input_tokens": 17138,
+      "output_tokens": 12996,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 2918,
+      "total_tokens": 30134
+    },
+    "materialization_seconds": 5.0062461660127155,
+    "output_bytes": 104826039,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p018-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p018-search-r1",
+    "prompt_id": "p018",
+    "repair_attempts": 1,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p018-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p018-search-r1"
+  }
+}

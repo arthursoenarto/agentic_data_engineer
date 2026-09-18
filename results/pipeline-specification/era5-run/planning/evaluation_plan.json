@@ -1,0 +1,710 @@
+{
+  "schema_version": "evaluation_planning_run.v1",
+  "plan_id": "reanalysis_era5_pressure_levels-r1-plan",
+  "created_at": "2026-09-07T01:32:30.984933+00:00",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "model": "gpt-5.5",
+  "prompt_version": "evaluation_planning_v1",
+  "system_prompt_sha256": "70aebc828ff8a8e5fbdc369ed182ee7982e2d0789226c3692f7ebece423e0f35",
+  "user_prompt_sha256": "5e12e0544fafd2a9803bd97fb8c9bd89cee06cba080996d490ae1893f70f0e20",
+  "inventory": {
+    "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/runs/reanalysis_era5_pressure_levels/r1/characterisation/dataset_inventory.json",
+    "sha256": "7cc09995d907e537e117989c85665c5d58a8c6ae901a7cd0fc1223a64d2e15ca"
+  },
+  "contract_lock": {
+    "path": "project/benchmarks/experiments/e1_specification_evaluation_coverage_20260907_v2/runs/reanalysis_era5_pressure_levels/r1/specification/contracts/contract_v1.lock.json",
+    "sha256": "1752c73d7f536aa94bebac18fdeb7d53c75361176b53c85914732bbb050e1b78"
+  },
+  "engineering_enabled": true,
+  "extensibility_probe_enabled": false,
+  "llm_draft": {
+    "compatibility": "compatible",
+    "target": {
+      "data_class": "regular_rectilinear_grid",
+      "output_format": "zarr",
+      "output_format_version": 3,
+      "workload_kind": "full_field_tensor",
+      "engineering_profile": "general_pipeline"
+    },
+    "target_rationale": "The trusted inventory describes gridded ERA5 pressure-level data on a regular latitude-longitude grid, and the frozen contract requests repeated ML training reads as a full_field_tensor with recommended Zarr v3 output. This matches the supplied regular_rectilinear_grid -> zarr v3 -> full_field_tensor evaluator target.",
+    "domain_tags": [
+      "atmosphere",
+      "climate",
+      "earth-science"
+    ],
+    "axes": [
+      {
+        "role": "sample",
+        "semantic": "Each sample is one UTC valid time formed from the inclusive contract date range 2024-01-01 through 2024-01-07 and selected_times 00:00, 06:00, 12:00, and 18:00 UTC, ordered deterministically by timestamp.",
+        "candidate_name_hints": [
+          "sample",
+          "time",
+          "valid_time",
+          "timestamp"
+        ],
+        "evidence": "Contract scope declares an inclusive date_range, selected_times, timestep of 6 hours, and timezone UTC; inventory option_units marks time as UTC and temporal_resolution as Hourly."
+      },
+      {
+        "role": "y",
+        "semantic": "Latitude coordinate of the regular rectilinear latitude-longitude grid for the declared global CDS area, using the contract cds_area_order north, west, south, east for scope interpretation.",
+        "candidate_name_hints": [
+          "lat",
+          "latitude",
+          "y"
+        ],
+        "evidence": "Inventory data_description states projection is Regular latitude-longitude grid and reanalysis horizontal resolution is 0.25° x 0.25°; contract geography declares area global with cds_area [90, -180, -90, 180]."
+      },
+      {
+        "role": "x",
+        "semantic": "Longitude coordinate of the regular rectilinear latitude-longitude grid for the declared global CDS area, using the contract cds_area_order north, west, south, east for scope interpretation.",
+        "candidate_name_hints": [
+          "lon",
+          "longitude",
+          "x"
+        ],
+        "evidence": "Inventory data_description states projection is Regular latitude-longitude grid and horizontal_coverage is Global; contract geography declares area global with cds_area [90, -180, -90, 180]."
+      }
+    ],
+    "station_mapping": null,
+    "fields": [
+      {
+        "field_id": "geopotential[pressure_level=\"500\"]",
+        "candidate_array_hints": [
+          "geopotential",
+          "geopotential_500",
+          "geopotential_500hPa",
+          "geopotential_pressure_level_500"
+        ],
+        "selector_dimensions": [
+          "pressure_level"
+        ],
+        "comparison_mode": "exact_native",
+        "rationale": "Frozen contract declares field name geopotential with selector pressure_level value 500 hPa. No tolerance, conversion, aggregation, or derived feature is declared."
+      },
+      {
+        "field_id": "temperature[pressure_level=\"500\"]",
+        "candidate_array_hints": [
+          "temperature",
+          "temperature_500",
+          "temperature_500hPa",
+          "temperature_pressure_level_500"
+        ],
+        "selector_dimensions": [
+          "pressure_level"
+        ],
+        "comparison_mode": "exact_native",
+        "rationale": "Frozen contract declares field name temperature with selector pressure_level value 500 hPa. No tolerance, conversion, aggregation, or derived feature is declared."
+      },
+      {
+        "field_id": "temperature[pressure_level=\"850\"]",
+        "candidate_array_hints": [
+          "temperature",
+          "temperature_850",
+          "temperature_850hPa",
+          "temperature_pressure_level_850"
+        ],
+        "selector_dimensions": [
+          "pressure_level"
+        ],
+        "comparison_mode": "exact_native",
+        "rationale": "Frozen contract declares field name temperature with selector pressure_level value 850 hPa. No tolerance, conversion, aggregation, or derived feature is declared."
+      }
+    ],
+    "oracle": {
+      "strategy": "independent_trusted_reference",
+      "description": "Prepare an evaluator-owned regular-grid oracle from immutable local fixture replay for exactly the frozen contract scope and fields. The oracle must expose complete logical coordinates for sample UTC timestamps, latitude, longitude, and all three mapped field channels, preserving native values and missingness independently of any candidate output layout or Zarr implementation.",
+      "independence_requirements": [
+        "Oracle materialization and decoding must be evaluator-owned and independent of candidate code.",
+        "Provider network access is disabled; use only immutable local fixture replay accepted as trusted source context.",
+        "Oracle identities and hashes must be recorded before candidate execution.",
+        "Oracle must cover exactly the contract date range, selected UTC times, global area, product_type reanalysis, data_format grib, download_format unarchived, and selected pressure-level fields."
+      ]
+    },
+    "objective_policy": {
+      "ordered_objectives": [
+        {
+          "objective": "consumer_samples_per_second",
+          "direction": "maximize",
+          "priority": 1
+        },
+        {
+          "objective": "output_bytes",
+          "direction": "minimize",
+          "priority": 2
+        }
+      ],
+      "descriptive_measurements": [
+        "materialization_seconds",
+        "q_engineering"
+      ]
+    },
+    "proposed_checks": []
+  },
+  "objective_policy": {
+    "ordered_objectives": [
+      {
+        "objective": "consumer_samples_per_second",
+        "direction": "maximize",
+        "priority": 1
+      },
+      {
+        "objective": "output_bytes",
+        "direction": "minimize",
+        "priority": 2
+      }
+    ],
+    "descriptive_measurements": [
+      "materialization_seconds",
+      "q_engineering"
+    ]
+  },
+  "profile": {
+    "schema_version": "evaluation_profile.v1",
+    "profile_id": "reanalysis-era5-pressure-levels-regular-rectilinear-grid-zarr-v3",
+    "data_class": "regular_rectilinear_grid",
+    "output_format": "zarr",
+    "output_format_version": 3,
+    "workload_kind": "full_field_tensor",
+    "engineering_profile": "general_pipeline",
+    "dataset_tags": [
+      "dataset:reanalysis-era5-pressure-levels",
+      "domain:atmosphere",
+      "domain:climate",
+      "domain:earth-science",
+      "family:reanalysis",
+      "provider:ecmwf"
+    ]
+  },
+  "check_plan": {
+    "schema_version": "evaluation_check_plan.v1",
+    "catalog_version": "evaluation_check_catalog.v1",
+    "profile": {
+      "schema_version": "evaluation_profile.v1",
+      "profile_id": "reanalysis-era5-pressure-levels-regular-rectilinear-grid-zarr-v3",
+      "data_class": "regular_rectilinear_grid",
+      "output_format": "zarr",
+      "output_format_version": 3,
+      "workload_kind": "full_field_tensor",
+      "engineering_profile": "general_pipeline",
+      "dataset_tags": [
+        "dataset:reanalysis-era5-pressure-levels",
+        "domain:atmosphere",
+        "domain:climate",
+        "domain:earth-science",
+        "family:reanalysis",
+        "provider:ecmwf"
+      ]
+    },
+    "profile_tags": [
+      "core",
+      "dataset:reanalysis-era5-pressure-levels",
+      "domain:atmosphere",
+      "domain:climate",
+      "domain:earth-science",
+      "engineering:meroda",
+      "family:reanalysis",
+      "provider:ecmwf",
+      "regular-grid",
+      "workload:full-field-tensor",
+      "zarr",
+      "zarr-v3"
+    ],
+    "checks": [
+      {
+        "check_id": "contract.declared_metadata",
+        "title": "Declared grid metadata",
+        "description": "Checks only dtype, fill-value, and metadata assertions declared by the suite.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "contract.grounding",
+        "title": "Suite grounding",
+        "description": "Validates the frozen contract, inventory, source, command, and mappings.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "contract_lock",
+          "inventory",
+          "candidate_source",
+          "execution"
+        ]
+      },
+      {
+        "check_id": "contract.initial_execution",
+        "title": "Initial controlled execution",
+        "description": "Requires the candidate command to finish successfully in evaluator control.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.command",
+          "execution.timeout_seconds"
+        ]
+      },
+      {
+        "check_id": "contract.initial_materialization",
+        "title": "Initial materialization availability",
+        "description": "Records whether trusted inputs allow the initial controlled run.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "contract.pytorch_consumer",
+        "title": "Full-field tensor consumption",
+        "description": "Loads shuffled warm float32 C,H,W samples through the shared consumer.",
+        "layer": "workload",
+        "role": "hard_gate",
+        "tags": [
+          "workload:full-field-tensor",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "workload:full-field-tensor"
+        ],
+        "parameter_paths": [
+          "workload",
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "contract.reference_integrity",
+        "title": "Reference integrity",
+        "description": "Requires the independent regular-grid oracle to be readable and complete.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "reference",
+          "grid.reference_grid"
+        ]
+      },
+      {
+        "check_id": "contract.scope_coordinates",
+        "title": "Grid scope and coordinates",
+        "description": "Compares sample and spatial coordinates with declared normalization.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.expected_shape",
+          "grid.candidate_grid",
+          "comparison.coordinates_atol"
+        ]
+      },
+      {
+        "check_id": "contract.zarr_integrity",
+        "title": "Zarr integrity",
+        "description": "Requires every mapped Zarr array and chunk to be readable.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "zarr"
+        ],
+        "parameter_paths": [
+          "grid",
+          "comparison.max_block_bytes"
+        ]
+      },
+      {
+        "check_id": "contract.zarr_output_policy",
+        "title": "Zarr v3 publication policy",
+        "description": "Checks Zarr v3 and complete consolidated metadata.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "engineering.meroda",
+        "title": "MERODA engineering quality",
+        "description": "Assesses applicable engineering dimensions from blinded bounded evidence.",
+        "layer": "engineering",
+        "role": "assessment",
+        "tags": [
+          "engineering:meroda"
+        ],
+        "required_profile_tags": [
+          "engineering:meroda"
+        ],
+        "parameter_paths": [
+          "engineering_quality",
+          "candidate_source.paths"
+        ]
+      },
+      {
+        "check_id": "objective.consumer_samples_per_second",
+        "title": "Consumer throughput",
+        "description": "Measures median samples per second for the declared workload.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "workload"
+        ]
+      },
+      {
+        "check_id": "objective.materialization_seconds",
+        "title": "Materialization time",
+        "description": "Measures frozen local input to published output wall time.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution"
+        ]
+      },
+      {
+        "check_id": "objective.output_bytes",
+        "title": "Native output footprint",
+        "description": "Counts bytes across unique mapped native output stores.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "grid"
+        ]
+      },
+      {
+        "check_id": "provenance.candidate_claims",
+        "title": "Candidate claim consistency",
+        "description": "Checks manifest and pipeline-contract claims against trusted observations.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.pipeline_contract",
+          "execution.manifest"
+        ]
+      },
+      {
+        "check_id": "provenance.identities",
+        "title": "Provenance identities",
+        "description": "Requires hashes for trusted inputs, source, oracle, cache, and outputs.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipt.initial",
+        "title": "Initial receipt validity",
+        "description": "Validates linked identities and cache evidence in the initial receipt.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipt.rerun",
+        "title": "Rerun receipt validity",
+        "description": "Validates linked identities and cache evidence in the rerun receipt.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipts",
+        "title": "Receipt availability",
+        "description": "Records that receipt validation was blocked before execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.trusted_inputs_unchanged",
+        "title": "Trusted input immutability",
+        "description": "Rehashes evaluator-owned inputs after candidate execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "rerun.declared_metadata",
+        "title": "Rerun metadata stability",
+        "description": "Checks declared metadata again on the independently published rerun.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "rerun.execution",
+        "title": "Exact rerun execution",
+        "description": "Executes the same frozen request again in a fresh output location.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.command"
+        ]
+      },
+      {
+        "check_id": "rerun.logical_equivalence",
+        "title": "Exact rerun equivalence",
+        "description": "Compares evaluator-owned logical fingerprints from both executions.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "comparison.value_policy"
+        ]
+      },
+      {
+        "check_id": "rerun.public_output_policy",
+        "title": "Blocked rerun output policy",
+        "description": "Records a generation-visible output-policy failure before comparison.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "rerun.zarr_output_policy",
+        "title": "Rerun Zarr v3 policy",
+        "description": "Checks that the rerun preserves the publication policy.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "security.execution_isolation",
+        "title": "Execution isolation",
+        "description": "Checks network denial, write confinement, and secret-free execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution_policy"
+        ]
+      },
+      {
+        "check_id": "security.secret_scan",
+        "title": "Secret scan",
+        "description": "Scans candidate evidence and outputs for configured credential material.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "security.secret_environment_variables"
+        ]
+      },
+      {
+        "check_id": "semantic.native_values_and_missingness",
+        "title": "Native value equivalence",
+        "description": "Compares all mapped logical values and missingness against the oracle.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:semantic-equivalence"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels",
+          "comparison.value_policy"
+        ]
+      }
+    ]
+  },
+  "quarantined_check_proposals": [],
+  "suite_ready": false,
+  "outstanding_suite_inputs": [
+    "bind candidate physical paths from generation acceptance",
+    "freeze an evaluator-owned independent oracle and expected shape",
+    "freeze dataset-specific comparison and coordinate parameters"
+  ],
+  "planning_complete": true,
+  "llm_latency_seconds": 29.982017082860693,
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 10176,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1728,
+    "reasoning_tokens": 516,
+    "total_tokens": 11904,
+    "estimated_cost_usd": 0.094656,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

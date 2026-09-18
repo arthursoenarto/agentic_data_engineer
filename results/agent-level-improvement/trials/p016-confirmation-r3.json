@@ -1,0 +1,36 @@
+{
+  "error": null,
+  "evaluation_report": null,
+  "generation_llm_usage": {
+    "cached_input_tokens": 1792,
+    "call_count": 1,
+    "estimated_cost_usd": 0.551701,
+    "input_tokens": 16967,
+    "output_tokens": 15831,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 4530,
+    "total_tokens": 32798
+  },
+  "phase": "confirmation",
+  "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p016-confirmation-r3",
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p016-confirmation-r3",
+  "prompt_id": "p016",
+  "repair_attempts": 3,
+  "repetition": 3,
+  "schema_version": "gepa_memory_trial.v1",
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p016-confirmation-r3/stage_a_run.json",
+  "status": "failed",
+  "trial_id": "p016-confirmation-r3"
+}

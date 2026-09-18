@@ -1,0 +1,88 @@
+{
+  "schema_version": "e1_run_result.v1",
+  "experiment_id": "e1_specification_evaluation_coverage_20260907_v2",
+  "dataset_slug": "reanalysis_era5_pressure_levels",
+  "display_name": "ERA5 pressure levels",
+  "role": "development",
+  "repetition": 1,
+  "status": "success",
+  "started_at": "2026-09-07T01:31:41.381066+00:00",
+  "completed_at": "2026-09-07T01:32:30.988540+00:00",
+  "access_probe_valid": true,
+  "inventory_valid": true,
+  "specification_schema_valid": true,
+  "contract_lock_valid": true,
+  "field_selector_exact": true,
+  "scope_exact": true,
+  "objective_priority_exact": true,
+  "workload_exact": true,
+  "credential_policy_exact": true,
+  "intention_structured_consistent": true,
+  "target_exact": true,
+  "logical_mapping_valid": true,
+  "oracle_strategy_valid": true,
+  "mandatory_check_recall": 1.0,
+  "unauthorized_check_count": 0,
+  "unnecessary_proposal_count": 0,
+  "unresolved_gap_count": 0,
+  "planning_complete": true,
+  "executable_suite_ready": false,
+  "run_success": true,
+  "intention_latency_seconds": 19.49837945890613,
+  "planning_latency_seconds": 29.982017082860693,
+  "intention_usage": {
+    "call_count": 1,
+    "input_tokens": 6589,
+    "cached_input_tokens": 0,
+    "output_tokens": 2397,
+    "reasoning_tokens": 1034,
+    "total_tokens": 8986,
+    "estimated_cost_usd": 0.104855,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  },
+  "planning_usage": {
+    "call_count": 1,
+    "input_tokens": 10176,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1728,
+    "reasoning_tokens": 516,
+    "total_tokens": 11904,
+    "estimated_cost_usd": 0.094656,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  },
+  "resolved_checks_by_category": {
+    "Data Structure": 5,
+    "Core": 13,
+    "Consumer Workload": 1,
+    "Output Format": 4,
+    "Engineering Quality": 1,
+    "Objectives": 3,
+    "Dataset Mapping/Oracle": 1
+  },
+  "failure_type": null,
+  "failure_message": null
+}

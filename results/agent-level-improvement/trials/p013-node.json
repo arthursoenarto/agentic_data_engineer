@@ -1,0 +1,75 @@
+{
+  "admitted_to_archive": false,
+  "completed_at": "2026-09-08T04:43:21.990146+00:00",
+  "depth": 5,
+  "failure": null,
+  "focus": "throughput",
+  "hypothesis": "If the generated ERA5 Zarr pipeline preserves uncompressed sample-access-aligned full-spatial data chunks but groups multiple requested pressure-level channels for the same source variable into one native variable array with a real selector dimension and selector chunk size 1, then the consumer may see slightly higher warm shuffled full-field C,H,W throughput by opening and traversing fewer data arrays and less duplicated selector metadata, while each requested channel plane is still served by one uncompressed chunk and no rows, fields, coordinates, or values are changed.",
+  "iteration": 13,
+  "memory_lesson_count": 5,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p013/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p013.json",
+  "objective": {
+    "consumer_samples_per_second": 174.27670702031813,
+    "materialization_seconds": 3.044142375001684,
+    "output_bytes": 348890561,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p007",
+  "policy_reason": "Within measurement tolerance of ['p007'].",
+  "prompt_id": "p013",
+  "reflection": "The parent is feasible and already targets the scheduled throughput objective with the strongest measured storage choice so far: consolidated Zarr v3, sample-access-aligned full-spatial chunks, and explicit uncompressed data chunks. It measured 169.77 samples/s, while another uncompressed trajectory measured 171.87 samples/s; both are far above the measured LZ4 and Zstd trajectories. A safe next mutation should keep uncompressed chunks and exact semantics, not pursue footprint. The remaining physical-layout opportunity is to reduce per-variable metadata/object overhead without changing read granularity: publish native field arrays that contain all requested selector values for the same variable, with selector chunks of size 1, instead of splitting every field-selector channel into its own data array. For this task, temperature has two requested pressure levels, so a single temperature array with a real two-value selector dimension can serve both requested temperature channels, while geopotential remains a one-level field array. This preserves the same per-channel data chunk size and avoids unrequested planes. It is a bounded hypothesis, not proven by the supplied measurements, and must fall back to the proven per-channel layout if artifact declaration or validation cannot unambiguously represent shared-array selector channels.",
+  "removed_ids": [],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:38:33.376413+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 174.27670702031813,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p013-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.528525,
+      "input_tokens": 16965,
+      "output_tokens": 14790,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 2524,
+      "total_tokens": 31755
+    },
+    "materialization_seconds": 3.044142375001684,
+    "output_bytes": 348890561,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p013-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p013-search-r1",
+    "prompt_id": "p013",
+    "repair_attempts": 1,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p013-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p013-search-r1"
+  }
+}

@@ -1,0 +1,14 @@
+schema_version: evaluation_profile.v1
+profile_id: reanalysis-era5-pressure-levels-regular-rectilinear-grid-zarr-v3
+data_class: regular_rectilinear_grid
+output_format: zarr
+output_format_version: 3
+workload_kind: full_field_tensor
+engineering_profile: general_pipeline
+dataset_tags:
+- dataset:reanalysis-era5-pressure-levels
+- domain:atmosphere
+- domain:climate
+- domain:earth-science
+- family:reanalysis
+- provider:ecmwf

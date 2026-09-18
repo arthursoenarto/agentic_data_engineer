@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "1f8add58c88ef2e51f3a65a2e26ef6e8191b5acd1fb82dafba4c81e3ed746119",
+  "parent_source_sha256": "cae28b8e79e94f13cf9512cc2558c88a69aa959dddcd24b418eafb70f13db1e9",
+  "proposal": {
+    "title": "Lower LZ4 compression level for faster warm full-field decoding",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, and provider/cache changes cannot improve consumer_samples_per_second. The current one-sample full-field chunks use Blosc LZ4 with no shuffle at clevel=5, so each sample read still pays LZ4 decode work for three large channel chunks. If the codec keeps the same chunk layout, array paths, dimensions, selector coordinates, validation, provenance, rerun behavior, dependency set, and Zarr v3 consolidated publication but lowers LZ4 clevel to 1, the stored chunks should contain fewer expensive back-references and decode more like literal copies, reducing CPU per warm full-field sample and increasing consumer_samples_per_second.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output_bytes may increase because the LZ4 encoder will spend less effort compressing each data chunk. Materialization_seconds may improve slightly from cheaper compression, but it is not the targeted objective.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=5, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=1, shuffle=BloscShuffle.noshuffle, typesize=4),)",
+        "rationale": "This single executable change isolates LZ4 compression-level tuning while preserving the frozen public Zarr layout and metadata. It targets lower decode CPU for the measured warm full-field consumer workload."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare consumer_samples_per_second against the current 109.06 samples/s baseline while confirming contract correctness, semantic equivalence, provenance/security, rerun safety, frozen array paths, selector coordinate paths, consolidated Zarr v3 output, and validation behavior remain passing."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 15213,
+    "cached_input_tokens": 0,
+    "output_tokens": 1254,
+    "reasoning_tokens": 802,
+    "total_tokens": 16467,
+    "estimated_cost_usd": 0.113685,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

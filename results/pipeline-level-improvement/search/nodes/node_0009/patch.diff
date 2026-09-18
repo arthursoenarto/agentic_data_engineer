@@ -1,0 +1,18 @@
+--- a/pipeline_impl.py
++++ b/pipeline_impl.py
+@@ -493,8 +493,14 @@
+         encoding: dict[str, dict[str, Any]] = {}
+         data_compressors = ()
+         for name, da in ds.data_vars.items():
++            chunk_shape = tuple(
++                1 if dim == 'time' or dim.startswith('pressure_level__')
++                else max(1, (int(da.sizes[dim]) + 1) // 2) if dim == 'latitude'
++                else int(da.sizes[dim])
++                for dim in da.dims
++            )
+             encoding[name] = {
+-                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),
++                'chunks': chunk_shape,
+                 'compressors': data_compressors,
+             }
+         for name in ds.coords:

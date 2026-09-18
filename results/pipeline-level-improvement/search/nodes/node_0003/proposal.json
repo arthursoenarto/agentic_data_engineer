@@ -1,0 +1,53 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "1dceffbd3c6d897c493b548238d7508a7600b3bc7a2db48303521cd6917a126d",
+  "parent_source_sha256": "349586add7a3cf9039e4f88999740609c427c72f107efec11ffcaf2cd98e8530",
+  "proposal": {
+    "title": "Bypass data-chunk compression for warm full-field reads",
+    "hypothesis": "Operational evidence shows the measured consumer workload is warm-cache, shuffled full-field tensor access over 28 samples, and provider/cache download changes cannot improve it. The current one-sample full-field chunks require Zstd decompression for every channel chunk read. If published data chunks are stored uncompressed while preserving the same array paths, dimensions, coordinates, selectors, validation, and Zarr v3 consolidated store policy, the consumer should spend less CPU per full-field sample and increase consumer_samples_per_second.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Output_bytes is expected to increase because data chunks will no longer be compressed. Materialization_seconds may improve from avoiding compression during write, but this is not the targeted objective. Object count and public interface should remain unchanged.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "from zarr.codecs import ZstdCodec\n",
+        "new_text": "",
+        "rationale": "Remove the Zstd codec import because data chunks will no longer use Zstd compression."
+      },
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (ZstdCodec(level=6, checksum=False),)",
+        "new_text": "        data_compressors = ()",
+        "rationale": "Store data chunks without compression so warm full-field reads avoid per-chunk decompression CPU while preserving chunk shape and all frozen public array mappings."
+      }
+    ],
+    "validation_plan": "Run the evaluator unchanged. Confirm contract_correctness, semantic_equivalence, rerun_safety, and provenance_security still pass; verify frozen array paths, coordinates, selector coordinate paths, consolidated Zarr v3 output, and channel identities are unchanged. Compare consumer_samples_per_second against the current 55.999 samples/s and record the expected output_bytes tradeoff."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 11252,
+    "cached_input_tokens": 0,
+    "output_tokens": 3202,
+    "reasoning_tokens": 2775,
+    "total_tokens": 14454,
+    "estimated_cost_usd": 0.15232,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

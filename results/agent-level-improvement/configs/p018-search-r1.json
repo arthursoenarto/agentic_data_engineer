@@ -1,0 +1,53 @@
+{
+  "alternate_contract": null,
+  "alternate_inputs_dir": null,
+  "alternate_suite_dir": null,
+  "candidate_cache": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/data/source_fixtures/era5_january_2024_6hourly_global_3ch_7d_v1",
+  "command_timeout_seconds": 3600,
+  "completion_requirement": "hard_gates",
+  "condition": "expert_direct_llm",
+  "dataset_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace",
+  "env_file": "<REPOSITORY_ROOT>/.env",
+  "evaluation_output_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p018-search-r1",
+  "evaluation_plan": null,
+  "evaluation_profile": null,
+  "extensibility_suite_builder": null,
+  "generation_prompt_override": {
+    "prompt_id": "gepa-memory-p018",
+    "schema_version": "generation_prompt_override.v1",
+    "system_prompt": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p018/system.md",
+    "system_sha256": "26cd5e6e8d8c342fdfddf9f37af6376547a6d58b884417478975998228aee23e",
+    "user_prompt": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p018/user.md",
+    "user_sha256": "ea8ef7c9b6b2f7351eac68a14d9e9c23779493bf3d88a8e1a46b18191451d3f1"
+  },
+  "inventory": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/dataset_inventory.json",
+  "linked_suite_dir": null,
+  "llm_timeout_seconds": 900,
+  "max_repair_attempts": 3,
+  "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p018-search-r1",
+  "pipeline_policy": {
+    "acquisition_format": "grib",
+    "atomic_cache_publication": true,
+    "atomic_output_publication": true,
+    "cache_partitioning": [
+      "field",
+      "selectors",
+      "date"
+    ],
+    "data_model": "xarray_dataset",
+    "dataset_id": "reanalysis-era5-pressure-levels",
+    "implementation_constraints": {},
+    "parquet": null,
+    "provider": "ECMWF",
+    "publication_format": "zarr",
+    "zarr": null
+  },
+  "primary_suite_builder": "<REPOSITORY_ROOT>/backend/scripts/build_accepted_regular_grid_suite.py",
+  "primary_suite_dir": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/suites",
+  "primary_suite_spec": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/suite_spec.yaml",
+  "prompt_lock": null,
+  "repair_prompt_name": "default",
+  "schema_version": "stage_a_workflow_config.v1",
+  "seed_contract": "<REPOSITORY_ROOT>/project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+  "workflow_id": "stage-a-gepa_memory_pareto_tensor_20260908_v1-p018-search-r1"
+}

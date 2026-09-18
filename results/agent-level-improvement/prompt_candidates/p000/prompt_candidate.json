@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-09-08T03:26:19.768027+00:00",
+  "experiment_id": "gepa_memory_pareto_tensor_20260908_v1",
+  "memory_sha256": "a4871849cebe5ca32e9177774e158006d07632b0f5e2f1c18bad6d98e82e0cb4",
+  "parent_prompt_id": null,
+  "prompt_id": "p000",
+  "schema_version": "gepa_prompt_memory_candidate.v1",
+  "source": "backend/agents/etl_pipeline/prompts/shared/expert_family_v2_system.md",
+  "system_sha256": "d6d43bcf289ab61d76cf88a3a9148f8f30f12cbfc60866c885c329e158863569",
+  "user_sha256": "ea8ef7c9b6b2f7351eac68a14d9e9c23779493bf3d88a8e1a46b18191451d3f1"
+}

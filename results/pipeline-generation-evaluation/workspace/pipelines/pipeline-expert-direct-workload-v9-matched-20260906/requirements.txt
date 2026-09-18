@@ -1,0 +1,5 @@
+numpy>=1.26,<3
+xarray>=2024.10
+zarr>=3,<4
+cfgrib>=0.9,<1
+netCDF4>=1.6,<2

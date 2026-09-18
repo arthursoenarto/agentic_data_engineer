@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "d5993c2a909dde2b7618ecd03f710bfc489c29e126b38aedb4e56a8ee1821188",
+  "parent_source_sha256": "2b85bc89c52078ba39fbf530c45fd9631ac9a573636ac9f46df8ad8ff4fa4e4a",
+  "proposal": {
+    "title": "Shard per-sample chunks by channel for shuffled warm reads",
+    "hypothesis": "Operational evidence shows the consumer benchmark is warm-cache shuffled full-field tensor access over 28 samples, while the current uncompressed one-sample chunks still create 91 chunk objects and candidate execution dominates initial materialization time. If each published channel keeps the same logical one-sample Zarr chunks but stores all time chunks for that channel inside a single Zarr v3 shard, shuffled full-field reads should avoid repeated traversal/open of many per-time chunk objects while preserving the exact array paths, dimensions, selector coordinates, values, validation, Zarr v3 consolidated policy, and public interface. This should increase consumer_samples_per_second without relying on provider/cache changes.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "Sharding may slightly increase output_bytes for shard indexes and may add some materialization overhead when writing shard containers. It may also shift benefits depending on the local store's partial-read behavior, but semantic output and logical chunking remain unchanged.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n            }",
+        "new_text": "            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'shards': tuple(int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n            }",
+        "rationale": "Keeps the established one-sample logical chunk layout for full-field reads, but co-locates a channel's time chunks into one Zarr v3 shard to reduce per-sample filesystem object lookup/open overhead during warm shuffled consumption."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator command unchanged. Confirm contract correctness, semantic equivalence, provenance/security, and rerun safety still pass; inspect the published Zarr for the same frozen array and coordinate paths; compare consumer_samples_per_second against the current 209.719 baseline while noting any output_bytes or materialization_seconds tradeoff."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 11987,
+    "cached_input_tokens": 0,
+    "output_tokens": 2382,
+    "reasoning_tokens": 1850,
+    "total_tokens": 14369,
+    "estimated_cost_usd": 0.131395,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

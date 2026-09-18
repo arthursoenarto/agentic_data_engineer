@@ -1,0 +1,48 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "1e51e6dec9931e5ed4cc196751474b5ff383556d4c2d7fe8b02f0dc28180186c",
+  "parent_source_sha256": "9fce75787f6bf7443c862ada68ea82ef9130d4acb35ed7aff61b198bcad32174",
+  "proposal": {
+    "title": "Raise standard LZ4 effort for smaller bitshuffled chunks",
+    "hypothesis": "Operational evidence shows the consumer workload is warm-cache shuffled full-field tensor reads, provider/cache changes cannot improve it, and Zarr metadata is 0.0% of measured output bytes, so the joint lever is the data-chunk encoder. If the existing one-sample full-field chunks keep Blosc bitshuffle and the standard LZ4 codec but raise LZ4 compression effort from clevel=5 to clevel=9, smooth float32 ERA5 fields should produce smaller chunk payloads while retaining the same fast LZ4-family decode path. Moving fewer compressed bytes per sampled channel may improve consumer_samples_per_second and should reduce output_bytes without changing frozen array paths, dimensions, coordinates, selector paths, store identity, validation, provenance, rerun behavior, dependencies, semantic values, or the public interface.",
+    "target_objectives": [
+      "consumer_samples_per_second",
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "Higher LZ4 encoder effort may increase materialization_seconds and CPU during publication. Decode speed should remain in the same codec family, but if smaller payloads do not offset denser back-references, consumer_samples_per_second could be neutral or slightly lower.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=5, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "new_text": "        data_compressors = (BloscCodec(cname='lz4', clevel=9, shuffle=BloscShuffle.bitshuffle, typesize=4),)",
+        "rationale": "This single executable change keeps the current chunk layout, Blosc bitshuffle preconditioner, and standard LZ4 codec while testing whether maximum LZ4 effort reduces data chunk bytes and preserves or improves warm read throughput."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare the required objectives consumer_samples_per_second and output_bytes against the current node. Confirm contract correctness, semantic equivalence, provenance/security, rerun safety, frozen Zarr paths, consolidated v3 publication, and selector-coordinate mappings still pass."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 18055,
+    "cached_input_tokens": 1792,
+    "output_tokens": 1858,
+    "reasoning_tokens": 1370,
+    "total_tokens": 19913,
+    "estimated_cost_usd": 0.137951,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

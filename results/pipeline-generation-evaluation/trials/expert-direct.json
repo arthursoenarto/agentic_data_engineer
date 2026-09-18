@@ -1,0 +1,68 @@
+{
+  "condition": "expert_direct_llm",
+  "consumer_samples_per_second": 88.41885398503747,
+  "error": null,
+  "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/evaluations/expert-direct/evaluation.json",
+  "feasible": true,
+  "generated_tests": {
+    "evidence": {
+      "exit_code": 0,
+      "stderr_log": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/workspace/pipelines/pipeline-expert-direct-workload-v9-matched-20260906/acceptance/acceptance_20260906T202933075986Z/generated_tests.stderr.log",
+      "stdout_log": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/workspace/pipelines/pipeline-expert-direct-workload-v9-matched-20260906/acceptance/acceptance_20260906T202933075986Z/generated_tests.stdout.log"
+    },
+    "feedback_code": "GENERATED_TESTS_PASSED",
+    "status": "pass",
+    "summary": "Generated diagnostic tests passed."
+  },
+  "generation_llm_usage": {
+    "cached_input_tokens": 0,
+    "call_count": 1,
+    "estimated_cost_usd": 0.46077,
+    "input_tokens": 14862,
+    "output_tokens": 12882,
+    "pricing": [
+      {
+        "cached_input_usd_per_million": 0.5,
+        "input_usd_per_million": 5.0,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "long_context_threshold_tokens": 272000,
+        "model_family": "gpt-5.5",
+        "output_usd_per_million": 30.0,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ],
+    "reasoning_tokens": 4071,
+    "total_tokens": 27744
+  },
+  "hard_gates": {
+    "contract_correctness": "pass",
+    "provenance_security": "pass",
+    "rerun_safety": "pass",
+    "semantic_equivalence": "pass"
+  },
+  "label": "Expert Direct",
+  "llm_cost_usd": {
+    "engineering_judge": 0.223405,
+    "generation": 0.46077,
+    "repairs": 0.40381,
+    "total_measured": 1.087985
+  },
+  "materialization_seconds": 2.5895572500303388,
+  "mismatch_count": 0,
+  "objective_vector_complete": true,
+  "optimization_ready": true,
+  "output_bytes": 175786324,
+  "pipeline_id": "pipeline-expert-direct-workload-v9-matched-20260906",
+  "prompt_hashes": {
+    "system": "4820036e2abe7a602a1065e35798af3c5b4dd526dfbcd58d196195805c709dba",
+    "user": "7b377123e30062b48766917f560007da1dcf2246c20eec128fc2b98e7207efc0"
+  },
+  "prompt_id": "expert-family-v9-workload-aware",
+  "q_engineering": 2.6,
+  "repair_attempts": 2,
+  "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/workload_aware_expert_prompt_pilot_20260906_v1/followups/expert_family_v9_matched/workspace/runs/stage_a/stage-a-expert-direct-workload-v9-matched-20260906/stage_a_run.json",
+  "status": "passed",
+  "values_compared": 87212160
+}

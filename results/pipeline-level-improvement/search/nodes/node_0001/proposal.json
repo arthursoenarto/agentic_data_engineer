@@ -1,0 +1,47 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "ebdfb7cca064c42c64d29f5ec7de53ccdfb5c61092e3b97462af8dc491a03ac5",
+  "parent_source_sha256": "a97c181107aa38db74b547a1db08d22610d2c8cc412f154f4283c587a7a15f4d",
+  "proposal": {
+    "title": "Chunk published fields by individual full-field samples",
+    "hypothesis": "Operational evidence shows the measured consumer workload is warm-cache, shuffled full-field tensor access over 28 samples with sample shape [3, 721, 1440], while provider/cache changes cannot improve it. If each published data variable is written with chunks aligned to one time sample, the consumer should read each shuffled full-field sample using one spatially contiguous chunk per channel instead of assembling it from several spatial chunks, increasing consumer_samples_per_second without changing names, selectors, coordinates, metadata validation, or public interface.",
+    "target_objectives": [
+      "consumer_samples_per_second"
+    ],
+    "expected_tradeoffs": "This may change chunk object count and compression efficiency slightly, so output_bytes and materialization_seconds could move modestly in either direction. The intended causal effect is faster warm shuffled full-field reads through access-pattern-aligned chunking.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        encoding = {name: {} for name in list(ds.data_vars) + list(ds.coords)}",
+        "new_text": "        encoding: dict[str, dict[str, Any]] = {}\n        for name, da in ds.data_vars.items():\n            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims)\n            }\n        for name in ds.coords:\n            encoding[name] = {}",
+        "rationale": "Aligns data chunks with the evaluator's shuffled full-field sample access pattern by storing one complete latitude-longitude field per time/channel chunk, while leaving coordinate publication and validation intact."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and compare consumer_samples_per_second against the baseline 44.985 samples/s. Confirm contract correctness, semantic equivalence, rerun safety, provenance/security, consolidated Zarr v3 output, frozen array paths, selector coordinate paths, and validation still pass."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 10440,
+    "cached_input_tokens": 0,
+    "output_tokens": 1374,
+    "reasoning_tokens": 928,
+    "total_tokens": 11814,
+    "estimated_cost_usd": 0.09342,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

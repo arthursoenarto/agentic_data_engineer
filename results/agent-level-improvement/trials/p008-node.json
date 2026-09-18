@@ -1,0 +1,78 @@
+{
+  "admitted_to_archive": true,
+  "completed_at": "2026-09-08T04:21:57.064595+00:00",
+  "depth": 4,
+  "failure": null,
+  "focus": "joint",
+  "hypothesis": "If the ERA5 regular-grid Zarr pipeline preserves the validated sample-access-aligned chunk topology and switches only the explicit data-array codec from Blosc-LZ4 clevel 1 byte shuffle to Blosc-LZ4 clevel 1 bitshuffle, then output_bytes may decrease because bit-level rearrangement can expose more repeated structure in float32 scientific fields while retaining fast LZ4 decompression. This is intended as a joint Pareto mutation: keep full-field tensor reads close to the measured LZ4 throughput trajectory while improving footprint without changing values, dimensions, fields, coordinates, missingness, or artifact declarations.",
+  "iteration": 8,
+  "memory_lesson_count": 5,
+  "memory_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/prompt_candidates/p008/memory.json",
+  "mutation_record": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/mutations/p008.json",
+  "objective": {
+    "consumer_samples_per_second": 80.29853849657067,
+    "materialization_seconds": 2.6134038750024047,
+    "output_bytes": 128426256,
+    "q_engineering": null
+  },
+  "parent_prompt_id": "p003",
+  "policy_reason": "Admitted and dominated ['p003'].",
+  "prompt_id": "p008",
+  "reflection": "The parent prompt was throughput-only and selected Blosc-LZ4 level 1 with byte shuffle, yielding feasible exact semantics, strong warm full-field read throughput (77.774 samples/s), and output_bytes 168.8 MB. The scheduled slot is now joint: maximize consumer_samples_per_second and minimize output_bytes. Prior evidence shows uncompressed chunks can greatly improve throughput but more than double bytes, so it is unsuitable when output_bytes is scheduled. Prior Zstd-focused attempts greatly reduced bytes but measured substantially lower throughput. A bounded joint mutation should keep the validated full-spatial, one-time, one-selector-plane topology and exact decoded float32 semantics, but try a lossless codec configuration that preserves LZ4-like read speed while improving compressibility. The most local mutation is to keep Blosc-LZ4 clevel 1 but switch the shuffle mode from byte shuffle to bitshuffle for float32 data chunks, with all other correctness and publication behavior unchanged.",
+  "removed_ids": [
+    "p003"
+  ],
+  "schema_version": "gepa_memory_search_node.v1",
+  "started_at": "2026-09-08T04:17:06.284581+00:00",
+  "status": "evaluated",
+  "target_objectives": [
+    "consumer_samples_per_second",
+    "output_bytes"
+  ],
+  "trial": {
+    "constraints": {
+      "contract_correctness": "pass",
+      "provenance_security": "pass",
+      "rerun_safety": "pass",
+      "semantic_equivalence": "pass"
+    },
+    "consumer_samples_per_second": 80.29853849657067,
+    "error": null,
+    "evaluation_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/evaluations/p008-search-r1/evaluation.json",
+    "feasible": true,
+    "generation_llm_usage": {
+      "cached_input_tokens": 0,
+      "call_count": 1,
+      "estimated_cost_usd": 0.491235,
+      "input_tokens": 16695,
+      "output_tokens": 13592,
+      "pricing": [
+        {
+          "cached_input_usd_per_million": 0.5,
+          "input_usd_per_million": 5.0,
+          "long_context_input_multiplier": 2.0,
+          "long_context_output_multiplier": 1.5,
+          "long_context_threshold_tokens": 272000,
+          "model_family": "gpt-5.5",
+          "output_usd_per_million": 30.0,
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+          "verified_at": "2026-07-21"
+        }
+      ],
+      "reasoning_tokens": 2588,
+      "total_tokens": 30287
+    },
+    "materialization_seconds": 2.6134038750024047,
+    "output_bytes": 128426256,
+    "phase": "search",
+    "pipeline_dir": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p008-search-r1",
+    "pipeline_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p008-search-r1",
+    "prompt_id": "p008",
+    "repair_attempts": 2,
+    "repetition": 1,
+    "schema_version": "gepa_memory_trial.v1",
+    "stage_a_report": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/runs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p008-search-r1/stage_a_run.json",
+    "status": "passed",
+    "trial_id": "p008-search-r1"
+  }
+}

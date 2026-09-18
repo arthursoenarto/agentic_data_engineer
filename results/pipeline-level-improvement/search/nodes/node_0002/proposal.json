@@ -1,0 +1,53 @@
+{
+  "schema_version": "pipeline_improvement_proposal.v1",
+  "model": "gpt-5.5",
+  "prompt_version": "pipeline_improvement_v1",
+  "system_prompt_sha256": "bc32c56f868e5aa58e5d4b3bf8ffb28eb038c19084b19a086ddbe066d524577c",
+  "user_prompt_sha256": "ce406670ade8549f77c55bb507bbc7a8d126a17d6c84f65cedec556753a1ddb3",
+  "parent_source_sha256": "4f2d89e477aa834723e1cc51cb59695f5c5bd2cc424e1fcf0467fede71e55c24",
+  "proposal": {
+    "title": "Use stronger Zstd compression for published data chunks",
+    "hypothesis": "Operational evidence shows Zarr metadata is 0.0% of measured output bytes and chunk payloads account for nearly all 175196006 output bytes, while the materialization path is cache-hit only. If the published data arrays keep the frozen one-sample chunk layout but explicitly use a higher Zstd compression level for data chunks, the evaluator should measure lower output_bytes without changing public array paths, coordinates, selectors, metadata validation, cache behavior, or semantic values.",
+    "target_objectives": [
+      "output_bytes"
+    ],
+    "expected_tradeoffs": "The stronger compressor may increase materialization CPU time and could have a small effect on consumer read speed due to decompression characteristics. The public interface, chunk shape, Zarr v3 policy, and validation remain unchanged.",
+    "edits": [
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "import pandas as pd\nimport xarray as xr",
+        "new_text": "import pandas as pd\nimport xarray as xr\nfrom zarr.codecs import ZstdCodec",
+        "rationale": "Import the existing Zarr v3 codec implementation from an already-declared dependency so data chunk compression can be configured explicitly without adding dependencies."
+      },
+      {
+        "relative_path": "pipeline_impl.py",
+        "old_text": "        encoding: dict[str, dict[str, Any]] = {}\n        for name, da in ds.data_vars.items():\n            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims)\n            }",
+        "new_text": "        encoding: dict[str, dict[str, Any]] = {}\n        data_compressors = (ZstdCodec(level=6, checksum=False),)\n        for name, da in ds.data_vars.items():\n            encoding[name] = {\n                'chunks': tuple(1 if dim == 'time' or dim.startswith('pressure_level__') else int(da.sizes[dim]) for dim in da.dims),\n                'compressors': data_compressors,\n            }",
+        "rationale": "Apply stronger Zstd compression only to payload-dominant data variables while preserving the existing full-field sample chunk shape and leaving coordinate encoding unchanged."
+      }
+    ],
+    "validation_plan": "Rerun the evaluator and verify contract_correctness, semantic_equivalence, provenance_security, and rerun_safety remain passing. Compare output_bytes against 175196006, with secondary inspection of materialization_seconds and consumer_samples_per_second only as tradeoffs."
+  },
+  "llm_usage": {
+    "call_count": 1,
+    "input_tokens": 10851,
+    "cached_input_tokens": 0,
+    "output_tokens": 2398,
+    "reasoning_tokens": 1813,
+    "total_tokens": 13249,
+    "estimated_cost_usd": 0.126195,
+    "pricing": [
+      {
+        "model_family": "gpt-5.5",
+        "input_usd_per_million": 5.0,
+        "cached_input_usd_per_million": 0.5,
+        "output_usd_per_million": 30.0,
+        "long_context_threshold_tokens": 272000,
+        "long_context_input_multiplier": 2.0,
+        "long_context_output_multiplier": 1.5,
+        "source_url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "verified_at": "2026-07-21"
+      }
+    ]
+  }
+}

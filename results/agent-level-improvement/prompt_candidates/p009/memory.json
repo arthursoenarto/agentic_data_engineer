@@ -1,0 +1,38 @@
+{
+  "schema_version": "gepa_prompt_memory.v1",
+  "memory_id": "memory-p009",
+  "parent_memory_id": "memory-p002",
+  "lessons": [
+    {
+      "lesson_id": "lesson_b210312a8a4b",
+      "trigger": "When optimizing ERA5 regular-grid Zarr for tensor_loading.v1 full-field C,H,W reads.",
+      "recommendation": "Use explicit sample-access-aligned chunks: one time sample and one selector plane per chunk, with the full selected latitude and longitude extents, while preserving all dimensions and channels.",
+      "scope": "Regular-grid Zarr v3 pipelines with full-field tensor consumer workloads.",
+      "evidence": "The feasible parent passed all constraints but measured 30.9009 consumer_samples_per_second with 197 chunk objects for 28 samples and 3 channels; the workload read shuffled full C,H,W tensors.",
+      "caveat": "This trajectory contains no measured alternate layout, so the chunking recommendation is a plausible engineering hypothesis rather than proven causation.",
+      "origin_candidate_id": "p001",
+      "origin_iteration": 1
+    },
+    {
+      "lesson_id": "lesson_b0d869123521",
+      "trigger": "When optimizing footprint for ERA5 regular-grid Zarr where diagnostics separate chunk and metadata bytes.",
+      "recommendation": "Target explicit deterministic lossless compression of data chunks before metadata tweaks, because the measured footprint is almost entirely chunk payload. Keep semantic content and artifact declarations unchanged.",
+      "scope": "Regular-grid Zarr v3 pipelines with decoded float32 ERA5 pressure-level arrays and consolidated metadata.",
+      "evidence": "The feasible parent passed all hard constraints with output_bytes 175,189,531; diagnostics reported chunk_bytes 175,164,494 and metadata_bytes 25,037.",
+      "caveat": "This identifies where bytes are concentrated in one trajectory; it does not prove that any specific compressor or level will reduce bytes on every fixture.",
+      "origin_candidate_id": "p002",
+      "origin_iteration": 2
+    },
+    {
+      "lesson_id": "lesson_cb7e4dd88ece",
+      "trigger": "When optimizing throughput for ERA5 regular-grid Zarr with tensor_loading.v1 full-field C,H,W reads after a valid full-spatial chunk layout exists.",
+      "recommendation": "For throughput-only slots, consider publishing data chunks without compression while preserving one-time, one-selector-plane, full-latitude/full-longitude chunks and exact decoded content.",
+      "scope": "Regular-grid Zarr v3 ERA5 pressure-level pipelines serving warm shuffled full-field tensor reads.",
+      "evidence": "Feasible trajectories passed all hard constraints: Blosc-Zstd clevel 7 parent measured 62.061 samples/s, LZ4-like runs measured about 77-80 samples/s, and an uncompressed throughput run measured 169.774 samples/s with exact semantic comparison.",
+      "caveat": "The benchmark repetitions are noisy and limited, and uncompressed chunks greatly increase output_bytes; use this mainly when throughput is the scheduled objective.",
+      "origin_candidate_id": "p009",
+      "origin_iteration": 9
+    }
+  ],
+  "created_at": "2026-09-08T04:22:22.909780+00:00"
+}

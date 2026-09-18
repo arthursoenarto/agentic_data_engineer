@@ -1,0 +1,799 @@
+{
+  "schema_version": "evaluation_constrained.regular_grid_zarr.v3",
+  "suite_id": "gepa_memory_era5_tensor_20260908_v1_pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1",
+  "suite_version": "1.0.0",
+  "candidate_id": "pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1",
+  "description": "Bounded prompt-memory Pareto search on the frozen seven-day global ERA5 task.",
+  "contract_lock": {
+    "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/contracts/7d/contract_v1.lock.json",
+    "sha256": "342de7fac172907070d18cb9785e2c4b60489fe691238786d55c228e12b54d69"
+  },
+  "inventory": {
+    "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/dataset_inventory.json",
+    "sha256": "7cc09995d907e537e117989c85665c5d58a8c6ae901a7cd0fc1223a64d2e15ca"
+  },
+  "candidate_source": {
+    "cwd": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1",
+    "paths": [
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/pipeline_impl.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/pyproject.toml",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/README.md",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/tests/test_pipeline_impl.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/run_pipeline.py",
+      "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/pipeline_contract.json"
+    ],
+    "sha256": "71b1005b5671fab20dee1b92775c25a6149f03110cac434bbb04a983d2aa1cb9"
+  },
+  "execution": {
+    "command": [
+      "python",
+      "run_pipeline.py",
+      "--contract",
+      "{contract_lock_json}",
+      "--inventory",
+      "{dataset_inventory_json}",
+      "--cache-dir",
+      "{cache_dir}",
+      "--output-dir",
+      "{output_dir}",
+      "--run-receipt",
+      "{pipeline_run_json}"
+    ],
+    "timeout_seconds": 3600.0,
+    "pipeline_contract": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/pipeline_contract.json",
+      "sha256": "03a09cf64b2afdf26910cf6df22cf89f0bbd82654ac1ec7e7766f72752c0e1f3"
+    },
+    "manifest": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/manifest.json",
+      "sha256": "f96d5affe861f9d97f39e5b5bc1673c7eb9bea48ab788ea5e4b4b60881c6604b"
+    },
+    "frozen_cache": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/acceptance/acceptance_20260908T044814167413Z/frozen_cache",
+      "sha256": "1a32c220d00cdc045a2b4d50ac1e345f0a22adc1ec8df668b4732c5a0295fe51"
+    },
+    "python_executable": "<REPOSITORY_ROOT>/tmp/venvs/stage_a/stage-a-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/bin/python"
+  },
+  "reference": {
+    "artifact": {
+      "path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+      "sha256": "b2cedac1a4ffb5ad1cf62f31ce48308dc0307f3de82d301947bcb7b6c58c8282"
+    },
+    "content_id": "sha256:b2cedac1a4ffb5ad1cf62f31ce48308dc0307f3de82d301947bcb7b6c58c8282",
+    "provenance": "Derived independently from the frozen handwritten TerraIO January 2024 materialization using prepare_inputs.py."
+  },
+  "grid": {
+    "dataset_class": "regular_rectilinear_grid",
+    "output_format": "zarr",
+    "expected_shape": {
+      "sample": 28,
+      "y": 721,
+      "x": 1440
+    },
+    "candidate_grid": {
+      "dimensions": {
+        "sample": "time",
+        "y": "latitude",
+        "x": "longitude"
+      },
+      "sample_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "time",
+        "normalization": "cf_datetime_ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": null,
+        "expected_step_seconds": 21600.0
+      },
+      "y_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "latitude",
+        "normalization": "ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      },
+      "x_coordinate": {
+        "store_path": "{output_dir}/dataset.zarr",
+        "array_path": "longitude",
+        "normalization": "longitude_modulo_360",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      }
+    },
+    "reference_grid": {
+      "dimensions": {
+        "sample": "sample",
+        "y": "y",
+        "x": "x"
+      },
+      "sample_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "sample",
+        "normalization": "cf_datetime_ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": null,
+        "expected_step_seconds": 21600.0
+      },
+      "y_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "y",
+        "normalization": "ascending",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      },
+      "x_coordinate": {
+        "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+        "array_path": "x",
+        "normalization": "longitude_modulo_360",
+        "expected_dtype": null,
+        "metadata": {},
+        "expected_fill_value": null,
+        "monotonic": "increasing",
+        "expected_step": 0.25,
+        "expected_step_seconds": null
+      }
+    },
+    "channels": [
+      {
+        "field_id": "temperature[pressure_level=\"500\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "temperature",
+          "selectors": {
+            "pressure_level": "500"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__temperature"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "temperature_pl_500",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      },
+      {
+        "field_id": "temperature[pressure_level=\"850\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "temperature",
+          "selectors": {
+            "pressure_level": "850"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__temperature"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "temperature_pl_850",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      },
+      {
+        "field_id": "geopotential[pressure_level=\"500\"]",
+        "candidate": {
+          "store_path": "{output_dir}/dataset.zarr",
+          "array_path": "geopotential",
+          "selectors": {
+            "pressure_level": "500"
+          },
+          "indices": {},
+          "selector_coordinate_paths": {
+            "pressure_level": "pressure_level__geopotential"
+          }
+        },
+        "reference": {
+          "store_path": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/era5_scaling_20260906_v1/scaling/inputs/references/7d/reference.zarr",
+          "array_path": "geopotential_pl_500",
+          "selectors": {},
+          "indices": {},
+          "selector_coordinate_paths": {}
+        },
+        "expected_dtype": "float32",
+        "metadata": {},
+        "expected_fill_value": null,
+        "value_policy": null
+      }
+    ]
+  },
+  "comparison": {
+    "coordinates_atol": 0.0,
+    "value_policy": {
+      "atol": 0.0,
+      "rtol": 0.0,
+      "equal_nan": true,
+      "missing_values": []
+    },
+    "max_block_bytes": 16777216,
+    "mismatch_examples": 8
+  },
+  "workload": {
+    "kind": "full_field_tensor",
+    "protocol": "legacy_tensor_sum.v1",
+    "tensor_layout": "C,H,W",
+    "dtype": "float32",
+    "access_pattern": "shuffled",
+    "cache_mode": "warm",
+    "warmup_passes": 1,
+    "repetitions": 1,
+    "max_samples": 28,
+    "seed": 20260908
+  },
+  "security": {
+    "secret_environment_variables": [
+      "CDSAPI_KEY",
+      "CDS_PERSONAL_ACCESS_TOKEN",
+      "CDS_API_TOKEN",
+      "OPENAI_API_KEY"
+    ],
+    "max_text_file_bytes": 1000000
+  },
+  "output_policy": {
+    "schema_version": "regular_grid_zarr_output_policy.v1",
+    "dataset_class": "regular_rectilinear_grid",
+    "format_version": 3,
+    "consolidated_metadata": true,
+    "coordinate_metadata": {
+      "sample": {},
+      "y": {},
+      "x": {}
+    },
+    "open_latency_repetitions": 3
+  },
+  "execution_policy": {
+    "backend": "auto",
+    "environment_allowlist": [
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "SSL_CERT_DIR",
+      "SSL_CERT_FILE",
+      "TZ"
+    ],
+    "environment_overrides": {
+      "PIPELINE_ACCEPTANCE_REFERENCE": "project/datasets/reanalysis_era5_pressure_levels/benchmarks/experiments/gepa_memory_pareto_tensor_20260908_v1/workspace/pipelines/pipeline-gepa_memory_pareto_tensor_20260908_v1-p014-search-r1/acceptance/acceptance_20260908T044814167413Z/acceptance.json"
+    }
+  },
+  "engineering_quality": {
+    "enabled": false,
+    "profile": "general_pipeline",
+    "mode": "development",
+    "provider": "openai",
+    "model": "gpt-5.5",
+    "prompt_version": "engineering_quality_meroda_v1",
+    "rubric_version": "meroda_v1",
+    "repetitions": 1,
+    "max_retries_per_repetition": 0,
+    "max_output_tokens": 8192,
+    "max_review_characters": 180000,
+    "max_file_characters": 50000
+  },
+  "extensibility_probe": null,
+  "evaluation_profile": {
+    "schema_version": "evaluation_profile.v1",
+    "profile_id": "gepa-memory-era5-tensor-v1",
+    "data_class": "regular_rectilinear_grid",
+    "output_format": "zarr",
+    "output_format_version": 3,
+    "workload_kind": "full_field_tensor",
+    "engineering_profile": "general_pipeline",
+    "dataset_tags": [
+      "dataset:era5-pressure-levels",
+      "domain:earth-science",
+      "family:atmospheric-reanalysis",
+      "provider:ecmwf"
+    ]
+  },
+  "check_plan": {
+    "schema_version": "evaluation_check_plan.v1",
+    "catalog_version": "evaluation_check_catalog.v1",
+    "profile": {
+      "schema_version": "evaluation_profile.v1",
+      "profile_id": "gepa-memory-era5-tensor-v1",
+      "data_class": "regular_rectilinear_grid",
+      "output_format": "zarr",
+      "output_format_version": 3,
+      "workload_kind": "full_field_tensor",
+      "engineering_profile": "general_pipeline",
+      "dataset_tags": [
+        "dataset:era5-pressure-levels",
+        "domain:earth-science",
+        "family:atmospheric-reanalysis",
+        "provider:ecmwf"
+      ]
+    },
+    "profile_tags": [
+      "core",
+      "dataset:era5-pressure-levels",
+      "domain:earth-science",
+      "family:atmospheric-reanalysis",
+      "provider:ecmwf",
+      "regular-grid",
+      "workload:full-field-tensor",
+      "zarr",
+      "zarr-v3"
+    ],
+    "checks": [
+      {
+        "check_id": "contract.declared_metadata",
+        "title": "Declared grid metadata",
+        "description": "Checks only dtype, fill-value, and metadata assertions declared by the suite.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "contract.grounding",
+        "title": "Suite grounding",
+        "description": "Validates the frozen contract, inventory, source, command, and mappings.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "contract_lock",
+          "inventory",
+          "candidate_source",
+          "execution"
+        ]
+      },
+      {
+        "check_id": "contract.initial_execution",
+        "title": "Initial controlled execution",
+        "description": "Requires the candidate command to finish successfully in evaluator control.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.command",
+          "execution.timeout_seconds"
+        ]
+      },
+      {
+        "check_id": "contract.initial_materialization",
+        "title": "Initial materialization availability",
+        "description": "Records whether trusted inputs allow the initial controlled run.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "contract.pytorch_consumer",
+        "title": "Full-field tensor consumption",
+        "description": "Loads shuffled warm float32 C,H,W samples through the shared consumer.",
+        "layer": "workload",
+        "role": "hard_gate",
+        "tags": [
+          "workload:full-field-tensor",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "workload:full-field-tensor"
+        ],
+        "parameter_paths": [
+          "workload",
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "contract.reference_integrity",
+        "title": "Reference integrity",
+        "description": "Requires the independent regular-grid oracle to be readable and complete.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "reference",
+          "grid.reference_grid"
+        ]
+      },
+      {
+        "check_id": "contract.scope_coordinates",
+        "title": "Grid scope and coordinates",
+        "description": "Compares sample and spatial coordinates with declared normalization.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.expected_shape",
+          "grid.candidate_grid",
+          "comparison.coordinates_atol"
+        ]
+      },
+      {
+        "check_id": "contract.zarr_integrity",
+        "title": "Zarr integrity",
+        "description": "Requires every mapped Zarr array and chunk to be readable.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "zarr"
+        ],
+        "parameter_paths": [
+          "grid",
+          "comparison.max_block_bytes"
+        ]
+      },
+      {
+        "check_id": "contract.zarr_output_policy",
+        "title": "Zarr v3 publication policy",
+        "description": "Checks Zarr v3 and complete consolidated metadata.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:contract-correctness"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "objective.consumer_samples_per_second",
+        "title": "Consumer throughput",
+        "description": "Measures median samples per second for the declared workload.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "workload"
+        ]
+      },
+      {
+        "check_id": "objective.materialization_seconds",
+        "title": "Materialization time",
+        "description": "Measures frozen local input to published output wall time.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution"
+        ]
+      },
+      {
+        "check_id": "objective.output_bytes",
+        "title": "Native output footprint",
+        "description": "Counts bytes across unique mapped native output stores.",
+        "layer": "objective",
+        "role": "objective",
+        "tags": [
+          "core",
+          "objective"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "grid"
+        ]
+      },
+      {
+        "check_id": "provenance.candidate_claims",
+        "title": "Candidate claim consistency",
+        "description": "Checks manifest and pipeline-contract claims against trusted observations.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.pipeline_contract",
+          "execution.manifest"
+        ]
+      },
+      {
+        "check_id": "provenance.identities",
+        "title": "Provenance identities",
+        "description": "Requires hashes for trusted inputs, source, oracle, cache, and outputs.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipt.initial",
+        "title": "Initial receipt validity",
+        "description": "Validates linked identities and cache evidence in the initial receipt.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipt.rerun",
+        "title": "Rerun receipt validity",
+        "description": "Validates linked identities and cache evidence in the rerun receipt.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.receipts",
+        "title": "Receipt availability",
+        "description": "Records that receipt validation was blocked before execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "provenance.trusted_inputs_unchanged",
+        "title": "Trusted input immutability",
+        "description": "Rehashes evaluator-owned inputs after candidate execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": []
+      },
+      {
+        "check_id": "rerun.declared_metadata",
+        "title": "Rerun metadata stability",
+        "description": "Checks declared metadata again on the independently published rerun.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels"
+        ]
+      },
+      {
+        "check_id": "rerun.execution",
+        "title": "Exact rerun execution",
+        "description": "Executes the same frozen request again in a fresh output location.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution.command"
+        ]
+      },
+      {
+        "check_id": "rerun.logical_equivalence",
+        "title": "Exact rerun equivalence",
+        "description": "Compares evaluator-owned logical fingerprints from both executions.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "comparison.value_policy"
+        ]
+      },
+      {
+        "check_id": "rerun.public_output_policy",
+        "title": "Blocked rerun output policy",
+        "description": "Records a generation-visible output-policy failure before comparison.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "rerun.zarr_output_policy",
+        "title": "Rerun Zarr v3 policy",
+        "description": "Checks that the rerun preserves the publication policy.",
+        "layer": "output_format",
+        "role": "hard_gate",
+        "tags": [
+          "zarr",
+          "zarr-v3",
+          "gate:rerun-safety"
+        ],
+        "required_profile_tags": [
+          "zarr",
+          "zarr-v3"
+        ],
+        "parameter_paths": [
+          "output_policy"
+        ]
+      },
+      {
+        "check_id": "security.execution_isolation",
+        "title": "Execution isolation",
+        "description": "Checks network denial, write confinement, and secret-free execution.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "execution_policy"
+        ]
+      },
+      {
+        "check_id": "security.secret_scan",
+        "title": "Secret scan",
+        "description": "Scans candidate evidence and outputs for configured credential material.",
+        "layer": "core",
+        "role": "hard_gate",
+        "tags": [
+          "core",
+          "gate:provenance-security"
+        ],
+        "required_profile_tags": [
+          "core"
+        ],
+        "parameter_paths": [
+          "security.secret_environment_variables"
+        ]
+      },
+      {
+        "check_id": "semantic.native_values_and_missingness",
+        "title": "Native value equivalence",
+        "description": "Compares all mapped logical values and missingness against the oracle.",
+        "layer": "data_class",
+        "role": "hard_gate",
+        "tags": [
+          "regular-grid",
+          "gate:semantic-equivalence"
+        ],
+        "required_profile_tags": [
+          "regular-grid"
+        ],
+        "parameter_paths": [
+          "grid.channels",
+          "comparison.value_policy"
+        ]
+      }
+    ]
+  },
+  "evaluation_planning": null
+}
